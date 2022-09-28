@@ -1,6 +1,6 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
+import { userColumns, userRows, productColumns } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -9,10 +9,16 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  getDoc,
+  updateDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { getAuth, updateCurrentUser, updateProfile } from "firebase/auth";
 
-const Datatable = () => {
+const Usertable = ({col}) => {
+  console.log(col, "col-usertable")
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -33,7 +39,7 @@ const Datatable = () => {
 
     // LISTEN (REALTIME)
     const unsub = onSnapshot(
-      collection(db, "users"),
+      collection(db, col),
       (snapShot) => {
         let list = [];
         snapShot.docs.forEach((doc) => {
@@ -51,9 +57,38 @@ const Datatable = () => {
     };
   }, []);
 
+  
+  /* function to update document in firestore */
+// const handleUpdate = async (e, id) => {
+//   // e.preventDefault()
+//   const taskDocRef = doc(db, col, id)
+//   try{
+//     await updateDoc(taskDocRef, {
+//       title: id.title,
+//       description: id.description
+//     })
+//     // onClose()
+//   } catch (err) {
+//     alert(err)
+//   }    
+// }
+
+
+
+
+
+
+
+
+  console.log(data, "DaTa - userTable")
+
+
+
+
+
   const handleDelete = async (id) => {
     try {
-      await deleteDoc(doc(db, "users", id));
+      await deleteDoc(doc(db, col, id));
       setData(data.filter((item) => item.id !== id));
     } catch (err) {
       console.log(err);
@@ -65,11 +100,17 @@ const Datatable = () => {
       field: "action",
       headerName: "Action",
       width: 200,
-      renderCell: (params) => {
+      renderCell: (params, id) => {
         return (
           <div className="cellAction">
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
+            </Link>
+            <Link to={"/" + col + "/test"} style={{ textDecoration: "none" }}>
+              <div className="updateButton"
+              
+              >Update</div>
+            
             </Link>
             <div
               className="deleteButton"
@@ -85,21 +126,36 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
-        <Link to="/users/new" className="link">
+        {col === "users" ? 'Users' : 'Products' }
+        <Link to={"/" + col + "/new"} className="link">
           Add New
         </Link>
       </div>
+
+   
+
+
+
+      { col === "products" ?
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={userColumns.concat(actionColumn)}
+        columns={productColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
       />
+      : 
+      <DataGrid
+      className="datagrid"
+      rows={data}
+      columns={userColumns.concat(actionColumn)}
+      pageSize={9}
+      rowsPerPageOptions={[9]}
+      checkboxSelection
+    /> }
     </div>
   );
 };
 
-export default Datatable;
+export default Usertable;

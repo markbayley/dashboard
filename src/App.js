@@ -9,6 +9,7 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
+import { useEffect, useState } from "react";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -33,12 +34,13 @@ function App() {
                 </RequireAuth>
               }
             />
-            <Route path="users">
+            <Route path="users" >
               <Route
                 index
                 element={
                   <RequireAuth>
-                    <List />
+                    <List col="users" key="1" />
+              
                   </RequireAuth>
                 }
               />
@@ -46,7 +48,7 @@ function App() {
                 path=":userId"
                 element={
                   <RequireAuth>
-                    <Single />
+                    <Single col="users" inputs={userInputs} title="Edit User"/>
                   </RequireAuth>
                 }
               />
@@ -60,11 +62,12 @@ function App() {
               />
             </Route>
             <Route path="products">
-              <Route
+              <Route 
                 index
                 element={
                   <RequireAuth>
-                    <List />
+                    <List col="products" key="2" />
+              
                   </RequireAuth>
                 }
               />
@@ -72,7 +75,7 @@ function App() {
                 path=":productId"
                 element={
                   <RequireAuth>
-                    <Single />
+                    <Single col="products" inputs={productInputs} title="Edit Product"/>
                   </RequireAuth>
                 }
               />
@@ -80,7 +83,7 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                    <New inputs={productInputs} title="Add New Product" />
+                    <New inputs={productInputs} title="Add New Product"  />
                   </RequireAuth>
                 }
               />

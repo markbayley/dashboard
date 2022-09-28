@@ -15,7 +15,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
-const New = ({ inputs, title }) => {
+const New = ({ inputs, title, col }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [per, setPerc] = useState(null);
@@ -77,7 +77,7 @@ const New = ({ inputs, title }) => {
         data.email,
         data.password
       );
-      await setDoc(doc(db, "users", res.user.uid), {
+      await setDoc(doc(db, col, res.user.uid), {
         ...data,
         timeStamp: serverTimestamp(),
       });

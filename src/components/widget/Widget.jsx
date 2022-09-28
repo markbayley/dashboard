@@ -107,7 +107,7 @@ const Widget = ({ type }) => {
           100
       );
     };
-    fetchData();
+    // fetchData();
   }, []);
 
   return (

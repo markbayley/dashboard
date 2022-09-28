@@ -5,15 +5,15 @@ import { getStorage } from "firebase/storage";
 
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_KEY,
-  authDomain: "tutorial-5a2cf.firebaseapp.com",
-  projectId: "tutorial-5a2cf",
-  storageBucket: "tutorial-5a2cf.appspot.com",
-  messagingSenderId: "585126334212",
-  appId: "1:585126334212:web:8539eafc56885e1b4c4a51"
+  apiKey: "AIzaSyDSOaMBz5ZiC6D13672JFCeemHCQ0uy3iQ",
+  authDomain: "tutorial-a28cc.firebaseapp.com",
+  projectId: "tutorial-a28cc",
+  storageBucket: "tutorial-a28cc.appspot.com",
+  messagingSenderId: "338894274904",
+  appId: "1:338894274904:web:745e3e479f3781488ea52d"
 };
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export const auth = getAuth();
+export const auth = getAuth(app);
 export const storage = getStorage(app);

@@ -1,15 +1,19 @@
 import "./list.scss"
+
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
-import Datatable from "../../components/datatable/Datatable"
+import Usertable from "../../components/datatable/Usertable"
 
-const List = () => {
+
+const List = ({col}) => {
+  console.log(col, 'collection-list')
+
   return (
     <div className="list">
       <Sidebar/>
       <div className="listContainer">
         <Navbar/>
-        <Datatable/>
+        <Usertable col={col} /> 
       </div>
     </div>
   )
