@@ -2,8 +2,9 @@ export const userColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {
     field: "user",
-    headerName: "User",
-    width: 230,
+    headerName: "Username",
+    width: 200,
+    editable: true,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
@@ -16,22 +17,31 @@ export const userColumns = [
   {
     field: "email",
     headerName: "Email",
-    width: 230,
+    width: 200,
+    editable: true
   },
 
   {
     field: "address",
     headerName: "Address",
-    width: 100,
+    width: 200,
+    editable: true
   },
   {
-    field: "status",
-    headerName: "Status",
-    width: 160,
+    field: "phone",
+    headerName: "Phone",
+    width: 150,
+    editable: true
+  },
+  {
+    field: "country",
+    headerName: "Country",
+    width: 150,
+    editable: true,
     renderCell: (params) => {
       return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
+        <div className={`cellWithStatus ${params.row.country}`}>
+          {params.row.country}
         </div>
       );
     },

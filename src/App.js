@@ -10,6 +10,8 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
 import { useEffect, useState } from "react";
+import Orders from "./pages/Orders";
+
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -19,6 +21,8 @@ function App() {
   const RequireAuth = ({ children }) => {
     return currentUser ? children : <Navigate to="/login" />;
   };
+
+
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
@@ -47,17 +51,17 @@ function App() {
               <Route
                 path=":userId"
                 element={
-                  <RequireAuth>
-                    <Single col="users" inputs={userInputs} title="Edit User"/>
-                  </RequireAuth>
+                  // <RequireAuth>
+                    <Single col="users" inputs={userInputs} title="Edit User" />
+                  // </RequireAuth>
                 }
               />
               <Route
                 path="new"
                 element={
-                  <RequireAuth>
-                    <New inputs={userInputs} title="Add New User" />
-                  </RequireAuth>
+                  // <RequireAuth>
+                    <New inputs={userInputs} title="Add New User" col="users"/>
+                  // </RequireAuth>
                 }
               />
             </Route>
@@ -83,11 +87,19 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                    <New inputs={productInputs} title="Add New Product"  />
+                    <New inputs={productInputs} title="Add New Product" col="products" />
                   </RequireAuth>
                 }
               />
             </Route>
+            <Route path="orders">
+              <Route 
+                index
+                element={
+                  <Orders />
+                }
+              />
+          </Route>
           </Route>
         </Routes>
       </BrowserRouter>

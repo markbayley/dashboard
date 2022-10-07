@@ -4,8 +4,6 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
 import {
-  addDoc,
-  collection,
   doc,
   serverTimestamp,
   setDoc,
@@ -17,7 +15,9 @@ import { useNavigate } from "react-router-dom";
 
 const New = ({ inputs, title, col }) => {
   const [file, setFile] = useState("");
+  console.log(file, 'file-new')
   const [data, setData] = useState({});
+  console.log(data, 'data-new')
   const [per, setPerc] = useState(null);
   const navigate = useNavigate()
 
@@ -53,6 +53,7 @@ const New = ({ inputs, title, col }) => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setData((prev) => ({ ...prev, img: downloadURL }));
+            console.log(data, 'setData - file')
           });
         }
       );
@@ -60,7 +61,7 @@ const New = ({ inputs, title, col }) => {
     file && uploadFile();
   }, [file]);
 
-  console.log(data);
+
 
   const handleInput = (e) => {
     const id = e.target.id;
@@ -84,6 +85,7 @@ const New = ({ inputs, title, col }) => {
       navigate(-1)
     } catch (err) {
       console.log(err);
+      alert(err)
     }
   };
 
