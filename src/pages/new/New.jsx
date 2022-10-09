@@ -12,6 +12,7 @@ import { auth, db, storage } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import ClearIcon from '@mui/icons-material/Clear';
 
 const New = ({ inputs, title, col }) => {
   const [file, setFile] = useState("");
@@ -94,20 +95,23 @@ const New = ({ inputs, title, col }) => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
-        <div className="top">
+        <div className="top" style={{justifyContent: "space-between", color: "gray"}}>
           <h1>{title}</h1>
+          <ClearIcon className="icon"onClick={() => navigate(-1)}/>
         </div>
         <div className="bottom">
           <div className="left">
+          <h3>{data.title ? data.title : data.displayName ? data.displayName : "Enter Details"}</h3><br/>
             <img
               src={
                 file
                   ? URL.createObjectURL(file)
                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
               }
-              alt=""
+              alt="image"
             />
           </div>
+          
           <div className="right">
             <form onSubmit={handleAdd}>
               <div className="formInput">
@@ -134,7 +138,7 @@ const New = ({ inputs, title, col }) => {
                 </div>
               ))}
               <button disabled={per !== null && per < 100} type="submit">
-                Send
+                Save
               </button>
             </form>
           </div>

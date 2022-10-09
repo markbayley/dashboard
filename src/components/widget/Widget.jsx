@@ -8,6 +8,7 @@ import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlin
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
+import { Link } from "react-router-dom";
 
 const Widget = ({ type }) => {
   const [amount, setAmount] = useState(null);
@@ -19,7 +20,7 @@ const Widget = ({ type }) => {
       data = {
         title: "USERS",
         isMoney: false,
-        link: "See all users",
+        link: <Link to="users" className="link">See all users</Link>,
         query:"users",
         icon: (
           <PersonOutlinedIcon
@@ -35,8 +36,9 @@ const Widget = ({ type }) => {
     case "order":
       data = {
         title: "ORDERS",
+        query:"orders",
         isMoney: false,
-        link: "View all orders",
+        link: <Link to="orders" className="link">View all orders</Link>,
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -51,8 +53,9 @@ const Widget = ({ type }) => {
     case "earning":
       data = {
         title: "EARNINGS",
+        query:"earnings",
         isMoney: true,
-        link: "View net earnings",
+        link: <Link to="earnings" className="link">View net earnings</Link>,
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -65,7 +68,7 @@ const Widget = ({ type }) => {
       data = {
         title: "PRODUCTS",
         query:"products",
-        link: "See details",
+        link: <Link to="products" className="link">See details</Link>,
         icon: (
           <AccountBalanceWalletOutlinedIcon
             className="icon"
@@ -107,7 +110,7 @@ const Widget = ({ type }) => {
           100
       );
     };
-    // fetchData();
+    fetchData();
   }, []);
 
   return (

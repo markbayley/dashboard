@@ -1,22 +1,23 @@
-import "./list.scss"
+import "./list.scss";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import Usertable from "../../components/datatable/Usertable";
+import Chart from "../../components/chart/Chart";
+import { useState } from "react";
 
-import Sidebar from "../../components/sidebar/Sidebar"
-import Navbar from "../../components/navbar/Navbar"
-import Usertable from "../../components/datatable/Usertable"
-
-
-const List = ({col}) => {
-  console.log(col, 'collection-list')
+const List = ({ col }) => {
+  console.log(col, "collection-list");
 
   return (
     <div className="list">
-      <Sidebar/>
+      <Sidebar />
       <div className="listContainer">
-        <Navbar/>
-        <Usertable col={col} /> 
+        <Navbar />
+
+        <Usertable col={col} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;

@@ -4,25 +4,22 @@ import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+import { productInputs, userInputs, orderInputs, profileInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
-import { useEffect, useState } from "react";
-import Orders from "./pages/Orders";
-
+import Profile from "./pages/profile/Profile";
 
 function App() {
+
   const { darkMode } = useContext(DarkModeContext);
 
-  const {currentUser} = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
 
   const RequireAuth = ({ children }) => {
     return currentUser ? children : <Navigate to="/login" />;
   };
-
-
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
@@ -38,48 +35,51 @@ function App() {
                 </RequireAuth>
               }
             />
-            <Route path="users" >
+
+            <Route path="users">
               <Route
                 index
                 element={
                   <RequireAuth>
                     <List col="users" key="1" />
-              
                   </RequireAuth>
                 }
               />
               <Route
-                path=":userId"
+                path=":Id"
                 element={
-                  // <RequireAuth>
+                  <RequireAuth>
                     <Single col="users" inputs={userInputs} title="Edit User" />
-                  // </RequireAuth>
+                  </RequireAuth>
                 }
               />
               <Route
                 path="new"
                 element={
-                  // <RequireAuth>
-                    <New inputs={userInputs} title="Add New User" col="users"/>
-                  // </RequireAuth>
+                  <RequireAuth>
+                    <New inputs={userInputs} title="Add New User" col="users" />
+                  </RequireAuth>
                 }
               />
             </Route>
             <Route path="products">
-              <Route 
+              <Route
                 index
                 element={
                   <RequireAuth>
                     <List col="products" key="2" />
-              
                   </RequireAuth>
                 }
               />
               <Route
-                path=":productId"
+                path=":Id"
                 element={
                   <RequireAuth>
-                    <Single col="products" inputs={productInputs} title="Edit Product"/>
+                    <Single
+                      col="products"
+                      inputs={productInputs}
+                      title="Edit Product"
+                    />
                   </RequireAuth>
                 }
               />
@@ -87,19 +87,111 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                    <New inputs={productInputs} title="Add New Product" col="products" />
+                    <New
+                      inputs={productInputs}
+                      title="Add New Product"
+                      col="products"
+                    />
                   </RequireAuth>
                 }
               />
             </Route>
             <Route path="orders">
-              <Route 
+              <Route
                 index
                 element={
-                  <Orders />
+                  <RequireAuth>
+                    <List col="orders" key="3" />
+                  </RequireAuth>
                 }
               />
-          </Route>
+              <Route
+                path=":Id"
+                element={
+                  <RequireAuth>
+                    <Single
+                      col="orders"
+                      inputs={orderInputs}
+                      title="Edit Order"
+                    />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <New
+                      inputs={orderInputs}
+                      title="Add New Order"
+                      col="orders"
+                    />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="deliveries">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <List col="deliveries" key="4" />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":Id"
+                element={
+                  <RequireAuth>
+                    <Single
+                      col="deliveries"
+                      inputs={orderInputs}
+                      title="Edit Delivery"
+                    />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <New
+                      inputs={orderInputs}
+                      title="Add New Delivery"
+                      col="deliveries"
+                    />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="profile">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <List col="profile" key="5" />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":Id"
+                element={
+                  <RequireAuth>
+                    <Single col="profile" inputs={profileInputs} title="Edit Profile" />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    {/* <New inputs={userInputs} title="Add New Profile" col="profile" /> */}
+                    <Profile />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+         
           </Route>
         </Routes>
       </BrowserRouter>

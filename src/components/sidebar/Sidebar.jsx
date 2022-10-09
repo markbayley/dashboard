@@ -15,13 +15,15 @@ import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 
+
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+
   return (
     <div className="sidebar">
       <div className="top">
         <Link to="/login" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">marcbalieu</span>
         </Link>
       </div>
       <hr />
@@ -53,10 +55,12 @@ const Sidebar = () => {
             <span>Orders</span>
           </li>
           </Link>
+          <Link to="/deliveries" style={{ textDecoration: "none" }}>
           <li>
             <LocalShippingIcon className="icon" />
             <span>Delivery</span>
           </li>
+          </Link>
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />
@@ -80,10 +84,12 @@ const Sidebar = () => {
             <span>Settings</span>
           </li>
           <p className="title">USER</p>
+          <Link to="/profile" style={{ textDecoration: "none" }}>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
+          </Link>
           <li>
             <ExitToAppIcon className="icon" />
             <span>Logout</span>

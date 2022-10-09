@@ -9,13 +9,31 @@
     .bottom {
       -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      border: 1px solid teal;
+      border-radius: 5px;
       padding: 20px 10px;
       margin: 20px;
       display: flex;
 
+      .icon  {
+        cursor: pointer;
+        margin-right: 10px;
+        color: teal;
+        &:hover {
+          background-color: teal;
+          border-radius: 50%;
+          color: white;
+        }
+      }
+  
       h1 {
-        color: lightgray;
+        color: teal;
         font-size: 20px;
+        margin-left: 10px;  
+      }
+
+      h3 {
+        color: gray;
       }
 
       .left {
@@ -27,6 +45,7 @@
           height: 250px;
           border-radius: 50%;
           object-fit: cover;
+          border: 1px solid teal;
         }
       }
 
@@ -63,12 +82,18 @@
           button {
             width: 150px;
             padding: 10px;
-            border: none;
+            border: 2px solid teal;
+            border-radius: 5px;
             background-color: teal;
             color: white;
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
+
+            &:hover {
+              background-color: inherit;
+              color: teal;
+            }
 
             &:disabled{
               background-color: rgba(3, 92, 92, 0.322);

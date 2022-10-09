@@ -4,9 +4,34 @@
   width: 100%;
   .singleContainer {
     flex: 6;
+
+
+    .datatableTitle{
+      // width: 100%;
+      font-size: 24px;
+      color: gray;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px 20px 0px 20px;
+ 
+  
+      .link{
+        text-decoration: none;
+        color: green;
+        font-size: 16px;
+        font-weight: 400;
+        border: 1px solid green;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        
+      }
+    }
    
     .top {
-      padding: 20px;
+      padding: 0px 20px 20px 20px;
       display: flex;
       gap: 20px;
 
