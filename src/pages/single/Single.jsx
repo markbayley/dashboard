@@ -2,26 +2,29 @@ import "./single.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useState, useEffect } from "react";
-import { auth, db, storage } from "../../firebase";
+import { db, storage } from "../../firebase";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { collection, doc, getDoc, onSnapshot, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 
-const Single = ({ inputs, title, col}) => {
-
+const Single = ({ inputs, title, col }) => {
   const params = useParams();
-  console.log(params, 'params-single')
+  console.log(params, "params-single");
 
-  const [file, setFile] = useState();
-  console.log(file, 'file-single')
   const [data, setData] = useState({});
-  console.log(data, 'data-single')
+  console.log(data, "data-single");
+  const image = data.img;
+  const [file, setFile] = useState(image);
+  console.log(file, "file-single");
   const [per, setPerc] = useState(null);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   useEffect(async () => {
     const docRef = doc(db, col, params.userId);
@@ -29,14 +32,12 @@ const Single = ({ inputs, title, col}) => {
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
       setData(docSnap.data());
-   
-      console.log(data, 'setData-single')
+
+      console.log(data, "setData-single");
     } else {
       console.log("No such document!");
     }
-
   }, []);
-
 
   useEffect(() => {
     const uploadFile = () => {
@@ -70,14 +71,13 @@ const Single = ({ inputs, title, col}) => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setData((prev) => ({ ...prev, img: downloadURL }));
-            console.log(data, 'setData - file')
+            console.log(data, "setData - file");
           });
         }
       );
     };
     file && uploadFile();
   }, [file]);
-
 
   const handleInput = (e) => {
     const id = e.target.id;
@@ -86,18 +86,17 @@ const Single = ({ inputs, title, col}) => {
     setData({ ...data, [id]: value });
   };
 
-
   const handleUpdate = async (id) => {
     // e.preventDefault()
-    console.log(id, 'id-single')
+    console.log(id, "id-single");
     const taskDocRef = doc(db, col, params.userId);
-    console.log(params.userId, 'params.userId-single')
+    console.log(params.userId, "params.userId-single");
     try {
       await updateDoc(taskDocRef, {
-       ...data,
-       timeStamp: serverTimestamp(),
+        ...data,
+        timeStamp: serverTimestamp(),
       });
-      navigate(-1)
+      navigate(-1);
     } catch (err) {
       alert(err);
     }
@@ -105,66 +104,74 @@ const Single = ({ inputs, title, col}) => {
 
   return (
     <div className="new">
-    <Sidebar />
-    <div className="newContainer">
-      <Navbar />
-      <div className="top">
-        <h1>{title}</h1>
-      </div>
-      <div className="bottom">
-        <div className="left">
-          <img
-            src={
-              file
-                ? URL.createObjectURL(file)
-                : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-            }
-            alt="avatar"
-          />
+      <Sidebar />
+      <div className="newContainer">
+        <Navbar />
+        <div className="top">
+          <h1>{title}</h1>
         </div>
-        <div className="right">
-          <form onSubmit={handleUpdate}>
-            <div className="formInput">
-              <label htmlFor="file">
-                Image: <DriveFolderUploadOutlinedIcon className="icon" />
-              </label>
-              <input
-                type="file"
-                id="file"
-                onChange={(e) => setFile(e.target.files[0])}
-                style={{ display: "none" }}
-              />
-            </div>
-
-            {inputs.map((input) => (
-              <div className="formInput" key={input.id}>
-                <label>{input.label}</label>
+        <div className="bottom">
+      
+          <div className="left">
+          <h3>{data.displayName}</h3><br/>
+            <img
+              src={file ? URL.createObjectURL(file) : data.img}
+              alt="avatar"
+            />
+          
+          </div>
+       
+          <div className="right">
+            <form onSubmit={handleUpdate}>
+              <div className="formInput">
+                <label htmlFor="file">
+                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                </label>
                 <input
-                  id={input.id}
-                  type={input.type}
-                  placeholder={input.placeholder === "name" ? data.displayName :
-                               input.placeholder === "phone" ? data.phone :
-                               input.placeholder === "address" ? data.address :
-                               input.placeholder === "country" ? data.country :
-                               input.placeholder === "email" ? data.email :
-                               input.placeholder === "username" ? data.username :
-                               input.placeholder === "password" ? data.password :
-                               "not recorded"}
-                  onChange={handleInput}
+                  type="file"
+                  id="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  style={{ display: "none" }}
                 />
+              
               </div>
-            ))}
-            <button disabled={per !== null && per < 100} type="submit">
-              Save
-            </button>
-          </form>
+
+              {inputs.map((input) => (
+                <div className="formInput" key={input.id}>
+                  <label>{input.label}</label>
+                  <input
+                    id={input.id}
+                    type={input.type}
+                    placeholder={
+                      input.placeholder === "name"
+                        ? data.displayName
+                        : input.placeholder === "phone"
+                        ? data.phone
+                        : input.placeholder === "address"
+                        ? data.address
+                        : input.placeholder === "country"
+                        ? data.country
+                        : input.placeholder === "email"
+                        ? data.email
+                        : input.placeholder === "username"
+                        ? data.username
+                        : input.placeholder === "password"
+                        ? data.password
+                        : "not recorded"
+                    }
+                    onChange={handleInput}
+                  />
+                </div>
+              ))}
+              <button disabled={per !== null && per < 100} type="submit">
+                Save
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   );
 };
 
 export default Single;
-
-
