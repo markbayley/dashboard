@@ -111,7 +111,7 @@ export const orderColumns = [
   {
     field: "product",
     headerName: "Product",
-    width: 200,
+    width: 175,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
@@ -202,6 +202,59 @@ export const profileColumns = [
       return (
         <div className={`cellWithStatus ${params.row.country}`}>
           {params.row.country}
+        </div>
+      );
+    },
+  },
+];
+
+
+
+export const statColumns = [
+  { field: "id", headerName: "TrackingID", width: 70 },
+  {
+    field: "product",
+    headerName: "Product",
+    width: 175,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.img} alt="product" />
+          {params.row.productname}
+        </div>
+      );
+    },
+  },
+  {
+    field: "customer",
+    headerName: "Customer",
+    width: 150,
+  },
+
+  {
+    field: "date",
+    headerName: "Date",
+    width: 150,
+  },
+
+  {
+    field: "amount",
+    headerName: "Amount",
+    width: 150,
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    width: 150,
+  },
+  {
+    field: "status",
+    headerName: "Status",
+    width: 150,
+    renderCell: (params) => {
+      return (
+        <div className={`cellWithStatus ${params.row.status}`}>
+          {params.row.status}
         </div>
       );
     },

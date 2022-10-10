@@ -22,6 +22,7 @@ const New = ({ inputs, title, col }) => {
   const [per, setPerc] = useState(null);
   const navigate = useNavigate()
 
+  const [main, setMain ] = useState(data.img)
   useEffect(() => {
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
@@ -116,8 +117,27 @@ const New = ({ inputs, title, col }) => {
             <form onSubmit={handleAdd}>
               <div className="formInput">
                 <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                  Images: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
+                <br />
+                <img
+                    src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                    alt="small image"
+                    className="smallImg"
+                    onClick={(e) => setMain(e.target.src)}
+                  />
+                  <img
+                    src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                    alt="small image"
+                    className="smallImg"
+                    onClick={(e) => setMain(e.target.src)}
+                  />
+                  <img
+                    src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                    alt="small image"
+                    className="smallImg"
+                    onClick={(e) => setMain(e.target.src)}
+                  />
                 <input
                   type="file"
                   id="file"
@@ -132,11 +152,39 @@ const New = ({ inputs, title, col }) => {
                   <input
                     id={input.id}
                     type={input.type}
-                    placeholder={input.placeholder}
+                    placeholder={
+                          input.placeholder === "name"
+                        ? data.displayName
+                        : input.placeholder === "phone"
+                        ? data.phone
+                        : input.placeholder === "address"
+                        ? data.address
+                        : input.placeholder === "country"
+                        ? data.country
+                        : input.placeholder === "email"
+                        ? data.email
+                        : input.placeholder === "username"
+                        ? data.username
+                        : input.placeholder === "password"
+                        ? "******"
+                        : input.placeholder === "title"
+                        ? data.title
+                        : input.placeholder === "description"
+                        ? data.description
+                        : input.placeholder === "price"
+                        ? data.price
+                        : input.placeholder === "amount"
+                        ? data.amount
+                        : input.placeholder === "status"
+                        ? data.status
+                        : "not recorded"
+                    }
                     onChange={handleInput}
                   />
                 </div>
+                
               ))}
+              
               <button disabled={per !== null && per < 100} type="submit">
                 Save
               </button>

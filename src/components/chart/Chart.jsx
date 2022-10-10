@@ -7,17 +7,49 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const data = [
-  { name: "January", Total: 1200 },
-  { name: "February", Total: 2100 },
-  { name: "March", Total: 800 },
-  { name: "April", Total: 1600 },
-  { name: "May", Total: 900 },
-  { name: "June", Total: 1700 },
+  { month: "January", Total: 1200 },
+  { month: "February", Total: 2100 },
+  { month: "March", Total: 800 },
+  { month: "April", Total: 1600 },
+  { month: "May", Total: 900 },
+  { month: "June", Total: 1700 },
 ];
 
+
+
+
+
 const Chart = ({ aspect, title }) => {
+
+  const [ earnings, setEarnings ] = useState()
+
+  useEffect(() => {
+    const unsub = onSnapshot(
+      collection(db, "earnings"),
+      (snapShot) => {
+        let list = [];
+        snapShot.docs.forEach((doc) => {
+          list.push({ id: doc.id, ...doc.data() });
+        });
+        setEarnings(
+          list.filter((items) => items.customer === data.displayName)
+        );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  
+    return () => {
+      unsub();
+    };
+  }, [data]);
+
   return (
     <div className="chart">
       <div className="title">{title}</div>
@@ -25,7 +57,7 @@ const Chart = ({ aspect, title }) => {
         <AreaChart
           width={730}
           height={250}
-          data={data}
+          data={earnings}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
@@ -34,7 +66,7 @@ const Chart = ({ aspect, title }) => {
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" stroke="gray" />
+          <XAxis dataKey="month" stroke="gray" />
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Area

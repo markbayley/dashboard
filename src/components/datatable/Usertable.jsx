@@ -5,26 +5,17 @@ import {
   productColumns,
   orderColumns,
   profileColumns,
+  statColumns,
 } from "../../datatablesource";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useParams } from "react-router-dom";
-import Chart from "../chart/Chart";
-import Table from "../../components/table/Table";
-import { Clear } from "@mui/icons-material";
 
 const Usertable = ({ col }) => {
   const [data, setData] = useState([]);
   console.log(data, "data");
-
 
   const params = useParams();
   console.log(params, "params");
@@ -49,15 +40,6 @@ const Usertable = ({ col }) => {
     };
   }, []);
 
-  const handleView = async (id) => {
-    try {
-      await getDoc(doc(db, col, id));
-      setData(data.filter((item) => item.id === id));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, col, id));
@@ -75,13 +57,11 @@ const Usertable = ({ col }) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to={"/" + col} style={{ textDecoration: "none" }}>
-              <div
-                className="updateButton"
-                onClick={() => handleView(params.row.id)}
-              >
-                Edit
-              </div>
+            <Link
+              to={"/" + col + "/" + params.row.id}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="updateButton">Edit</div>
             </Link>
 
             <div
@@ -114,10 +94,12 @@ const Usertable = ({ col }) => {
             ? "Orders"
             : col === "profile"
             ? "Profile"
+            : col === "stats"
+            ? "Stats"
             : "Delivery"}
 
           <Link to={"/" + col + "/new"} className="link">
-            Add New
+            Add
           </Link>
         </div>
 
@@ -148,6 +130,15 @@ const Usertable = ({ col }) => {
             rowsPerPageOptions={[9]}
             checkboxSelection
           />
+          ) : col === "stats" ? (
+            <DataGrid
+              className="datagrid"
+              rows={data}
+              columns={statColumns.concat(actionColumn)}
+              pageSize={9}
+              rowsPerPageOptions={[9]}
+              checkboxSelection
+            />
         ) : (
           <DataGrid
             className="datagrid"

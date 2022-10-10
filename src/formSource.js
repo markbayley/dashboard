@@ -45,46 +45,47 @@ export const userInputs = [
   
   export const productInputs = [
     {
-      id: "title",
-      label: "Title",
-      type: "text",
-      placeholder: "Apple Macbook Pro",
-    },
-    {
       id: "description",
       label: "Description",
       type: "text",
       placeholder: "description",
     },
     {
+      id: "title",
+      label: "Title",
+      type: "text",
+      placeholder: "title",
+    },
+  
+    {
       id: "category",
       label: "Category",
       type: "text",
-      placeholder: "Computers",
+      placeholder: "category",
     },
     {
       id: "price",
       label: "Price",
       type: "text",
-      placeholder: "100",
+      placeholder: "price",
     },
     {
       id: "units",
       label: "Units",
       type: "text",
-      placeholder: "0",
+      placeholder: "units",
     },
     {
       id: "sold",
       label: "Sold",
       type: "text",
-      placeholder: "0",
+      placeholder: "sold",
     },
     {
       id: "status",
       label: "Status",
       type: "text",
-      placeholder: "in stock",
+      placeholder: "status",
     },
   ];
 
@@ -176,6 +177,53 @@ export const userInputs = [
       label: "Country",
       type: "text",
       placeholder: "country",
+    },
+  ];
+
+
+
+  export const statsInputs = [
+    {
+      id: "product",
+      label: "Product",
+      type: "text",
+      placeholder: "product",
+    },
+    {
+      id: "customer",
+      label: "Customer",
+      type: "text",
+      placeholder: "customer",
+    },
+    {
+      id: "date",
+      label: "Date",
+      type: "text",
+      placeholder: "date",
+    },
+    {
+      id: "amount",
+      label: "Amount",
+      type: "text",
+      placeholder: "amount",
+    },
+    {
+      id: "payment",
+      label: "Payment Method",
+      type: "text",
+      placeholder: "payment",
+    },
+    {
+      id: "total",
+      label: "Total",
+      type: "text",
+      placeholder: "total",
+    },
+    {
+      id: "status",
+      label: "Status",
+      type: "text",
+      placeholder: "status",
     },
   ];
   

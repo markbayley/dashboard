@@ -2,8 +2,6 @@ import "./list.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Usertable from "../../components/datatable/Usertable";
-import Chart from "../../components/chart/Chart";
-import { useState } from "react";
 
 const List = ({ col }) => {
   console.log(col, "collection-list");

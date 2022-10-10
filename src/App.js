@@ -4,7 +4,7 @@ import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs, orderInputs, profileInputs } from "./formSource";
+import { productInputs, userInputs, orderInputs, profileInputs, statsInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -164,12 +164,46 @@ function App() {
                 }
               />
             </Route>
+            <Route path="stats">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <Home col="stats" key="5" />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":Id"
+                element={
+                  <RequireAuth>
+                    <Single
+                      col="stats"
+                      inputs={statsInputs}
+                      title="Edit Stats"
+                    />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <New
+                      inputs={statsInputs}
+                      title="Add New Stats"
+                      col="stats"
+                    />
+                  </RequireAuth>
+                }
+              />
+            </Route>
             <Route path="profile">
               <Route
                 index
                 element={
                   <RequireAuth>
-                    <List col="profile" key="5" />
+                    <List col="profile" key="6" />
                   </RequireAuth>
                 }
               />

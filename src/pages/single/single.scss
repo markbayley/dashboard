@@ -1,23 +1,25 @@
 .single {
   display: flex;
-
   width: 100%;
   .singleContainer {
     flex: 6;
 
-
-    .datatableTitle{
-      // width: 100%;
+    .datatableTitle {
       font-size: 24px;
       color: gray;
       margin-bottom: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 20px 20px 0px 20px;
- 
-  
-      .link{
+      margin: 20px 20px 10px 20px;
+
+   
+
+      .icon {
+        margin-left: 5px;
+      }
+
+      .link {
         text-decoration: none;
         color: green;
         font-size: 16px;
@@ -26,34 +28,20 @@
         padding: 5px;
         border-radius: 5px;
         cursor: pointer;
-        
       }
     }
-   
+
     .top {
-      padding: 0px 20px 20px 20px;
+      padding: 0px 20px 0px 20px;
       display: flex;
       gap: 20px;
 
-
-      img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
-
-   
-
       .left {
         flex: 1;
-        // -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-        // box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
         padding: 20px;
         position: relative;
-
-     
 
         .editButton {
           position: absolute;
@@ -67,15 +55,29 @@
           border-radius: 0px 0px 0px 5px;
         }
 
+        .smallImg {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 10px;
+          border: 1px solid lightgray;
+          &:hover {
+            border: 1px solid teal;
+            cursor: pointer;
+          }
+        }
+
         .item {
           display: flex;
           gap: 20px;
 
           .itemImg {
-            width: 100px;
-            height: 100px;
+            width: 175px;
+            height: 175px;
             border-radius: 50%;
             object-fit: cover;
+            margin-right: 10px;
           }
 
           .details {
@@ -102,14 +104,8 @@
         }
       }
 
-   
-
-
-
       .right {
         flex: 2;
-
-    
 
         form {
           display: flex;
@@ -148,34 +144,34 @@
             cursor: pointer;
             margin-top: 10px;
 
-            &:disabled{
+            &:disabled {
               background-color: rgba(3, 92, 92, 0.322);
               cursor: not-allowed;
             }
           }
         }
       }
-
-    
-
-      // .right {
-      //   flex: 2;
-      // }
     }
-
-  
 
     .bottom {
       -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-      padding: 20px;
+      padding: 20px 20px 0px 20px;
       margin: 10px 20px;
+
+   
     }
 
     .title {
       font-size: 16px;
-      color: lightgray;
+      color: gray;
       margin-bottom: 20px;
+    }
+
+    .listTitle {
+      font-weight: 500;
+      color: gray;
+      margin-bottom: 5px;
     }
   }
 }

@@ -5,11 +5,46 @@
   .newContainer {
     flex: 6;
 
+    .smallImg {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+      border: 1px solid lightgray;
+      &:hover {
+        border: 1px solid teal;
+        cursor: pointer;
+      }
+    }
+
+    .datatableTitle{
+      font-size: 24px;
+      color: gray;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px 20px 0px 20px;
+ 
+  
+      .link{
+        text-decoration: none;
+        color: teal;
+        font-size: 16px;
+        font-weight: 400;
+        border: 1px solid teal;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        
+      }
+    }
+
     .top,
     .bottom {
       -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-      border: 1px solid teal;
       border-radius: 5px;
       padding: 20px 10px;
       margin: 20px;
@@ -45,7 +80,7 @@
           height: 250px;
           border-radius: 50%;
           object-fit: cover;
-          border: 1px solid teal;
+       
         }
       }
 
