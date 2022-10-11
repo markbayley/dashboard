@@ -116,7 +116,7 @@ export const orderColumns = [
       return (
         <div className="cellWithImg">
           <img className="cellImg" src={params.row.img} alt="product" />
-          {params.row.productname}
+          {params.row.product}
         </div>
       );
     },
@@ -220,7 +220,7 @@ export const statColumns = [
       return (
         <div className="cellWithImg">
           <img className="cellImg" src={params.row.img} alt="product" />
-          {params.row.productname}
+          {params.row.product}
         </div>
       );
     },

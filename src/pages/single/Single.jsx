@@ -15,11 +15,7 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import {
-  getDownloadURL,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import CircularProgress from "@mui/material/CircularProgress";
 import SubdirectoryArrowLeftIcon from "@mui/icons-material/SubdirectoryArrowLeft";
 import Box from "@mui/material/Box";
@@ -51,8 +47,8 @@ const Single = ({ inputs, title, col }) => {
   const [editing, setEditing] = useState(false);
   console.log(editing, "editing-single");
 
-  const [main, setMain ] = useState(data.img)
-  console.log(main, "main")
+  const [main, setMain] = useState(data.img);
+  console.log(main, "main");
 
   useEffect(async () => {
     const docRef = doc(db, col, params.Id);
@@ -97,10 +93,9 @@ const Single = ({ inputs, title, col }) => {
           console.log(error);
         },
         () => {
-       
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setData((prev) => ({ ...prev, img: downloadURL }));
-        
+
             console.log(data, "setData - file");
           });
         }
@@ -109,23 +104,44 @@ const Single = ({ inputs, title, col }) => {
     file && uploadFile();
   }, [file]);
 
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState([])
   console.log(transactions, "transactions");
 
-  // const params = useParams();
-  // console.log(params, "params");
 
   useEffect(() => {
     const unsub = onSnapshot(
-      collection(db, "transactions"),
+      collection(db, "orders"),
       (snapShot) => {
         let list = [];
         snapShot.docs.forEach((doc) => {
+         
           list.push({ id: doc.id, ...doc.data() });
-        });
-        setTransactions(
-          list.filter((items) => items.customer === data.displayName)
-        );
+
+   
+ 
+      });
+      const filteredList = list.filter(items => {
+        if (col === "users" && items.customer !== data.displayName) {
+          return false
+        }
+        if (col === "products" && items.product !== data.title) {
+          return false
+        }
+        if (col === "orders" && items.product !== data.product) {
+          return false
+        }
+
+      
+ 
+        return true
+      })
+  
+
+
+
+
+        setTransactions(filteredList);
+
       },
       (error) => {
         console.log(error);
@@ -228,7 +244,11 @@ const Single = ({ inputs, title, col }) => {
                   <div className="editButton">
                     <div onClick={() => setEditing(true)}>Edit</div>
                   </div>
-                  { col === "users" || col === "profile" ? <h1 className="title">Profile</h1> : <h1 className="title">Product</h1> }
+                  {col === "users" || col === "profile" ? (
+                    <h1 className="title">Profile</h1>
+                  ) : (
+                    <h1 className="title">Product</h1>
+                  )}
                   <div className="item">
                     <img
                       src={
@@ -239,40 +259,56 @@ const Single = ({ inputs, title, col }) => {
                       alt="image upload"
                       className="itemImg"
                     />
-                      { col === "profile" || col === "users"  ?
-                    <div className="details">
-                      <h2 className="itemTitle">{data.displayName}</h2>
-                      <div className="detailItem">
-                        <span className="itemKey">Email:</span>
-                        <span className="itemValue">{data.email}</span>
+                    {col === "profile" || col === "users" ? (
+                      <div className="details">
+                        <h2 className="itemTitle">{data.displayName}</h2>
+                        <div className="detailItem">
+                          <span className="itemKey">Email:</span>
+                          <span className="itemValue">{data.email}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Phone:</span>
+                          <span className="itemValue">{data.phone}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Address:</span>
+                          <span className="itemValue">{data.address}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Country:</span>
+                          <span className="itemValue">{data.country}</span>
+                        </div>
                       </div>
-                      <div className="detailItem">
-                        <span className="itemKey">Phone:</span>
-                        <span className="itemValue">{data.phone}</span>
-                      </div>
-                      <div className="detailItem">
-                        <span className="itemKey">Address:</span>
-                        <span className="itemValue">{data.address}</span>
-                      </div>
-                      <div className="detailItem">
-                        <span className="itemKey">Country:</span>
-                        <span className="itemValue">{data.country}</span>
-                      </div>
-                    </div>
-                    : 
-                    <div className="details">
-                    <h2 className="itemTitle">{data.title}</h2>
-                    <div className="detailItem">
-                      <span className="itemKey">Description:</span>
-                      <span className="itemValue">{data.description}</span>
-                    </div>
-                    <div className="detailItem">
-                      <span className="itemKey">Price:</span>
-                      <span className="itemValue">${data.price}</span>
-                    </div>
-                  </div>
+                    ) : col === "orders" ? (
+                      <div className="details">
+                        <h2 className="itemTitle">{data.product}</h2>
+                        <div className="detailItem">
+                          <span className="itemKey">Customer:</span>
+                          <span className="itemValue">{data.customer}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Amount:</span>
+                          <span className="itemValue">${data.amount}</span>
+                        </div>
 
-                      }
+                        <div className="detailItem">
+                          <span className="itemKey">Date:</span>
+                          <span className="itemValue">{data.date}</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="details">
+                        <h2 className="itemTitle">{data.title}</h2>
+                        <div className="detailItem">
+                          <span className="itemKey">Description:</span>
+                          <span className="itemValue">{data.description}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Price:</span>
+                          <span className="itemValue">${data.price}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <br />
                   <img
@@ -293,7 +329,6 @@ const Single = ({ inputs, title, col }) => {
                     className="smallImg"
                     onClick={(e) => setMain(e.target.src)}
                   />
-               
                 </div>
                 <div className="right">
                   <Chart
@@ -344,8 +379,6 @@ const Single = ({ inputs, title, col }) => {
 
                   <div className="right">
                     <form onSubmit={handleUpdate}>
-             
-
                       {inputs.map((input) => (
                         <div className="formInput" key={input.id}>
                           <label>{input.label}</label>
@@ -381,7 +414,7 @@ const Single = ({ inputs, title, col }) => {
                           />
                         </div>
                       ))}
-                          <div className="formInput">
+                      <div className="formInput">
                         <label htmlFor="file">
                           Image:{" "}
                           <DriveFolderUploadOutlinedIcon className="icon" />
@@ -392,25 +425,25 @@ const Single = ({ inputs, title, col }) => {
                           onChange={(e) => setFile(e.target.files[0])}
                           style={{ display: "none" }}
                         />
-                         <br />
-                  <img
-                    src={data.img}
-                    alt="small image"
-                    className="smallImg"
-                    onClick={(e) => setMain(e.target.src)}
-                  />
-                  <img
-                    src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                    alt="small image"
-                    className="smallImg"
-                    onClick={(e) => setMain(e.target.src)}
-                  />
-                  <img
-                    src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                    alt="small image"
-                    className="smallImg"
-                    onClick={(e) => setMain(e.target.src)}
-                  />
+                        <br />
+                        <img
+                          src={data.img}
+                          alt="small image"
+                          className="smallImg"
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                        <img
+                          src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          alt="small image"
+                          className="smallImg"
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                        <img
+                          src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          alt="small image"
+                          className="smallImg"
+                          onClick={(e) => setMain(e.target.src)}
+                        />
                       </div>
                       <button
                         disabled={per !== null && per < 100}

@@ -6,6 +6,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  YAxis,
 } from "recharts";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
@@ -24,20 +25,35 @@ const data = [
 
 
 
-const Chart = ({ aspect, title }) => {
-
+const Chart = ({ aspect, title, col, displayName }) => {
+console.log(displayName, 'displayName-CHART')
   const [ earnings, setEarnings ] = useState()
 
   useEffect(() => {
     const unsub = onSnapshot(
-      collection(db, "earnings"),
+      collection(db, "orders"),
       (snapShot) => {
         let list = [];
         snapShot.docs.forEach((doc) => {
           list.push({ id: doc.id, ...doc.data() });
         });
+        const filteredList = list.filter((items) => {
+          console.log(col, 'col-CHART')
+          if (col === "users" && items.customer !== displayName) {
+            return false;
+          }
+          // if (col === "products" && items.product !== data.title) {
+          //   return false;
+          // }
+          // if (col === "orders" && items.product !== data.product) {
+          //   return false;
+          // }
+
+          return true;
+        });
+
         setEarnings(
-          list.filter((items) => items.customer === data.displayName)
+          filteredList
         );
       },
       (error) => {
@@ -48,7 +64,7 @@ const Chart = ({ aspect, title }) => {
     return () => {
       unsub();
     };
-  }, [data]);
+  }, [displayName]);
 
   return (
     <div className="chart">
@@ -67,11 +83,12 @@ const Chart = ({ aspect, title }) => {
             </linearGradient>
           </defs>
           <XAxis dataKey="month" stroke="gray" />
+          <YAxis dataKey="amount" stroke="gray" />
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="Total"
+            dataKey="amount"
             stroke="#8884d8"
             fillOpacity={1}
             fill="url(#total)"
