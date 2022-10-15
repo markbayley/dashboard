@@ -1,7 +1,25 @@
 .datatable {
-  height: 600px;
-  padding: 20px;
+  height: 640px;
+  padding: 10px 20px;
   
+   button {
+    background-color: white;
+    margin: 0px 5px;
+    padding: 0px;
+   }
+
+   .MuiButton-root {
+    color: #7451f8;
+   }
+
+  //  .MuiSvgIcon-root {
+  //   color: #7451f8;
+  //  }
+
+  
+
+
+
   .datatableTitle{
     width: 100%;
     font-size: 24px;
@@ -11,15 +29,39 @@
     align-items: center;
     justify-content: space-between;
 
+    .search {
+      display: flex;
+      align-items: center;
+      border: 0.5px solid lightgray;
+      padding: 3px;
+  
+      input {
+        border: none;
+        outline: none;
+        background: transparent;
+  
+        &::placeholder {
+          color: #7451f8;
+          font-size: 16px;
+        }
+      }
+    }
+
     .link{
       text-decoration: none;
-      color: green;
+      color: #7451f8;
       font-size: 16px;
       font-weight: 400;
-      border: 1px solid green;
+      border: 1px solid #7451f8;
       padding: 5px;
+      margin-left: 10px;
       border-radius: 5px;
       cursor: pointer;
+      .icon {
+        font-size: 17px;
+        color: #7451f8;
+        padding: 0px 5px;
+      }
     }
   }
 
@@ -62,8 +104,8 @@
     .viewButton {
       padding: 2px 5px;
       border-radius: 5px;
-      color: darkblue;
-      border: 1px dotted rgba(0, 0, 139, 0.596);
+      color: rgb(0, 139, 97);
+      // border: 1px solid rgba(0, 0, 139, 0.596);
       cursor: pointer;
     }
 
@@ -71,7 +113,7 @@
       padding: 2px 5px;
       border-radius: 5px;
       color: rgb(0, 139, 97);
-      border: 1px dotted rgba(0, 0, 139, 0.596);
+      // border: 1px solid rgb(0, 139, 97);
       cursor: pointer;
     }
     
@@ -79,8 +121,13 @@
       padding: 2px 5px;
       border-radius: 5px;
       color: crimson;
-      border: 1px dotted rgba(220, 20, 60, 0.6);
+      // border: 1px solid rgba(220, 20, 60, 0.6);
       cursor: pointer;
+    }
+
+    .icon {
+      font-size: 18px;
+      color: #7451f8;
     }
   }
 }

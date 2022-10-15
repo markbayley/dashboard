@@ -5,7 +5,10 @@ import "react-circular-progressbar/dist/styles.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 
-const Featured = () => {
+const Featured = ({total}) => {
+
+  const target = 1500.00
+  const val = total/target;
   return (
     <div className="featured">
       <div className="top">
@@ -14,13 +17,13 @@ const Featured = () => {
       </div>
       <div className="bottom">
         <div className="featuredChart">
-          <CircularProgressbar value={70} text={"70%"} strokeWidth={5} />
+          <CircularProgressbar value={val} text={"70%"} strokeWidth={5} />
         </div>
-        <p className="title">Total sales made today</p>
-        <p className="amount">$420</p>
-        <p className="desc">
+        <p className="title">Target: ${target}</p>
+        <p className="amount">${total}</p>
+        {/* <p className="desc">
           Previous transactions processing. Last payments may not be included.
-        </p>
+        </p> */}
         <div className="summary">
           <div className="item">
             <div className="itemTitle">Target</div>

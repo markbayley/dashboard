@@ -1,10 +1,10 @@
 export const userInputs = [
-    {
-      id: "username",
-      label: "Username",
-      type: "text",
-      placeholder: "username",
-    },
+    // {
+    //   id: "username",
+    //   label: "Username",
+    //   type: "text",
+    //   placeholder: "username",
+    // },
     {
       id: "displayName",
       label: "Name",
@@ -23,12 +23,12 @@ export const userInputs = [
       type: "text",
       placeholder: "phone",
     },
-    {
-      id: "password",
-      label: "Password ",
-      type: "password",
-      placeholder: "password",
-    },
+    // {
+    //   id: "password",
+    //   label: "Password ",
+    //   type: "password",
+    //   placeholder: "password",
+    // },
     {
       id: "address",
       label: "Address",
@@ -69,18 +69,18 @@ export const userInputs = [
       type: "text",
       placeholder: "price",
     },
-    {
-      id: "units",
-      label: "Units",
-      type: "text",
-      placeholder: "units",
-    },
-    {
-      id: "sold",
-      label: "Sold",
-      type: "text",
-      placeholder: "sold",
-    },
+    // {
+    //   id: "units",
+    //   label: "Units",
+    //   type: "text",
+    //   placeholder: "units",
+    // },
+    // {
+    //   id: "sold",
+    //   label: "Sold",
+    //   type: "text",
+    //   placeholder: "sold",
+    // },
     {
       id: "status",
       label: "Status",

@@ -9,7 +9,7 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
-import Profile from "./pages/profile/Profile";
+import Stats from "./pages/stats/Stats";
 
 function App() {
 
@@ -31,7 +31,7 @@ function App() {
               index
               element={
                 <RequireAuth>
-                  <Home />
+                  <Home col=""/>
                 </RequireAuth>
               }
             />
@@ -62,6 +62,7 @@ function App() {
                 }
               />
             </Route>
+
             <Route path="products">
               <Route
                 index
@@ -96,6 +97,7 @@ function App() {
                 }
               />
             </Route>
+
             <Route path="orders">
               <Route
                 index
@@ -130,6 +132,7 @@ function App() {
                 }
               />
             </Route>
+
             <Route path="deliveries">
               <Route
                 index
@@ -164,66 +167,31 @@ function App() {
                 }
               />
             </Route>
+
             <Route path="stats">
               <Route
                 index
                 element={
                   <RequireAuth>
-                    <Home col="stats" key="5" />
+                    <Stats col="stats" key="5"  inputs={statsInputs} />
                   </RequireAuth>
                 }
               />
-              <Route
-                path=":Id"
-                element={
-                  <RequireAuth>
-                    <Single
-                      col="stats"
-                      inputs={statsInputs}
-                      title="Edit Stats"
-                    />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="new"
-                element={
-                  <RequireAuth>
-                    <New
-                      inputs={statsInputs}
-                      title="Add New Stats"
-                      col="stats"
-                    />
-                  </RequireAuth>
-                }
-              />
+             
+             
             </Route>
+            
             <Route path="profile">
               <Route
                 index
                 element={
                   <RequireAuth>
-                    <List col="profile" key="6" />
+                    {/* <List col="profile" key="6" /> */}
+                    <Single col="profile" inputs={profileInputs} title="Edit Profile" key="6" uid={currentUser.uid}/>
                   </RequireAuth>
                 }
               />
-              <Route
-                path=":Id"
-                element={
-                  <RequireAuth>
-                    <Single col="profile" inputs={profileInputs} title="Edit Profile" />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="new"
-                element={
-                  <RequireAuth>
-                    {/* <New inputs={userInputs} title="Add New Profile" col="profile" /> */}
-                    <Profile />
-                  </RequireAuth>
-                }
-              />
+            
             </Route>
          
           </Route>

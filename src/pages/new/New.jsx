@@ -96,10 +96,27 @@ const New = ({ inputs, title, col }) => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
-        <div className="top" style={{justifyContent: "space-between", color: "gray"}}>
-          <h1>{title}</h1>
-          <ClearIcon className="icon"onClick={() => navigate(-1)}/>
-        </div>
+        <div className="datatableTitle">
+                {col === "users"
+                  ? "Add User"
+                  : col === "products"
+                  ? "Add Product"
+                  : col === "orders"
+                  ? "Add Order"
+                  : col === "profile"
+                  ? "Add Profile"
+                  : "Delivery"}
+
+                <div style={{ display: "flex" }}>
+                 
+                  <ClearIcon
+                    className="link icon"
+                    style={{ fontSize: "22px" }}
+                    onClick={() => navigate(-1)}
+                  />
+                </div>
+              </div>
+     
         <div className="bottom">
           <div className="left">
           <h3>{data.title ? data.title : data.displayName ? data.displayName : "Enter Details"}</h3><br/>
@@ -152,33 +169,9 @@ const New = ({ inputs, title, col }) => {
                   <input
                     id={input.id}
                     type={input.type}
-                    placeholder={
-                          input.placeholder === "name"
-                        ? data.displayName
-                        : input.placeholder === "phone"
-                        ? data.phone
-                        : input.placeholder === "address"
-                        ? data.address
-                        : input.placeholder === "country"
-                        ? data.country
-                        : input.placeholder === "email"
-                        ? data.email
-                        : input.placeholder === "username"
-                        ? data.username
-                        : input.placeholder === "password"
-                        ? "******"
-                        : input.placeholder === "title"
-                        ? data.title
-                        : input.placeholder === "description"
-                        ? data.description
-                        : input.placeholder === "price"
-                        ? data.price
-                        : input.placeholder === "amount"
-                        ? data.amount
-                        : input.placeholder === "status"
-                        ? data.status
-                        : "not recorded"
-                    }
+                    placeholder={input.placeholder}
+                       
+                    
                     onChange={handleInput}
                   />
                 </div>

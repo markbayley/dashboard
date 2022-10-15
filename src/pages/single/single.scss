@@ -3,6 +3,7 @@
   width: 100%;
   .singleContainer {
     flex: 6;
+    // background-color: #fbfbfb;
 
     .datatableTitle {
       font-size: 24px;
@@ -11,7 +12,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 20px 20px 10px 20px;
+      margin: 10px 20px 10px 20px;
 
    
 
@@ -21,10 +22,10 @@
 
       .link {
         text-decoration: none;
-        color: green;
+        color: #7451f8;
         font-size: 16px;
         font-weight: 400;
-        border: 1px solid green;
+        border: 1px solid #7451f8;
         padding: 5px;
         border-radius: 5px;
         cursor: pointer;
@@ -38,8 +39,10 @@
 
       .left {
         flex: 1;
-        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+        // -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+        // box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+        border: 1px solid lightgray;
+        // background-color: #ffffff;
         padding: 20px;
         position: relative;
 
@@ -154,8 +157,10 @@
     }
 
     .bottom {
-      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      // -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      // box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      background-color: white;
+      border: 1px solid lightgray;
       padding: 20px 20px 0px 20px;
       margin: 10px 20px;
 

@@ -1,15 +1,15 @@
 export const userColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {
-    field: "user",
-    headerName: "Username",
+    field: "displayName",
+    headerName: "Name",
     width: 200,
     editable: true,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
           <img className="cellImg" src={params.row.img} alt="avatar" />
-          {params.row.username}
+          {params.row.displayName}
         </div>
       );
     },
@@ -24,7 +24,7 @@ export const userColumns = [
   {
     field: "address",
     headerName: "Address",
-    width: 200,
+    width: 250,
     editable: true
   },
   {
@@ -54,21 +54,21 @@ export const productColumns = [
   {
     field: "product",
     headerName: "Product",
-    width: 100,
+    width: 275,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
           <img className="cellImg" src={params.row.img} alt="product" />
-          {params.row.productname}
+          {params.row.title}
         </div>
       );
     },
   },
-  {
-    field: "title",
-    headerName: "Title",
-    width: 150,
-  },
+  // {
+  //   field: "title",
+  //   headerName: "Title",
+  //   width: 150,
+  // },
 
   {
     field: "description",
@@ -86,8 +86,8 @@ export const productColumns = [
     width: 100,
   },
   {
-    field: "sold",
-    headerName: "Sold",
+    field: "category",
+    headerName: "Category",
     width: 100,
   },
   {
@@ -111,7 +111,7 @@ export const orderColumns = [
   {
     field: "product",
     headerName: "Product",
-    width: 175,
+    width: 250,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
@@ -124,29 +124,29 @@ export const orderColumns = [
   {
     field: "customer",
     headerName: "Customer",
-    width: 150,
+    width: 175,
   },
 
   {
     field: "date",
     headerName: "Date",
-    width: 150,
+    width: 125,
   },
 
   {
     field: "amount",
     headerName: "Amount",
-    width: 150,
+    width: 125,
   },
   {
     field: "payment",
-    headerName: "Payment Method",
-    width: 150,
+    headerName: "Payment",
+    width: 125,
   },
   {
     field: "status",
-    headerName: "Status",
-    width: 150,
+    headerName: "Delivery",
+    width: 125,
     renderCell: (params) => {
       return (
         <div className={`cellWithStatus ${params.row.status}`}>

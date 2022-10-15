@@ -22,6 +22,7 @@ import Box from "@mui/material/Box";
 import Chart from "../../components/chart/Chart";
 import { DataGrid } from "@mui/x-data-grid";
 import { orderColumns, productColumns } from "../../datatablesource";
+import { Edit } from "@mui/icons-material";
 
 function CircularIndeterminate() {
   return (
@@ -31,33 +32,31 @@ function CircularIndeterminate() {
   );
 }
 
-const Single = ({ inputs, title, col }) => {
-  console.log(inputs, "inputs");
+const Single = ({ inputs, title, col, uid }) => {
+
   const params = useParams();
-  console.log(params, "params-single");
+
 
   const [data, setData] = useState({});
-  console.log(data, "data-single");
+
   const image = data.img;
   const [file, setFile] = useState(image);
-  console.log(file, "file-single");
+
   const [per, setPerc] = useState(null);
   const navigate = useNavigate();
 
   const [editing, setEditing] = useState(false);
-  console.log(editing, "editing-single");
 
   const [main, setMain] = useState(data.img);
-  console.log(main, "main");
+
 
   useEffect(async () => {
-    const docRef = doc(db, col, params.Id);
+    const docRef = doc(db, col, params?.Id || uid );
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
+   
       setData(docSnap.data());
 
-      console.log(data, "setData-single");
     } else {
       console.log("No such document!");
     }
@@ -67,7 +66,6 @@ const Single = ({ inputs, title, col }) => {
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
 
-      console.log(name);
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -96,16 +94,17 @@ const Single = ({ inputs, title, col }) => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setData((prev) => ({ ...prev, img: downloadURL }));
 
-            console.log(data, "setData - file");
+        
           });
         }
       );
     };
-    file && uploadFile();
-  }, [file]);
+    main && uploadFile();
+  }, [file, main]);
 
-  const [transactions, setTransactions] = useState([])
-  console.log(transactions, "transactions");
+  const [transactions, setTransactions] = useState([]);
+
+
 
 
   useEffect(() => {
@@ -114,34 +113,23 @@ const Single = ({ inputs, title, col }) => {
       (snapShot) => {
         let list = [];
         snapShot.docs.forEach((doc) => {
-         
           list.push({ id: doc.id, ...doc.data() });
+        });
+        const filteredList = list.filter((items) => {
+          if (col === "users" && items.customer !== data.displayName) {
+            return false;
+          }
+          if (col === "products" && items.product !== data.title) {
+            return false;
+          }
+          if (col === "orders" && items.product !== data.product) {
+            return false;
+          }
 
-   
- 
-      });
-      const filteredList = list.filter(items => {
-        if (col === "users" && items.customer !== data.displayName) {
-          return false
-        }
-        if (col === "products" && items.product !== data.title) {
-          return false
-        }
-        if (col === "orders" && items.product !== data.product) {
-          return false
-        }
-
-      
- 
-        return true
-      })
-  
-
-
-
+          return true;
+        });
 
         setTransactions(filteredList);
-
       },
       (error) => {
         console.log(error);
@@ -153,6 +141,9 @@ const Single = ({ inputs, title, col }) => {
     };
   }, [data]);
 
+
+
+
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;
@@ -162,9 +153,9 @@ const Single = ({ inputs, title, col }) => {
 
   const handleUpdate = async (id) => {
     // e.preventDefault()
-    console.log(id, "id-single");
-    const taskDocRef = doc(db, col, params.Id);
-    console.log(params.Id, "params.Id-single");
+
+    const taskDocRef = doc(db, col, params?.Id || uid);
+
     try {
       await updateDoc(taskDocRef, {
         ...data,
@@ -214,7 +205,7 @@ const Single = ({ inputs, title, col }) => {
         <Sidebar />
         <div className="singleContainer">
           <Navbar />
-
+       
           {!editing ? (
             <>
               <div className="datatableTitle">
@@ -228,21 +219,18 @@ const Single = ({ inputs, title, col }) => {
                   ? "Profile Detail"
                   : "Delivery"}
 
-                <div style={{ display: "flex" }}>
-                  <div onClick={() => setEditing(true)} className="link">
-                    Edit
-                  </div>
+             
                   <SubdirectoryArrowLeftIcon
                     className="link icon"
                     style={{ fontSize: "22px" }}
                     onClick={() => navigate(-1)}
                   />
-                </div>
+ 
               </div>
               <div className="top">
                 <div className="left">
                   <div className="editButton">
-                    <div onClick={() => setEditing(true)}>Edit</div>
+                    <div onClick={() => setEditing(true)}><Edit className="icon"/></div>
                   </div>
                   {col === "users" || col === "profile" ? (
                     <h1 className="title">Profile</h1>
@@ -254,7 +242,7 @@ const Single = ({ inputs, title, col }) => {
                       src={
                         main
                           ? main
-                          : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          : data.img
                       }
                       alt="image upload"
                       className="itemImg"
@@ -331,9 +319,18 @@ const Single = ({ inputs, title, col }) => {
                   />
                 </div>
                 <div className="right">
-                  <Chart
-                    aspect={3 / 1}
-                    title="User Spending ( Last 6 Months)"
+                  <Chart col={col} displayName={data.displayName} title={data.title} product={data.product}
+                    aspect={2.5 / 1}
+                    charttitle={ col === "users"
+                    ?  "Purchases (6 Months) - " + data.displayName
+                    : col === "products"
+                    ? "Sales (6 Months) - " + data.title
+                    : col === "orders"
+                    ? "Orders (6 Months) - " + data.product
+                    : col === "profile"
+                    ? "Employee Earnings (Monthly) - " + data.displayName
+          
+                    : "Delivery"}
                   />
                 </div>
               </div>
@@ -408,6 +405,12 @@ const Single = ({ inputs, title, col }) => {
                                 ? data.price
                                 : input.placeholder === "status"
                                 ? data.status
+                                : input.placeholder === "units"
+                                ? data.units
+                                : input.placeholder === "category"
+                                ? data.category
+                                : input.placeholder === "sold"
+                                ? data.sold
                                 : "not recorded"
                             }
                             onChange={handleInput}
@@ -416,8 +419,26 @@ const Single = ({ inputs, title, col }) => {
                       ))}
                       <div className="formInput">
                         <label htmlFor="file">
-                          Image:{" "}
+                          Images:{" "}
                           <DriveFolderUploadOutlinedIcon className="icon" />
+                          <img
+                          src={data.img}
+                          alt="small"
+                          className="smallImg"
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                          <img
+                          src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          alt="small"
+                          className="smallImg"
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                              <img
+                          src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          alt="small"
+                          className="smallImg"
+                          onClick={(e) => setMain(e.target.src)}
+                        />
                         </label>
                         <input
                           type="file"
@@ -425,25 +446,8 @@ const Single = ({ inputs, title, col }) => {
                           onChange={(e) => setFile(e.target.files[0])}
                           style={{ display: "none" }}
                         />
-                        <br />
-                        <img
-                          src={data.img}
-                          alt="small image"
-                          className="smallImg"
-                          onClick={(e) => setMain(e.target.src)}
-                        />
-                        <img
-                          src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                          alt="small image"
-                          className="smallImg"
-                          onClick={(e) => setMain(e.target.src)}
-                        />
-                        <img
-                          src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                          alt="small image"
-                          className="smallImg"
-                          onClick={(e) => setMain(e.target.src)}
-                        />
+              
+                  
                       </div>
                       <button
                         disabled={per !== null && per < 100}
@@ -459,7 +463,17 @@ const Single = ({ inputs, title, col }) => {
           )}
 
           <div className="datatable">
-            <div className="listTitle">Latest Transactions</div>
+            <div className="listTitle">Latest Transactions -  {col === "users"
+                    ? data.displayName
+                    : col === "products"
+                    ? data.title
+                    : col === "orders"
+                    ? data.product
+                    : col === "profile"
+                    ? data.displayName
+                    : ""}
+</div>
+          {col !== "profile" && 
             <DataGrid
               className="datagrid"
               rows={transactions}
@@ -468,6 +482,7 @@ const Single = ({ inputs, title, col }) => {
               rowsPerPageOptions={[9]}
               checkboxSelection
             />
+          } 
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import Navbar from "../../components/navbar/Navbar";
 import Usertable from "../../components/datatable/Usertable";
 
 const List = ({ col }) => {
-  console.log(col, "collection-list");
+
 
   return (
     <div className="list">
