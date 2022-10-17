@@ -17,7 +17,8 @@ const Stats = ({ col }) => {
 
   const [total, setTotal] = useState();
   console.log(total, "Total");
-
+  const [data, setData] = useState();
+  console.log(data, "DatA");
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -27,9 +28,14 @@ const Stats = ({ col }) => {
 
         let amount = 0;
         snapShot.docs.forEach((doc) => {
+          list.push( [doc.data()["total"], doc.data()["date"]]);
           amount = amount + doc.data()["total"];
         });
+
+      
+  
         setTotal(amount.toFixed(2));
+        setData(list)
 
 
       },
@@ -44,11 +50,12 @@ const Stats = ({ col }) => {
   }, []);
 
 
+
   return (
     <div className="stats">
       <Sidebar />
       <div className="statsContainer">
-        <Navbar />
+ 
         <div className="statsTitle">
           {col === "users"
             ? "Users"

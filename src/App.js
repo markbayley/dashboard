@@ -187,7 +187,7 @@ function App() {
                 element={
                   <RequireAuth>
                     {/* <List col="profile" key="6" /> */}
-                    <Single col="profile" inputs={profileInputs} title="Edit Profile" key="6" uid={currentUser.uid}/>
+                    <Single col="users" inputs={profileInputs} title="My Profile" key="6" uid={currentUser.uid}/>
                   </RequireAuth>
                 }
               />

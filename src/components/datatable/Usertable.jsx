@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Clear, DeleteForever, Edit, Undo } from "@mui/icons-material";
-import { categoryList, statusList } from "./constants";
+import { categoryList, countryList, paymentList, statusList } from "./constants";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Usertable = ({ col }) => {
@@ -56,6 +56,13 @@ const Usertable = ({ col }) => {
   const [price, setPrice] = useState(null);
   const [units, setUnits] = useState(null);
 
+  const [country, setCountry] = useState(null);
+  const [displayName, setName] = useState(null);
+
+  const [payment, setPayment] = useState(null);
+  const [customer, setCustomer] = useState(null);
+  const [amount, setAmount] = useState(null);
+
   const [updatedData, setupdatedData] = useState(data);
   const [resultsFound, setResultsFound] = useState(true);
 
@@ -65,32 +72,40 @@ const Usertable = ({ col }) => {
   const handlePrice = (e, value) => setPrice(e.target.value);
   const handleUnits = (e, value) => setUnits(e.target.value);
 
+  const handleCountry = (e, value) => setCountry(e.target.value);
+  const handleName = (e, value) => setName(e.target.value);
+
+  const handlePayment = (e, value) => setPayment(e.target.value);
+  const handleCustomer = (e, value) => setCustomer(e.target.value);
+  const handleAmount = (e, value) => setAmount(e.target.value);
+
   const handleSearch = (e, value) => setSearchInput(e.target.value);
 
-  const handleUndo = (e, value) => {
-    if (category !== "Category") {
-      setCategory("Category");
-    }
-    if (status !== "Status") {
-      setStatus("Status");
-    }
-    if (price !== "Price") {
-      setPrice("Price");
-    }
-    if (units !== "Units") {
-      setUnits("Units");
-    }
+  const handleUndo = () => {
+    setCategory("Category");
+    setStatus("Status");
+    setPrice("Price");
+    setUnits("Units");
+    setCountry("Country");
+    setName("Name");
+    setPayment("Payment");
+    setCustomer("Customer");
+    setAmount("Amount");
+    setSearchInput("");
   };
 
   const applyFilters = () => {
     let updatedData = data;
-
+    const lowercasedValue = searchInput.toLowerCase().trim();
+    const excludeColumns = ["id"];
     if (searchInput) {
-      updatedData = updatedData.filter(
-        (item) =>
-          item.title.toLowerCase().search(searchInput.toLowerCase().trim()) !==
-          -1
-      );
+      updatedData = updatedData.filter((item) => {
+        return Object.keys(item).some((key) =>
+          excludeColumns.includes(key)
+            ? false
+            : item[key].toString().toLowerCase().includes(lowercasedValue)
+        );
+      });
     }
     if (status) {
       updatedData = updatedData.filter((item) =>
@@ -111,7 +126,34 @@ const Usertable = ({ col }) => {
     if (units) {
       setPrice(null);
       updatedData = [...updatedData].sort((a, b) =>
-        units === "Descending" ? b.units - a.units : a.units - b.units
+        units === "Highest" ? b.units - a.units : a.units - b.units
+      );
+    }
+    if (country) {
+      updatedData = updatedData.filter((item) =>
+        country === "Country" ? setCountry(null) : item.country === country
+      );
+    }
+    if (payment) {
+      updatedData = updatedData.filter((item) =>
+        payment === "Payment" ? setPayment(null) : item.payment === payment
+      );
+    }
+    if (displayName) {
+      updatedData = [...updatedData].sort((a, b) =>
+        displayName === "Descending" ? b.displayName > a.displayName ? 1 : -1 : a.displayName > b.displayName ? 1 : -1,
+      );
+    }
+    if (customer) {
+      setAmount(null);
+      updatedData = [...updatedData].sort((a, b) =>
+        customer === "Descending" ? b.customer > a.customer ? 1 : -1 : a.customer > b.customer ? 1 : -1,
+      );
+    }
+    if (amount) {
+      setCustomer(null);
+      updatedData = [...updatedData].sort((a, b) =>
+        amount === "Highest" ? b.amount > a.amount ? 1 : -1 : a.amount > b.amount ? 1 : -1,
       );
     }
 
@@ -121,7 +163,7 @@ const Usertable = ({ col }) => {
 
   useEffect(() => {
     applyFilters();
-  }, [status, category, price, units, searchInput]);
+  }, [status, category, price, units, country, displayName, customer, payment, amount, searchInput]);
 
   const actionColumn = [
     {
@@ -157,25 +199,46 @@ const Usertable = ({ col }) => {
       <div className="datatable">
         <div className="datatableTitle">
           {col === "users" ? (
-            "Users"
+            <>
+              Users
+              <div>
+                <span style={{ display: "flex", alignItems: "center" }}>
+          
+
+                  <select
+                    value={country}
+                    onChange={handleCountry}
+                    className="link"
+                  >
+                    <option default>Country</option>
+
+                    {countryList.map(({ label, id, value }) => (
+                      <option id={id} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select value={displayName} onChange={handleName} className="link">
+                    <option default>Name</option>
+                    <option value="Ascending">A-Z</option>
+                    <option value="Descending">Z-A</option>
+                  </select>
+
+                  <Undo
+                    onClick={handleUndo}
+                    className="link"
+                    style={{ fontSize: "22px" }}
+                  />
+                </span>
+              </div>
+            </>
           ) : col === "products" ? (
             <>
               Products
               <div>
                 <span style={{ display: "flex", alignItems: "center" }}>
-                  <div className="search link">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchInput}
-                    onChange={handleSearch}
-                    className=" "
-                  />
-                  <SearchOutlinedIcon
-                    className=""
-                
-                  />
-                  </div>
+               
 
                   <select
                     value={category}
@@ -205,29 +268,66 @@ const Usertable = ({ col }) => {
                   </select>
 
                   <select value={price} onChange={handlePrice} className="link">
-                    <option default hidden>
-                      Price
-                    </option>
+                    <option default>Price</option>
                     <option value="Ascending">Lowest</option>
                     <option value="Descending">Highest</option>
                   </select>
 
                   <select value={units} onChange={handleUnits} className="link">
-                    <option default hidden>
-                      Units
-                    </option>
-                    <option value="Ascending">Lowest</option>
-                    <option value="Descending">Highest</option>
+                    <option default>Units</option>
+                    <option value="Lowest">Lowest</option>
+                    <option value="Highest">Highest</option>
                   </select>
 
-              
-                    <Undo onClick={handleUndo} className="link" style={{fontSize: "22px"}} />
-              
+                  <Undo
+                    onClick={handleUndo}
+                    className="link"
+                    style={{ fontSize: "22px" }}
+                  />
                 </span>
               </div>
             </>
           ) : col === "orders" ? (
-            "Orders"
+            <>
+            Orders
+            <div>
+              <span style={{ display: "flex", alignItems: "center" }}>
+        
+
+                <select
+                  value={payment}
+                  onChange={handlePayment}
+                  className="link"
+                >
+                  <option default>Payment</option>
+
+                  {paymentList.map(({ label, id, value }) => (
+                    <option id={id} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+
+                <select value={customer} onChange={handleCustomer} className="link">
+                  <option default>Customer</option>
+                  <option value="Ascending">A-Z</option>
+                  <option value="Descending">Z-A</option>
+                </select>
+
+                <select value={amount} onChange={handleAmount} className="link">
+                  <option default>Amount</option>
+                  <option value="Lowest">Lowest</option>
+                  <option value="Highest">Highest</option>
+                </select>
+
+                <Undo
+                  onClick={handleUndo}
+                  className="link"
+                  style={{ fontSize: "22px" }}
+                />
+              </span>
+            </div>
+          </>
           ) : col === "profile" ? (
             "Profile"
           ) : col === "stats" ? (
@@ -235,6 +335,16 @@ const Usertable = ({ col }) => {
           ) : (
             "Delivery"
           )}
+
+<div className="search link">
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={searchInput}
+                      onChange={handleSearch}
+                    />
+                    <SearchOutlinedIcon />
+                  </div>
 
           <Link to={"/" + col + "/new"} className="link">
             Add
@@ -260,10 +370,10 @@ const Usertable = ({ col }) => {
         ) : col === "users" ? (
           <DataGrid
             className="datagrid"
-            rows={data}
+            rows={updatedData}
             columns={userColumns.concat(actionColumn)}
-            pageSize={9}
-            rowsPerPageOptions={[9]}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
             checkboxSelection
             // components={{ Toolbar: GridToolbar }}
             // componentsProps={{
@@ -276,10 +386,10 @@ const Usertable = ({ col }) => {
         ) : col === "orders" ? (
           <DataGrid
             className="datagrid"
-            rows={data}
+            rows={updatedData}
             columns={orderColumns.concat(actionColumn)}
-            pageSize={9}
-            rowsPerPageOptions={[9]}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
             checkboxSelection
             // components={{ Toolbar: GridToolbar }}
             // componentsProps={{
@@ -294,8 +404,8 @@ const Usertable = ({ col }) => {
             className="datagrid"
             rows={data}
             columns={statColumns.concat(actionColumn)}
-            pageSize={9}
-            rowsPerPageOptions={[9]}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
             checkboxSelection
             // components={{ Toolbar: GridToolbar }}
             // componentsProps={{
@@ -310,8 +420,8 @@ const Usertable = ({ col }) => {
             className="datagrid"
             rows={data}
             columns={profileColumns.concat(actionColumn)}
-            pageSize={9}
-            rowsPerPageOptions={[9]}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
             checkboxSelection
             // components={{ Toolbar: GridToolbar }}
             // componentsProps={{
