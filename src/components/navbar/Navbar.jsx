@@ -7,10 +7,40 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { db } from "../../firebase";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
+
+
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
+
+  const { currentUser } = useContext(AuthContext);
+
+  const [ data, setData ] = useState([])
+  //Get the current users' data
+  console.log(data, 'data-nav')
+  useEffect(() => {
+    const fetchData = async() => {
+    const docRef = doc(db, "users", currentUser.uid );
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+   
+      setData(docSnap.data());
+
+    } else {
+      console.log("No such document!");
+    }
+    }
+    fetchData()
+  }, []);
+
+
+
+
 
   return (
     <div className="navbar">
@@ -18,21 +48,29 @@ const Navbar = () => {
         <div className="">
           {/* <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon /> */}
+
+               <div className="top">
+        {/* <Link to="/login" style={{ textDecoration: "none" }}> */}
+          <span className="logo">marcbalieu</span>
+        {/* </Link> */}
+      </div>
+   
+          
         </div>
         <div className="items">
-          <div className="item">
+          {/* <div className="item">
             <LanguageOutlinedIcon className="icon" />
             English
-          </div>
+          </div> */}
           <div className="item">
             <DarkModeOutlinedIcon
               className="icon"
               onClick={() => dispatch({ type: "TOGGLE" })}
             />
           </div>
-          <div className="item">
+          {/* <div className="item">
             <FullscreenExitOutlinedIcon className="icon" />
-          </div>
+          </div> */}
           <div className="item">
             <NotificationsNoneOutlinedIcon className="icon" />
             <div className="counter">1</div>
@@ -44,13 +82,15 @@ const Navbar = () => {
           <div className="item">
             <ListOutlinedIcon className="icon" />
           </div>
+          <Link to="/profile">
           <div className="item">
             <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
+              src={data.img ? data.img : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"}
+              alt="avatar"
               className="avatar"
             />
           </div>
+          </Link>
         </div>
       </div>
     </div>

@@ -10,9 +10,10 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
 
-const Widget = ({ type }) => {
+const Widget = ({ type, total }) => {
   const [amount, setAmount] = useState(null);
   const [diff, setDiff] = useState(null);
+  console.log(amount, diff, 'widget-amount, diff')
   let data;
 
   switch (type) {
@@ -53,9 +54,9 @@ const Widget = ({ type }) => {
     case "earning":
       data = {
         title: "EARNINGS",
-        query:"earnings",
+        query:"orders",
         isMoney: true,
-        link: <Link to="earnings" className="link">View net earnings</Link>,
+        link: <Link to="stats" className="link">View net earnings</Link>,
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -104,21 +105,24 @@ const Widget = ({ type }) => {
       const lastMonthData = await getDocs(lastMonthQuery);
       const prevMonthData = await getDocs(prevMonthQuery);
 
+  
+
       setAmount(lastMonthData.docs.length);
       setDiff(
-        ((lastMonthData.docs.length - prevMonthData.docs.length) / prevMonthData.docs.length) *
+        ((lastMonthData.docs.length - prevMonthData.docs.length) / prevMonthData.docs.length).toFixed(3) *
           100
       );
     };
     fetchData();
   }, []);
 
+
   return (
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {data.isMoney && "$"} {total ? total : amount}
         </span>
         <span className="link">{data.link}</span>
       </div>

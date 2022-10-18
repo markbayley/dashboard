@@ -16,9 +16,12 @@ import { categoryList, countryList, paymentList, statusList } from "./constants"
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Usertable = ({ col }) => {
-  const [data, setData] = useState([]);
 
+  const [data, setData] = useState([]);
+  console.log(data, 'Usertable')
+ //Get row data for users/products/columns for table component
   useEffect(() => {
+    const fetchData = async() => {
     const unsub = onSnapshot(
       collection(db, col),
       (snapShot) => {
@@ -37,6 +40,8 @@ const Usertable = ({ col }) => {
     return () => {
       unsub();
     };
+  }
+  fetchData()
   }, []);
 
   const handleDelete = async (id) => {
@@ -50,18 +55,18 @@ const Usertable = ({ col }) => {
 
   const [searchInput, setSearchInput] = useState("");
 
-  const [category, setCategory] = useState(null);
-  const [status, setStatus] = useState(null);
+  const [category, setCategory] = useState('');
+  const [status, setStatus] = useState('');
 
-  const [price, setPrice] = useState(null);
-  const [units, setUnits] = useState(null);
+  const [price, setPrice] = useState('');
+  const [units, setUnits] = useState('');
 
-  const [country, setCountry] = useState(null);
-  const [displayName, setName] = useState(null);
+  const [country, setCountry] = useState('');
+  const [displayName, setName] = useState('');
 
-  const [payment, setPayment] = useState(null);
-  const [customer, setCustomer] = useState(null);
-  const [amount, setAmount] = useState(null);
+  const [payment, setPayment] = useState('');
+  const [customer, setCustomer] = useState('');
+  const [amount, setAmount] = useState('');
 
   const [updatedData, setupdatedData] = useState(data);
   const [resultsFound, setResultsFound] = useState(true);
@@ -227,8 +232,8 @@ const Usertable = ({ col }) => {
 
                   <Undo
                     onClick={handleUndo}
-                    className="link"
-                    style={{ fontSize: "22px" }}
+                    className="link undo"
+                    style={{ fontSize: "20px" }}
                   />
                 </span>
               </div>
@@ -247,7 +252,7 @@ const Usertable = ({ col }) => {
                   >
                     <option default>Category</option>
                     {categoryList.map(({ label, id, value }) => (
-                      <option id={id} value={value}>
+                      <option key={id} value={value}>
                         {label}
                       </option>
                     ))}
@@ -261,28 +266,28 @@ const Usertable = ({ col }) => {
                     <option default>Status</option>
 
                     {statusList.map(({ label, id, value }) => (
-                      <option id={id} value={value}>
+                      <option key={id} value={value}>
                         {label}
                       </option>
                     ))}
                   </select>
 
                   <select value={price} onChange={handlePrice} className="link">
-                    <option default>Price</option>
-                    <option value="Ascending">Lowest</option>
-                    <option value="Descending">Highest</option>
+                    <option key={1} default>Price</option>
+                    <option key={2} value="Ascending">Lowest</option>
+                    <option key={3}value="Descending">Highest</option>
                   </select>
 
                   <select value={units} onChange={handleUnits} className="link">
-                    <option default>Units</option>
-                    <option value="Lowest">Lowest</option>
-                    <option value="Highest">Highest</option>
+                    <option key={1} default>Units</option>
+                    <option key={2} value="Lowest">Lowest</option>
+                    <option key={3} value="Highest">Highest</option>
                   </select>
 
                   <Undo
                     onClick={handleUndo}
-                    className="link"
-                    style={{ fontSize: "22px" }}
+                    className="link undo"
+                    style={{ fontSize: "20px" }}
                   />
                 </span>
               </div>
@@ -302,28 +307,28 @@ const Usertable = ({ col }) => {
                   <option default>Payment</option>
 
                   {paymentList.map(({ label, id, value }) => (
-                    <option id={id} value={value}>
+                    <option key={id} value={value}>
                       {label}
                     </option>
                   ))}
                 </select>
 
                 <select value={customer} onChange={handleCustomer} className="link">
-                  <option default>Customer</option>
-                  <option value="Ascending">A-Z</option>
-                  <option value="Descending">Z-A</option>
+                  <option key={1} default>Customer</option>
+                  <option key={2} value="Ascending">A-Z</option>
+                  <option key={3} value="Descending">Z-A</option>
                 </select>
 
                 <select value={amount} onChange={handleAmount} className="link">
-                  <option default>Amount</option>
-                  <option value="Lowest">Lowest</option>
-                  <option value="Highest">Highest</option>
+                  <option key={1} default>Amount</option>
+                  <option key={2} value="Lowest">Lowest</option>
+                  <option key={3} value="Highest">Highest</option>
                 </select>
 
                 <Undo
                   onClick={handleUndo}
-                  className="link"
-                  style={{ fontSize: "22px" }}
+                  className="link undo"
+                  style={{ fontSize: "20px" }}
                 />
               </span>
             </div>

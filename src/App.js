@@ -1,15 +1,17 @@
+import "./style/dark.scss";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
+import Stats from "./pages/stats/Stats";
+import Navbar from "./components/navbar/Navbar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs, orderInputs, profileInputs, statsInputs } from "./formSource";
-import "./style/dark.scss";
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
-import Stats from "./pages/stats/Stats";
+
 
 function App() {
 
@@ -23,15 +25,21 @@ function App() {
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
+ 
       <BrowserRouter>
+      <Fragment>
+  <Navbar />
+ </Fragment>
         <Routes>
+  
           <Route path="/">
+
             <Route path="login" element={<Login />} />
             <Route
               index
               element={
                 <RequireAuth>
-                  <Home col=""/>
+                  <Home col="" key="0" title="Dashboard"/>
                 </RequireAuth>
               }
             />
@@ -41,7 +49,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <List col="users" key="1" />
+                    <List col="users" key="1" title="Users"/>
                   </RequireAuth>
                 }
               />
@@ -57,7 +65,7 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                    <New inputs={userInputs} title="Add New User" col="users" />
+                    <New col="users" inputs={userInputs} title="Add New User" />
                   </RequireAuth>
                 }
               />
@@ -68,7 +76,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <List col="products" key="2" />
+                    <List col="products" key="2" title="Products"/>
                   </RequireAuth>
                 }
               />
@@ -103,7 +111,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <List col="orders" key="3" />
+                    <List col="orders" key="3" title="Orders"/>
                   </RequireAuth>
                 }
               />
@@ -138,7 +146,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <List col="deliveries" key="4" />
+                    <List col="deliveries" key="4" title="Deliveries"/>
                   </RequireAuth>
                 }
               />
@@ -168,32 +176,24 @@ function App() {
               />
             </Route>
 
-            <Route path="stats">
-              <Route
+              <Route path="stats"
                 index
                 element={
                   <RequireAuth>
-                    <Stats col="stats" key="5"  inputs={statsInputs} />
+                    <Stats col="stats" key="5" inputs={statsInputs} title="Stats"/>
                   </RequireAuth>
                 }
               />
              
-             
-            </Route>
-            
-            <Route path="profile">
-              <Route
+              <Route path="profile"
                 index
                 element={
                   <RequireAuth>
-                    {/* <List col="profile" key="6" /> */}
-                    <Single col="users" inputs={profileInputs} title="My Profile" key="6" uid={currentUser.uid}/>
+                    <Single col="users" inputs={profileInputs}  key="6" uid={currentUser.uid} title="My Profile" />
                   </RequireAuth>
                 }
               />
-            
-            </Route>
-         
+        
           </Route>
         </Routes>
       </BrowserRouter>

@@ -61,8 +61,8 @@ const New = ({ inputs, title, col }) => {
       );
     };
     file && uploadFile();
-  }, [file]);
-
+  }, []);
+//file
 
 
   const handleInput = (e) => {
@@ -95,7 +95,7 @@ const New = ({ inputs, title, col }) => {
     <div className="new">
       <Sidebar />
       <div className="newContainer">
-        <Navbar />
+    
         <div className="datatableTitle">
                 {col === "users"
                   ? "Add User"

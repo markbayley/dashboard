@@ -17,16 +17,11 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 
 const Sidebar = () => {
-  const { dispatch } = useContext(DarkModeContext);
+
 
   return (
     <div className="sidebar">
-      <div className="top">
-        <Link to="/login" style={{ textDecoration: "none" }}>
-          <span className="logo">marcbalieu</span>
-        </Link>
-      </div>
-      <hr />
+ 
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
@@ -106,7 +101,7 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <div className="bottom">
+      {/* <div className="bottom">
         <div
           className="colorOption"
           onClick={() => dispatch({ type: "LIGHT" })}
@@ -115,7 +110,7 @@ const Sidebar = () => {
           className="colorOption"
           onClick={() => dispatch({ type: "DARK" })}
         ></div>
-      </div>
+      </div> */}
     </div>
   );
 };

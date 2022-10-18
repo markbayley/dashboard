@@ -36,21 +36,16 @@ const Single = ({ inputs, title, col, uid }) => {
 
   const params = useParams();
 
-
-  const [data, setData] = useState({});
-
-  const image = data.img;
-  const [file, setFile] = useState(image);
-
-  const [per, setPerc] = useState(null);
   const navigate = useNavigate();
 
   const [editing, setEditing] = useState(false);
 
-  const [main, setMain] = useState(data.img);
-
-
-  useEffect(async () => {
+ 
+  const [data, setData] = useState({});
+  console.log(data, 'Single-data')
+  //Get users/products/orders data for single component
+  useEffect(() => {
+    const fetchData = async() => {
     const docRef = doc(db, col, params?.Id || uid );
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -60,13 +55,21 @@ const Single = ({ inputs, title, col, uid }) => {
     } else {
       console.log("No such document!");
     }
+    }
+  fetchData()
   }, []);
 
+
+  const [main, setMain] = useState(data.img);
+  const image = data.img;
+  const [file, setFile] = useState(image);
+  const [per, setPerc] = useState(null);
+ //Upload image for users/products/orders for single component
   useEffect(() => {
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
 
-      const storageRef = ref(storage, file.name);
+      const storageRef = ref(storage, name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
@@ -100,14 +103,14 @@ const Single = ({ inputs, title, col, uid }) => {
       );
     };
     main && uploadFile();
-  }, [file, main]);
+  }, []);
+//file, main
 
   const [transactions, setTransactions] = useState([]);
-
-
-
-
+  console.log(transactions, 'Single-transactions')
+  //Get transactions data for users/products/orders single component chart
   useEffect(() => {
+    const fetchData = () => {
     const unsub = onSnapshot(
       collection(db, "orders"),
       (snapShot) => {
@@ -139,8 +142,10 @@ const Single = ({ inputs, title, col, uid }) => {
     return () => {
       unsub();
     };
+  }
+  fetchData()
   }, [data]);
-
+//data
 
 
 
@@ -204,7 +209,7 @@ const Single = ({ inputs, title, col, uid }) => {
       <div className="single">
         <Sidebar />
         <div className="singleContainer">
-          <Navbar />
+       
        
           {!editing ? (
             <>
@@ -319,19 +324,16 @@ const Single = ({ inputs, title, col, uid }) => {
                   />
                 </div>
                 <div className="right">
-                  <Chart col={col} displayName={data.displayName} title={data.title} product={data.product}
-                    aspect={2.5 / 1}
-                    charttitle={ col === "users"
-                    ?  "Purchases (6 Months) - " + data.displayName
-                    : col === "products"
-                    ? "Sales (6 Months) - " + data.title
-                    : col === "orders"
-                    ? "Orders (6 Months) - " + data.product
-                    : col === "profile"
-                    ? "Employee Earnings (Monthly) - " + data.displayName
-          
-                    : "Delivery"}
+                  <Chart 
+                       charttitle="Latest Transactions"
+                       aspect={2.5 / 1}
+                       data={transactions}
+                       datakeyX="date"
+                       datakeyY="total"
+                       datakeyBar="total"
+                       className="revenue"
                   />
+              
                 </div>
               </div>
             </>

@@ -16,7 +16,10 @@
   //   color: #7451f8;
   //  }
 
+  // div.search.link {
+  //   padding: 0px 5px 2px 5px;
   
+  // }
 
 
 
@@ -29,11 +32,13 @@
     align-items: center;
     justify-content: space-between;
 
+ 
+
     .search {
       display: flex;
       align-items: center;
       border: 0.5px solid lightgray;
-      padding: 3px;
+      padding: 3px !important;
   
       input {
         border: none;
@@ -42,7 +47,7 @@
   
         &::placeholder {
           color: #7451f8;
-          font-size: 16px;
+          font-size: 14px;
         }
       }
     }
@@ -50,17 +55,17 @@
     .link{
       text-decoration: none;
       color: #7451f8;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 400;
       border: 1px solid #7451f8;
-      padding: 3px 5px;
+      padding: 5px 5px;
       margin-left: 10px;
       border-radius: 5px;
       cursor: pointer;
       .icon {
-        font-size: 17px;
+        font-size: 13px;
         color: #7451f8;
-        padding: 0px 5px;
+        padding: 0px 3px;
       }
     }
   }
