@@ -41,24 +41,7 @@ export const statusList = [
   ];
 
 
-  export const deliveryList = [
-    {
-      id: 1,
-      value: "processing",
-      label: "Processing",
-    },
-    {
-      id: 2,
-      value: "in transit",
-      label: "Shipped",
-    },
-    {
-      id: 3,
-      value: "delivered",
-      label: "Delivered",
-    },
  
-  ];
 
   export const paymentList = [
     {
@@ -75,6 +58,26 @@ export const statusList = [
       id: 3,
       value: "MasterCard",
       label: "MasterCard",
+    },
+ 
+  ];
+
+
+  export const deliveryList = [
+    {
+      id: 1,
+      value: "Pending",
+      label: "Pending",
+    },
+    {
+      id: 2,
+      value: "Shipped",
+      label: "Shipped",
+    },
+    {
+      id: 3,
+      value: "Delivered",
+      label: "Delivered",
     },
  
   ];

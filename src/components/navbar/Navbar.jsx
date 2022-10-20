@@ -17,27 +17,23 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
-
   const { currentUser } = useContext(AuthContext);
 
   const [ data, setData ] = useState([])
   //Get the current users' data
-  console.log(data, 'data-nav')
   useEffect(() => {
     const fetchData = async() => {
-    const docRef = doc(db, "users", currentUser.uid );
+      const docRef = doc(db, "users", currentUser.uid );
     const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-   
-      setData(docSnap.data());
 
+    if (docSnap.exists()) {
+      setData(docSnap.data());
     } else {
       console.log("No such document!");
     }
     }
     fetchData()
   }, []);
-
 
 
 

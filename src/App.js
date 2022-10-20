@@ -7,14 +7,21 @@ import New from "./pages/new/New";
 import Stats from "./pages/stats/Stats";
 import Navbar from "./components/navbar/Navbar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs, orderInputs, profileInputs, statsInputs } from "./formSource";
-import { Fragment, useContext } from "react";
+import {
+  productInputs,
+  userInputs,
+  orderInputs,
+  profileInputs,
+  statsInputs,
+} from "./formSource";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
-
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase";
+import Sidebar from "./components/sidebar/Sidebar";
 
 function App() {
-
   const { darkMode } = useContext(DarkModeContext);
 
   const { currentUser } = useContext(AuthContext);
@@ -25,21 +32,20 @@ function App() {
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
- 
       <BrowserRouter>
-      <Fragment>
-  <Navbar />
- </Fragment>
-        <Routes>
+        <Fragment>
+          <Navbar />
+      
+        </Fragment>
   
+        <Routes>
           <Route path="/">
-
             <Route path="login" element={<Login />} />
             <Route
               index
               element={
                 <RequireAuth>
-                  <Home col="" key="0" title="Dashboard"/>
+                  <Home col="" key="0" title="Dashboard" />
                 </RequireAuth>
               }
             />
@@ -49,7 +55,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <List col="users" key="1" title="Users"/>
+                    <List col="users" key="1" title="Users" />
                   </RequireAuth>
                 }
               />
@@ -76,7 +82,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <List col="products" key="2" title="Products"/>
+                    <List col="products" key="2" title="Products" />
                   </RequireAuth>
                 }
               />
@@ -111,7 +117,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <List col="orders" key="3" title="Orders"/>
+                    <List col="orders" key="3" title="Orders" />
                   </RequireAuth>
                 }
               />
@@ -146,7 +152,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <List col="deliveries" key="4" title="Deliveries"/>
+                    <List col="deliveries" key="4" title="Deliveries" />
                   </RequireAuth>
                 }
               />
@@ -176,24 +182,36 @@ function App() {
               />
             </Route>
 
-              <Route path="stats"
-                index
-                element={
-                  <RequireAuth>
-                    <Stats col="stats" key="5" inputs={statsInputs} title="Stats"/>
-                  </RequireAuth>
-                }
-              />
-             
-              <Route path="profile"
-                index
-                element={
-                  <RequireAuth>
-                    <Single col="users" inputs={profileInputs}  key="6" uid={currentUser.uid} title="My Profile" />
-                  </RequireAuth>
-                }
-              />
-        
+            <Route
+              path="stats"
+              index
+              element={
+                <RequireAuth>
+                  <Stats
+                    col="stats"
+                    key="5"
+                    inputs={statsInputs}
+                    title="Stats"
+                  />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="profile"
+              index
+              element={
+                <RequireAuth>
+                  <Single
+                    col="users"
+                    inputs={profileInputs}
+                    key="6"
+                    uid={currentUser.uid}
+                    title="My Profile"
+                  />
+                </RequireAuth>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

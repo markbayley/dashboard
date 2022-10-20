@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const Widget = ({ type, total }) => {
   const [amount, setAmount] = useState(null);
   const [diff, setDiff] = useState(null);
-  console.log(amount, diff, 'widget-amount, diff')
+
   let data;
 
   switch (type) {

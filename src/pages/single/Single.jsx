@@ -34,18 +34,30 @@ function CircularIndeterminate() {
 
 const Single = ({ inputs, title, col, uid }) => {
 
-  const params = useParams();
-
-  const navigate = useNavigate();
 
   const [editing, setEditing] = useState(false);
+  const params = useParams();
+  console.log(col, "col");
 
- 
+  const [file, setFile] = useState("");
+  console.log(file, "file-single");
+  const [file2, setFile2] = useState("");
+  console.log(file2, "file-single2");
+  const [file3, setFile3] = useState("");
+  console.log(file2, "file-single2");
+
   const [data, setData] = useState({});
-  console.log(data, 'Single-data')
-  //Get users/products/orders data for single component
-  useEffect(() => {
-    const fetchData = async() => {
+  console.log(data, "data-single");
+  const [per, setPerc] = useState(null);
+  const navigate = useNavigate();
+
+  const [main, setMain] = useState(data.img);
+  console.log(main, 'main-single')
+
+  
+
+  useEffect(async () => {
+
     const docRef = doc(db, col, params?.Id || uid );
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -55,21 +67,13 @@ const Single = ({ inputs, title, col, uid }) => {
     } else {
       console.log("No such document!");
     }
-    }
-  fetchData()
   }, []);
 
-
-  const [main, setMain] = useState(data.img);
-  const image = data.img;
-  const [file, setFile] = useState(image);
-  const [per, setPerc] = useState(null);
- //Upload image for users/products/orders for single component
   useEffect(() => {
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
 
-      const storageRef = ref(storage, name);
+      const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
@@ -95,22 +99,28 @@ const Single = ({ inputs, title, col, uid }) => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            if ( !data.img ) {
             setData((prev) => ({ ...prev, img: downloadURL }));
-
+            }
+            if ( !data.img2 ) {
+            setData((prev) => ({ ...prev, img2: downloadURL }));
+            }
+            else {
+              setData((prev) => ({ ...prev, img3: downloadURL }));
+            }
         
           });
         }
       );
     };
-    main && uploadFile();
-  }, []);
-//file, main
+    file && uploadFile();
+  }, [file]);
+
+
 
   const [transactions, setTransactions] = useState([]);
-  console.log(transactions, 'Single-transactions')
-  //Get transactions data for users/products/orders single component chart
+
   useEffect(() => {
-    const fetchData = () => {
     const unsub = onSnapshot(
       collection(db, "orders"),
       (snapShot) => {
@@ -142,10 +152,7 @@ const Single = ({ inputs, title, col, uid }) => {
     return () => {
       unsub();
     };
-  }
-  fetchData()
   }, [data]);
-//data
 
 
 
@@ -243,15 +250,16 @@ const Single = ({ inputs, title, col, uid }) => {
                     <h1 className="title">Product</h1>
                   )}
                   <div className="item">
-                    <img
-                      src={
-                        main
-                          ? main
-                          : data.img
-                      }
-                      alt="image upload"
-                      className="itemImg"
-                    />
+                    {/* Not editing */}
+                  <img
+              src={
+                main
+                  ?  main
+                  : data.img
+              }
+              alt=""
+              className="itemImg"
+            />
                     {col === "profile" || col === "users" ? (
                       <div className="details">
                         <h2 className="itemTitle">{data.displayName}</h2>
@@ -283,10 +291,9 @@ const Single = ({ inputs, title, col, uid }) => {
                           <span className="itemKey">Amount:</span>
                           <span className="itemValue">${data.amount}</span>
                         </div>
-
                         <div className="detailItem">
-                          <span className="itemKey">Date:</span>
-                          <span className="itemValue">{data.date}</span>
+                          <span className="itemKey">Delivery:</span>
+                          <span className="itemValue">{data.status}</span>
                         </div>
                       </div>
                     ) : (
@@ -304,20 +311,21 @@ const Single = ({ inputs, title, col, uid }) => {
                     )}
                   </div>
                   <br />
+                      {/* Not editing */}
                   <img
-                    src={data.img}
+                    src={  data.img ? data.img  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
                     alt="small image"
                     className="smallImg"
                     onClick={(e) => setMain(e.target.src)}
                   />
                   <img
-                    src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                    src={data.img2 ? data.img2  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
                     alt="small image"
                     className="smallImg"
                     onClick={(e) => setMain(e.target.src)}
                   />
                   <img
-                    src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                     src={data.img3 ? data.img3  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
                     alt="small image"
                     className="smallImg"
                     onClick={(e) => setMain(e.target.src)}
@@ -338,6 +346,7 @@ const Single = ({ inputs, title, col, uid }) => {
               </div>
             </>
           ) : (
+            //Editing
             <div className="new">
               <div className="newContainer">
                 <div className="datatableTitle">
@@ -362,17 +371,11 @@ const Single = ({ inputs, title, col, uid }) => {
                   <div className="left">
                     <h3>{data.displayName}</h3>
                     <br />
+                        {/* editing */}
                     <img
-                      src={
-                        file ? (
-                          URL.createObjectURL(file)
-                        ) : data.img ? (
-                          data.img
-                        ) : (
-                          <CircularIndeterminate />
-                        )
-                      }
-                      alt="avatar"
+                      src={ main ? main : data.img }
+                      alt=""
+                      className="itemImg"
                     />
                   </div>
 
@@ -413,6 +416,20 @@ const Single = ({ inputs, title, col, uid }) => {
                                 ? data.category
                                 : input.placeholder === "sold"
                                 ? data.sold
+                                : input.placeholder === "product"
+                                ? data.product
+                                : input.placeholder === "customer"
+                                ? data.customer
+                                : input.placeholder === "payment"
+                                ? data.payment
+                                : input.placeholder === "date"
+                                ? data.date
+                                : input.placeholder === "amount"
+                                ? data.amount
+                                : input.placeholder === "total"
+                                ? data.total
+                                : input.placeholder === "delivery"
+                                ? data.status
                                 : "not recorded"
                             }
                             onChange={handleInput}
@@ -421,33 +438,41 @@ const Single = ({ inputs, title, col, uid }) => {
                       ))}
                       <div className="formInput">
                         <label htmlFor="file">
+                              {/*  editing */}
                           Images:{" "}
                           <DriveFolderUploadOutlinedIcon className="icon" />
+                        </label>
+                        <input
+                          type="file"
+                          id="file"
+                          onChange={(e) => { setFile(e.target.files[0]) }}
+                          style={{ display: "none" }}
+                        />
+
+
+                        <br />
                           <img
-                          src={data.img}
+                          src={ data.img ? data.img : file ? URL.createObjectURL(file)  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
                           alt="small"
                           className="smallImg"
                           onClick={(e) => setMain(e.target.src)}
                         />
                           <img
-                          src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          src={ data.img2 ? data.img2 : file2 ? URL.createObjectURL(file2) : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
                           alt="small"
                           className="smallImg"
                           onClick={(e) => setMain(e.target.src)}
                         />
                               <img
-                          src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          src={ data.img3 ? data.img3 : file3 ? URL.createObjectURL(file3) : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
                           alt="small"
                           className="smallImg"
                           onClick={(e) => setMain(e.target.src)}
                         />
-                        </label>
-                        <input
-                          type="file"
-                          id="file"
-                          onChange={(e) => setFile(e.target.files[0])}
-                          style={{ display: "none" }}
-                        />
+
+               
+
+                
               
                   
                       </div>
