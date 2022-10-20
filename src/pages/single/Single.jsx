@@ -33,8 +33,6 @@ function CircularIndeterminate() {
 }
 
 const Single = ({ inputs, title, col, uid }) => {
-
-
   const [editing, setEditing] = useState(false);
   const params = useParams();
   console.log(col, "col");
@@ -52,18 +50,13 @@ const Single = ({ inputs, title, col, uid }) => {
   const navigate = useNavigate();
 
   const [main, setMain] = useState(data.img);
-  console.log(main, 'main-single')
-
-  
+  console.log(main, "main-single");
 
   useEffect(async () => {
-
-    const docRef = doc(db, col, params?.Id || uid );
+    const docRef = doc(db, col, params?.Id || uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-   
       setData(docSnap.data());
-
     } else {
       console.log("No such document!");
     }
@@ -99,24 +92,20 @@ const Single = ({ inputs, title, col, uid }) => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            if ( !data.img ) {
-            setData((prev) => ({ ...prev, img: downloadURL }));
+            if (!data.img) {
+              setData((prev) => ({ ...prev, img: downloadURL }));
             }
-            if ( !data.img2 ) {
-            setData((prev) => ({ ...prev, img2: downloadURL }));
-            }
-            else {
+            if (!data.img2) {
+              setData((prev) => ({ ...prev, img2: downloadURL }));
+            } else {
               setData((prev) => ({ ...prev, img3: downloadURL }));
             }
-        
           });
         }
       );
     };
     file && uploadFile();
   }, [file]);
-
-
 
   const [transactions, setTransactions] = useState([]);
 
@@ -153,8 +142,6 @@ const Single = ({ inputs, title, col, uid }) => {
       unsub();
     };
   }, [data]);
-
-
 
   const handleInput = (e) => {
     const id = e.target.id;
@@ -216,8 +203,6 @@ const Single = ({ inputs, title, col, uid }) => {
       <div className="single">
         <Sidebar />
         <div className="singleContainer">
-       
-       
           {!editing ? (
             <>
               <div className="datatableTitle">
@@ -231,18 +216,18 @@ const Single = ({ inputs, title, col, uid }) => {
                   ? "Profile Detail"
                   : "Delivery"}
 
-             
-                  <SubdirectoryArrowLeftIcon
-                    className="link icon"
-                    style={{ fontSize: "22px" }}
-                    onClick={() => navigate(-1)}
-                  />
- 
+                <SubdirectoryArrowLeftIcon
+                  className="link icon"
+                  style={{ fontSize: "22px" }}
+                  onClick={() => navigate(-1)}
+                />
               </div>
               <div className="top">
                 <div className="left">
                   <div className="editButton">
-                    <div onClick={() => setEditing(true)}><Edit className="icon"/></div>
+                    <div onClick={() => setEditing(true)}>
+                      <Edit className="icon" />
+                    </div>
                   </div>
                   {col === "users" || col === "profile" ? (
                     <h1 className="title">Profile</h1>
@@ -251,15 +236,11 @@ const Single = ({ inputs, title, col, uid }) => {
                   )}
                   <div className="item">
                     {/* Not editing */}
-                  <img
-              src={
-                main
-                  ?  main
-                  : data.img
-              }
-              alt=""
-              className="itemImg"
-            />
+                    <img
+                      src={main ? main : data.img}
+                      alt=""
+                      className="itemImg"
+                    />
                     {col === "profile" || col === "users" ? (
                       <div className="details">
                         <h2 className="itemTitle">{data.displayName}</h2>
@@ -311,37 +292,48 @@ const Single = ({ inputs, title, col, uid }) => {
                     )}
                   </div>
                   <br />
-                      {/* Not editing */}
+                  {/* Not editing */}
                   <img
-                    src={  data.img ? data.img  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
+                    src={
+                      data.img
+                        ? data.img
+                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                    }
                     alt="small image"
                     className="smallImg"
                     onClick={(e) => setMain(e.target.src)}
                   />
                   <img
-                    src={data.img2 ? data.img2  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
+                    src={
+                      data.img2
+                        ? data.img2
+                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                    }
                     alt="small image"
                     className="smallImg"
                     onClick={(e) => setMain(e.target.src)}
                   />
                   <img
-                     src={data.img3 ? data.img3  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
+                    src={
+                      data.img3
+                        ? data.img3
+                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                    }
                     alt="small image"
                     className="smallImg"
                     onClick={(e) => setMain(e.target.src)}
                   />
                 </div>
                 <div className="right">
-                  <Chart 
-                       charttitle="Latest Transactions"
-                       aspect={2.5 / 1}
-                       data={transactions}
-                       datakeyX="date"
-                       datakeyY="total"
-                       datakeyBar="total"
-                       className="revenue"
+                  <Chart
+                    charttitle="Latest Transactions"
+                    aspect={2.5 / 1}
+                    data={transactions}
+                    datakeyX="date"
+                    datakeyY="total"
+                    datakeyBar="total"
+                    className="revenue"
                   />
-              
                 </div>
               </div>
             </>
@@ -371,9 +363,9 @@ const Single = ({ inputs, title, col, uid }) => {
                   <div className="left">
                     <h3>{data.displayName}</h3>
                     <br />
-                        {/* editing */}
+                    {/* editing */}
                     <img
-                      src={ main ? main : data.img }
+                      src={main ? main : data.img}
                       alt=""
                       className="itemImg"
                     />
@@ -438,43 +430,57 @@ const Single = ({ inputs, title, col, uid }) => {
                       ))}
                       <div className="formInput">
                         <label htmlFor="file">
-                              {/*  editing */}
-                          Images:{" "}
+                          {/*  editing */}
+                          Upload Images:{" "}
                           <DriveFolderUploadOutlinedIcon className="icon" />
-                        </label>
+                   
                         <input
                           type="file"
                           id="file"
-                          onChange={(e) => { setFile(e.target.files[0]) }}
+                          onChange={(e) => {
+                            setFile(e.target.files[0]);
+                          }}
                           style={{ display: "none" }}
                         />
 
-
                         <br />
-                          <img
-                          src={ data.img ? data.img : file ? URL.createObjectURL(file)  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
+                        <img
+                          src={
+                            data.img
+                              ? data.img
+                              : file
+                              ? URL.createObjectURL(file)
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
                           alt="small"
                           className="smallImg"
                           onClick={(e) => setMain(e.target.src)}
                         />
-                          <img
-                          src={ data.img2 ? data.img2 : file2 ? URL.createObjectURL(file2) : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
+                        <img
+                          src={
+                            data.img2
+                              ? data.img2
+                              : file2
+                              ? URL.createObjectURL(file2)
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
                           alt="small"
                           className="smallImg"
                           onClick={(e) => setMain(e.target.src)}
                         />
-                              <img
-                          src={ data.img3 ? data.img3 : file3 ? URL.createObjectURL(file3) : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" }
+                        <img
+                          src={
+                            data.img3
+                              ? data.img3
+                              : file3
+                              ? URL.createObjectURL(file3)
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
                           alt="small"
                           className="smallImg"
                           onClick={(e) => setMain(e.target.src)}
                         />
-
-               
-
-                
-              
-                  
+                             </label>
                       </div>
                       <button
                         disabled={per !== null && per < 100}
@@ -490,26 +496,28 @@ const Single = ({ inputs, title, col, uid }) => {
           )}
 
           <div className="datatable">
-            <div className="listTitle">Latest Transactions -  {col === "users"
-                    ? data.displayName
-                    : col === "products"
-                    ? data.title
-                    : col === "orders"
-                    ? data.product
-                    : col === "profile"
-                    ? data.displayName
-                    : ""}
-</div>
-          {col !== "profile" && 
-            <DataGrid
-              className="datagrid"
-              rows={transactions}
-              columns={orderColumns.concat(actionColumn)}
-              pageSize={9}
-              rowsPerPageOptions={[9]}
-              checkboxSelection
-            />
-          } 
+            <div className="listTitle">
+              Latest Transactions -{" "}
+              {col === "users"
+                ? data.displayName
+                : col === "products"
+                ? data.title
+                : col === "orders"
+                ? data.product
+                : col === "profile"
+                ? data.displayName
+                : ""}
+            </div>
+            {col !== "profile" && (
+              <DataGrid
+                className="datagrid"
+                rows={transactions}
+                columns={orderColumns.concat(actionColumn)}
+                pageSize={9}
+                rowsPerPageOptions={[9]}
+                checkboxSelection
+              />
+            )}
           </div>
         </div>
       </div>

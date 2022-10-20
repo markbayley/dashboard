@@ -1,4 +1,10 @@
 export const userInputs = [
+  {
+    id: "displayName",
+    label: "Name",
+    type: "text",
+    placeholder: "name",
+  },
     {
       id: "username",
       label: "Username",
@@ -6,11 +12,12 @@ export const userInputs = [
       placeholder: "username",
     },
     {
-      id: "displayName",
-      label: "Name",
+      id: "country",
+      label: "Country",
       type: "text",
-      placeholder: "name",
+      placeholder: "country",
     },
+
     {
       id: "email",
       label: "Email",
@@ -35,26 +42,21 @@ export const userInputs = [
       type: "text",
       placeholder: "address",
     },
-    {
-      id: "country",
-      label: "Country",
-      type: "text",
-      placeholder: "country",
-    },
+  
   ];
   
   export const productInputs = [
-    {
-      id: "description",
-      label: "Description",
-      type: "text",
-      placeholder: "description",
-    },
     {
       id: "title",
       label: "Title",
       type: "text",
       placeholder: "title",
+    },
+    {
+      id: "status",
+      label: "Status",
+      type: "text",
+      placeholder: "status",
     },
   
     {
@@ -64,16 +66,16 @@ export const userInputs = [
       placeholder: "category",
     },
     {
-      id: "price",
-      label: "Price",
-      type: "text",
-      placeholder: "price",
-    },
-    {
       id: "units",
       label: "Units",
       type: "text",
       placeholder: "units",
+    },
+    {
+      id: "price",
+      label: "Price",
+      type: "text",
+      placeholder: "price",
     },
     {
       id: "sold",
@@ -81,12 +83,15 @@ export const userInputs = [
       type: "text",
       placeholder: "sold",
     },
+ 
     {
-      id: "status",
-      label: "Status",
+      id: "description",
+      label: "Description",
       type: "text",
-      placeholder: "status",
+      placeholder: "description",
     },
+ 
+ 
   ];
 
   export const orderInputs = [
@@ -96,17 +101,18 @@ export const userInputs = [
       type: "text",
       placeholder: "product",
     },
-    {
-      id: "customer",
-      label: "Customer",
-      type: "text",
-      placeholder: "customer",
-    },
+
     {
       id: "date",
       label: "Date",
       type: "text",
       placeholder: "date",
+    },
+    {
+      id: "customer",
+      label: "Customer",
+      type: "text",
+      placeholder: "customer",
     },
     {
       id: "amount",

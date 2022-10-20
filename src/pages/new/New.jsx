@@ -14,6 +14,11 @@ const New = ({ inputs, title, col }) => {
   console.log(col, "col");
   const [file, setFile] = useState("");
   console.log(file, "file-new");
+  const [file2, setFile2] = useState("");
+  console.log(file2, "file-new2");
+  const [file3, setFile3] = useState("");
+  console.log(file2, "file-new2");
+
   const [data, setData] = useState({});
   console.log(data, "data-new");
   const [per, setPerc] = useState(null);
@@ -51,7 +56,14 @@ const New = ({ inputs, title, col }) => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setData((prev) => ({ ...prev, img: downloadURL }));
+            if (!data.img) {
+              setData((prev) => ({ ...prev, img: downloadURL }));
+            }
+            if (!data.img2) {
+              setData((prev) => ({ ...prev, img2: downloadURL }));
+            } else {
+              setData((prev) => ({ ...prev, img3: downloadURL }));
+            }
           });
         }
       );
@@ -134,38 +146,7 @@ const New = ({ inputs, title, col }) => {
 
           <div className="right">
             <form onSubmit={handleAdd}>
-              <div className="formInput">
-                <label htmlFor="file">
-                  Images: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <br />
-                <img
-                  src={file ? URL.createObjectURL(file)  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"}
-                  alt="small image"
-                  className="smallImg"
-                  onClick={(e) => setMain(e.target.src)}
-                />
-                <img
-                  src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                  alt="small image"
-                  className="smallImg"
-                  onClick={(e) => setMain(e.target.src)}
-                />
-                <img
-                  src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                  alt="small image"
-                  className="smallImg"
-                  onClick={(e) => setMain(e.target.src)}
-                />
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
-              </div>
-
-              {inputs.map((input) => (
+            {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
                   <input
@@ -176,6 +157,58 @@ const New = ({ inputs, title, col }) => {
                   />
                 </div>
               ))}
+              <div className="formInput">
+                
+                <label htmlFor="file">
+                  Images: <DriveFolderUploadOutlinedIcon className="icon" />
+               
+                <br />
+                <img
+                  src={
+                    data.img
+                      ? data.img
+                      : file
+                      ? URL.createObjectURL(file)
+                      : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                  }
+                  alt="small image"
+                  className="smallImg"
+                  onClick={(e) => setMain(e.target.src)}
+                />
+                <img
+                   src={
+                    data.img2
+                      ? data.img2
+                      : file2
+                      ? URL.createObjectURL(file2)
+                      : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                  }
+                  alt="small image"
+                  className="smallImg"
+                  onClick={(e) => setMain(e.target.src)}
+                />
+                <img
+                  src={
+                    data.img3
+                      ? data.img3
+                      : file3
+                      ? URL.createObjectURL(file3)
+                      : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                  }
+                  alt="small image"
+                  className="smallImg"
+                  onClick={(e) => setMain(e.target.src)}
+                />
+                <input
+                  type="file"
+                  id="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  style={{ display: "none" }}
+                />
+                 </label>
+              </div>
+
+          
 
               <button disabled={per !== null && per < 100} type="submit">
                 Save
