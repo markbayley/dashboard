@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   onSnapshot,
@@ -22,7 +23,7 @@ import Box from "@mui/material/Box";
 import Chart from "../../components/chart/Chart";
 import { DataGrid } from "@mui/x-data-grid";
 import { orderColumns, productColumns } from "../../datatablesource";
-import { Edit } from "@mui/icons-material";
+import { DeleteForever, Edit } from "@mui/icons-material";
 
 function CircularIndeterminate() {
   return (
@@ -166,6 +167,15 @@ const Single = ({ inputs, title, col, uid }) => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, col, id));
+      setData(data.filter((item) => item.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const actionColumn = [
     {
       field: "action",
@@ -175,23 +185,20 @@ const Single = ({ inputs, title, col, uid }) => {
         return (
           <div className="cellAction">
             <Link
-              //  to={"/" + col + "/" + params.row.id}
-              style={{ textDecoration: "none" }}
-            >
-              <div className="updateButton">Edit</div>
-            </Link>
-            <div
-              className="deleteButton"
-              // onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
-            <Link
               to={"/" + col + "/" + params.row.id}
               style={{ textDecoration: "none" }}
             >
-              <div className="updateButton">View</div>
+              <div className="updateButton">
+                <Edit className="icon" />
+              </div>
             </Link>
+
+            <div
+              className="deleteButton"
+              onClick={() => handleDelete(params.row.id)}
+            >
+              <DeleteForever className="icon" />
+            </div>
           </div>
         );
       },
@@ -239,7 +246,7 @@ const Single = ({ inputs, title, col, uid }) => {
                     <img
                       src={main ? main : data.img}
                       alt=""
-                      className="itemImg"
+                      className={ col === "users" ? "itemImg" : "altImg" }
                     />
                     {col === "profile" || col === "users" ? (
                       <div className="details">
@@ -285,13 +292,22 @@ const Single = ({ inputs, title, col, uid }) => {
                           <span className="itemValue">{data.description}</span>
                         </div>
                         <div className="detailItem">
-                          <span className="itemKey">Price:</span>
-                          <span className="itemValue">${data.price}</span>
+                          <span className="itemKey">Category:</span>
+                          <span className="itemValue">{data.category}</span>
+                        </div>
+                   
+                     
+                        <div className="detailItem">
+                        <span className="itemKey">Price:</span>
+                          <span className="itemValue">${data.price}</span> &nbsp;&nbsp;&nbsp; 
+                          <span className="itemKey">Sales:</span>
+                          <span className="itemValue ">{transactions.length} &nbsp;&nbsp;&nbsp;  <span className="itemKey">Revenue:</span> ${transactions.length*data.price}</span>
                         </div>
                       </div>
                     )}
+                
                   </div>
-                  <br />
+                <br />
                   {/* Not editing */}
                   <img
                     src={
@@ -300,7 +316,7 @@ const Single = ({ inputs, title, col, uid }) => {
                         : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                     }
                     alt="small image"
-                    className="smallImg"
+                    className={ col === "users" ? "smallImg" : "smallAlt" }
                     onClick={(e) => setMain(e.target.src)}
                   />
                   <img
@@ -310,7 +326,7 @@ const Single = ({ inputs, title, col, uid }) => {
                         : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                     }
                     alt="small image"
-                    className="smallImg"
+                    className={ col === "users" ? "smallImg" : "smallAlt" }
                     onClick={(e) => setMain(e.target.src)}
                   />
                   <img
@@ -320,10 +336,14 @@ const Single = ({ inputs, title, col, uid }) => {
                         : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                     }
                     alt="small image"
-                    className="smallImg"
+                    className={ col === "users" ? "smallImg" : "smallAlt" }
                     onClick={(e) => setMain(e.target.src)}
                   />
+         
                 </div>
+                {/* <div className="mid">
+
+                </div> */}
                 <div className="right">
                   <Chart
                     charttitle="Latest Transactions"
@@ -334,6 +354,7 @@ const Single = ({ inputs, title, col, uid }) => {
                     datakeyBar="total"
                     className="revenue"
                   />
+           
                 </div>
               </div>
             </>
@@ -361,13 +382,13 @@ const Single = ({ inputs, title, col, uid }) => {
 
                 <div className="bottom">
                   <div className="left">
-                    <h3>{data.displayName}</h3>
+                    <h3>{data.displayName ? data.displayName : data.title ? data.title : data.product ? data.product : "Enter Details"}</h3>
                     <br />
                     {/* editing */}
                     <img
                       src={main ? main : data.img}
                       alt=""
-                      className="itemImg"
+                      className={ col === "users" ? "itemImg" : "altImg" }
                     />
                   </div>
 
@@ -453,7 +474,7 @@ const Single = ({ inputs, title, col, uid }) => {
                               : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                           }
                           alt="small"
-                          className="smallImg"
+                          className={ col === "users" ? "smallImg" : "smallAlt" }
                           onClick={(e) => setMain(e.target.src)}
                         />
                         <img
@@ -465,7 +486,7 @@ const Single = ({ inputs, title, col, uid }) => {
                               : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                           }
                           alt="small"
-                          className="smallImg"
+                          className={ col === "users" ? "smallImg" : "smallAlt" }
                           onClick={(e) => setMain(e.target.src)}
                         />
                         <img
@@ -477,7 +498,7 @@ const Single = ({ inputs, title, col, uid }) => {
                               : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                           }
                           alt="small"
-                          className="smallImg"
+                          className={ col === "users" ? "smallImg" : "smallAlt" }
                           onClick={(e) => setMain(e.target.src)}
                         />
                              </label>

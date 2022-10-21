@@ -58,7 +58,6 @@ export const userInputs = [
       type: "text",
       placeholder: "status",
     },
-  
     {
       id: "category",
       label: "Category",
@@ -143,47 +142,48 @@ export const userInputs = [
 
   export const profileInputs = [
     {
-      id: "username",
-      label: "Username",
-      type: "text",
-      placeholder: "username",
-    },
-    {
       id: "displayName",
       label: "Name",
       type: "text",
       placeholder: "name",
     },
-    {
-      id: "email",
-      label: "Email",
-      type: "mail",
-      placeholder: "email",
-    },
-    {
-      id: "phone",
-      label: "Phone",
-      type: "text",
-      placeholder: "phone",
-    },
-    {
-      id: "password",
-      label: "Password ",
-      type: "password",
-      placeholder: "password",
-    },
-    {
-      id: "address",
-      label: "Address",
-      type: "text",
-      placeholder: "address",
-    },
-    {
-      id: "country",
-      label: "Country",
-      type: "text",
-      placeholder: "country",
-    },
+      {
+        id: "username",
+        label: "Username",
+        type: "text",
+        placeholder: "username",
+      },
+      {
+        id: "country",
+        label: "Country",
+        type: "text",
+        placeholder: "country",
+      },
+  
+      {
+        id: "email",
+        label: "Email",
+        type: "mail",
+        placeholder: "email",
+      },
+      {
+        id: "phone",
+        label: "Phone",
+        type: "text",
+        placeholder: "phone",
+      },
+      {
+        id: "password",
+        label: "Password ",
+        type: "password",
+        placeholder: "password",
+      },
+      {
+        id: "address",
+        label: "Address",
+        type: "text",
+        placeholder: "address",
+      },
   ];
 
 

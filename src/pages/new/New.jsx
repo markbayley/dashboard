@@ -130,6 +130,8 @@ const New = ({ inputs, title, col }) => {
                 ? data.title
                 : data.displayName
                 ? data.displayName
+                : data.product
+                ? data.product
                 : "Enter Details"}
             </h3>
             <br />
@@ -141,6 +143,7 @@ const New = ({ inputs, title, col }) => {
                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
               }
               alt=""
+              className={ col === "users" ? "itemImg" : "altImg" }
             />
           </div>
 
@@ -160,7 +163,7 @@ const New = ({ inputs, title, col }) => {
               <div className="formInput">
                 
                 <label htmlFor="file">
-                  Images: <DriveFolderUploadOutlinedIcon className="icon" />
+                  Upload Images: <DriveFolderUploadOutlinedIcon className="icon" />
                
                 <br />
                 <img
@@ -172,7 +175,7 @@ const New = ({ inputs, title, col }) => {
                       : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                   }
                   alt="small image"
-                  className="smallImg"
+                  className={ col === "users" ? "smallImg" : "smallAlt" }
                   onClick={(e) => setMain(e.target.src)}
                 />
                 <img
@@ -184,7 +187,7 @@ const New = ({ inputs, title, col }) => {
                       : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                   }
                   alt="small image"
-                  className="smallImg"
+                  className={ col === "users" ? "smallImg" : "smallAlt" }
                   onClick={(e) => setMain(e.target.src)}
                 />
                 <img
@@ -196,7 +199,7 @@ const New = ({ inputs, title, col }) => {
                       : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                   }
                   alt="small image"
-                  className="smallImg"
+                  className={ col === "users" ? "smallImg" : "smallAlt" }
                   onClick={(e) => setMain(e.target.src)}
                 />
                 <input

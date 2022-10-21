@@ -75,7 +75,7 @@ const Home = ({ col }) => {
           />
         </div>
         {/* <Usertable col="orders" /> */}
-        <Table />
+        {/* <Table /> */}
       </div>
     </div>
     </>

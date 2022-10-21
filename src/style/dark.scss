@@ -1,16 +1,46 @@
 .app.dark {
-  background-color: #111;
-  color: rgb(156, 156, 156);
+  background-color: #0d071fe7;
+  color: white;
 
   .chartGrid {
     stroke: rgba(228, 228, 228, 0.219);
   }
 
+  .MuiDataGrid-cell {
+    border-bottom: rgb(102, 101, 101);
+  }
+
+ .itemTitle , .itemKey {
+    color:rgb(187, 185, 185) !important;
+  }
+
+  .widget {
+    .title {
+      color: rgba(216, 213, 213, 0.566);
+    }
+
+  }
+
+
+
+.Mui-checked {
+  color: #7551f864;
+}
+
+.featured ,.chart ,.widget {
+  border: 1px solid #7451f8 !important;
+  border-radius: 5px;
+}
+
+  // .MuiCheckbox {
+  //   color: #7551f864;
+  // }
+
   .table {
     background-color: #111;
 
     .tableCell {
-      color: gray;
+      color: rgb(187, 185, 185);
     }
   }
 
@@ -24,7 +54,7 @@
   }
 
   .sidebar {
-    background-color: #111;
+    background-color: #0d071f00;
     border-color: #333;
 
     .top {
@@ -49,15 +79,21 @@
     }
   }
 
+  select.link {
+     background-color: transparent;
+  }
+
+
+
   .datatable {
     .datagrid {
-      color: gray;
+      color: rgb(231, 229, 229);
       border: none;
 
       .viewButton,
       .deleteButton,
       .cellWithStatus {
-        color: gray;
+        color: rgb(221, 219, 219);
         border: none;
       }
     }

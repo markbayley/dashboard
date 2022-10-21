@@ -15,6 +15,9 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import {signOut} from "firebase/auth"
+import { auth } from '../../firebase'
+import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
 
@@ -95,10 +98,12 @@ const Sidebar = () => {
               <span>Profile</span>
             </li>
           </Link>
+          <Link to="/login" style={{ textDecoration: "none" }}>
           <li>
             <ExitToAppIcon className="icon" />
             <span>Logout</span>
           </li>
+          </Link>
         </ul>
       </div>
       {/* <div className="bottom">

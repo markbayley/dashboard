@@ -5,6 +5,7 @@
   align-items: center;
   font-size: 14px;
   color: #555;
+  background-color: #7551f8fc;
 
   .wrapper {
     width: 100%;
@@ -22,7 +23,7 @@
       .logo {
         font-size: 20px;
         font-weight: bold;
-        color: #6439ff;
+        color: white;
       }
     }
 
@@ -55,13 +56,14 @@
 
         .icon {
           font-size: 20px;
+          color: white;
         }
 
         .avatar {
           width: 30px;
           height: 30px;
           border-radius: 50%;
-          border: 1px solid orange;
+          // border: 1px solid rgb(231, 229, 229);
         }
 
         .counter {

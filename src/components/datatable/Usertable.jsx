@@ -276,7 +276,7 @@ const Usertable = ({
 
         {col === "products" ? (
           <DataGrid
-            className="datagrid"
+            className="cellWithStatus datagrid"
             rows={updatedData}
             columns={productColumns.concat(actionColumn)}
             pageSize={10}
@@ -294,7 +294,7 @@ const Usertable = ({
           />
         ) : col === "orders" ? (
           <DataGrid
-            className="datagrid"
+           className="cellWithStatus datagrid"
             rows={updatedData}
             columns={orderColumns.concat(actionColumn)}
             pageSize={10}
