@@ -13,21 +13,22 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin: 10px 20px 0px 20px;
+        margin: 20px 20px 5px 20px;
   
      
   
         .icon {
           margin-left: 5px;
+   
         }
   
         .link {
           text-decoration: none;
           color: #7451f8;
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 400;
           border: 1px solid #7451f8;
-          padding: 5px;
+          padding: 5px 5px;
           border-radius: 5px;
           margin-left: 10px;
           cursor: pointer;

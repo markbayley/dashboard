@@ -3,9 +3,10 @@
   padding: 20px 20px;
   
    button {
-    background-color: white;
+    // background-color: white;
     margin: 0px 5px;
     padding: 0px;
+ 
    }
 
    .MuiButton-root {
@@ -20,10 +21,7 @@
   //   color: #7451f8;
   //  }
 
-  // div.search.link {
-  //   padding: 0px 5px 2px 5px;
-  
-  // }
+ 
 
  
 
@@ -38,25 +36,26 @@
     align-items: center;
     justify-content: space-between;
 
- 
+  
 
     .search {
       display: flex;
       align-items: center;
       border: 0.5px solid lightgray;
       padding: 3px !important;
-  
+      background: transparent !important;
       input {
         border: none;
         outline: none;
-        background: transparent;
-  
         &::placeholder {
           color: #7451f8;
           font-size: 14px;
         }
       }
+  
     }
+
+   
 
     .link{
       text-decoration: none;
@@ -68,11 +67,27 @@
       margin-left: 10px;
       border-radius: 5px;
       cursor: pointer;
+    
+        &:hover {
+          background-color: #6146c5;
+          color: white;
+          //   :not(#searchicon) {
+           
+          // }
+       
+          
+     
+
+      }
+     
       .icon {
         font-size: 13px;
         color: #7451f8;
         padding: 0px 3px;
+     
+      
       }
+      
     }
   }
 

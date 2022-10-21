@@ -51,7 +51,7 @@ const List = ({ col }) => {
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, col, id));
-      setData(data.filter((item) => item.id !== id));
+      setData(updatedData.filter((item) => item.id !== id));
     } catch (err) {
       console.log(err);
     }

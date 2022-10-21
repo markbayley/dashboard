@@ -13,7 +13,7 @@
       margin-right: 10px;
       border: 1px solid lightgray;
       &:hover {
-        border: 1px solid teal;
+        border: 1px solid #7451f8;
         cursor: pointer;
       }
     }
@@ -26,7 +26,7 @@
       margin-right: 10px;
       border: 1px solid lightgray;
       &:hover {
-        border: 1px solid teal;
+        border: 1px solid #7451f8;
         cursor: pointer;
       }
     }
@@ -38,7 +38,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 10px 20px 0px 20px;
+      margin: 20px 20px 0px 20px;
  
   
       .link{
@@ -47,10 +47,15 @@
         font-size: 14px;
         font-weight: 400;
         border: 1px solid #7451f8;
-        padding: 5px;
+        padding: 5px 5px;
+        margin-left: 10px;
         border-radius: 5px;
         cursor: pointer;
-        
+        &:hover {
+          background-color: #6146c5;
+          color: white;
+        }
+    
       }
     }
 
@@ -64,16 +69,19 @@
       margin: 10px 20px;
       display: flex;
 
-      .icon  {
+      .icon {
         cursor: pointer;
         margin-right: 10px;
         color: #7451f8;
         &:hover {
-          background-color: teal;
-          border-radius: 50%;
+          background-color: #7451f8;
+          border-radius: 20%;
           color: white;
         }
       }
+
+  
+
   
       h1 {
         color: teal;
@@ -88,6 +96,10 @@
       .left {
         flex: 1;
         text-align: center;
+    
+
+
+      
 
         .itemImg {
           width: 230px;
@@ -141,7 +153,7 @@
             padding: 10px;
             border: 2px solid #7451f8;
             border-radius: 5px;
-            background-color: white;
+            background-color: transparent;
             color: #7451f8;
             font-weight: bold;
             cursor: pointer;

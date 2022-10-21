@@ -10,6 +10,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 
+
 const Home = ({ col }) => {
 
   const [earnings, setEarnings] = useState();
@@ -74,6 +75,7 @@ const Home = ({ col }) => {
             className="revenue"
           />
         </div>
+   
         {/* <Usertable col="orders" /> */}
         {/* <Table /> */}
       </div>

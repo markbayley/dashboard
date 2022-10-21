@@ -27,8 +27,9 @@ const Widget = ({ type, total }) => {
           <PersonOutlinedIcon
             className="icon"
             style={{
-              color: "crimson",
+             
               backgroundColor: "rgba(255, 0, 0, 0.2)",
+              color: "crimson"
             }}
           />
         ),
@@ -60,7 +61,7 @@ const Widget = ({ type, total }) => {
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
-            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
+            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "teal" }}
           />
         ),
       };

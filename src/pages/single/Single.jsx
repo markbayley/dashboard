@@ -27,7 +27,7 @@ import { DeleteForever, Edit } from "@mui/icons-material";
 
 function CircularIndeterminate() {
   return (
-    <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex" }}>
       <CircularProgress />
     </Box>
   );
@@ -53,6 +53,8 @@ const Single = ({ inputs, title, col, uid }) => {
   const [main, setMain] = useState(data.img);
   console.log(main, "main-single");
 
+  const [loading, setLoading ] = useState(false)
+
   useEffect(async () => {
     const docRef = doc(db, col, params?.Id || uid);
     const docSnap = await getDoc(docRef);
@@ -76,6 +78,7 @@ const Single = ({ inputs, title, col, uid }) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
+          setLoading(true)
           setPerc(progress);
           switch (snapshot.state) {
             case "paused":
@@ -92,11 +95,13 @@ const Single = ({ inputs, title, col, uid }) => {
           console.log(error);
         },
         () => {
+          setLoading(false)
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             if (!data.img) {
               setData((prev) => ({ ...prev, img: downloadURL }));
+              setMain(data.img)
             }
-            if (!data.img2) {
+            else if (!data.img2) {
               setData((prev) => ({ ...prev, img2: downloadURL }));
             } else {
               setData((prev) => ({ ...prev, img3: downloadURL }));
@@ -225,7 +230,7 @@ const Single = ({ inputs, title, col, uid }) => {
 
                 <SubdirectoryArrowLeftIcon
                   className="link icon"
-                  style={{ fontSize: "22px" }}
+                  style={{ fontSize: "18px" }}
                   onClick={() => navigate(-1)}
                 />
               </div>
@@ -310,17 +315,17 @@ const Single = ({ inputs, title, col, uid }) => {
                 <br />
                   {/* Not editing */}
                   <img
-                    src={
+                    src={ 
                       data.img
                         ? data.img
-                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" 
                     }
                     alt="small image"
                     className={ col === "users" ? "smallImg" : "smallAlt" }
                     onClick={(e) => setMain(e.target.src)}
                   />
                   <img
-                    src={
+                    src={ 
                       data.img2
                         ? data.img2
                         : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
@@ -375,7 +380,7 @@ const Single = ({ inputs, title, col, uid }) => {
 
                   <ClearIcon
                     className="link"
-                    style={{ fontSize: "22px" }}
+                    style={{ fontSize: "18px" }}
                     onClick={() => setEditing(false)}
                   />
                 </div>
@@ -465,8 +470,9 @@ const Single = ({ inputs, title, col, uid }) => {
                         />
 
                         <br />
+                        { !data.img && loading ? <CircularIndeterminate /> :
                         <img
-                          src={
+                          src={ 
                             data.img
                               ? data.img
                               : file
@@ -477,6 +483,8 @@ const Single = ({ inputs, title, col, uid }) => {
                           className={ col === "users" ? "smallImg" : "smallAlt" }
                           onClick={(e) => setMain(e.target.src)}
                         />
+}
+                 { data.img && loading ? <CircularIndeterminate /> :
                         <img
                           src={
                             data.img2
@@ -489,6 +497,8 @@ const Single = ({ inputs, title, col, uid }) => {
                           className={ col === "users" ? "smallImg" : "smallAlt" }
                           onClick={(e) => setMain(e.target.src)}
                         />
+}
+{ data.img2 && loading ? <CircularIndeterminate /> :
                         <img
                           src={
                             data.img3
@@ -501,6 +511,7 @@ const Single = ({ inputs, title, col, uid }) => {
                           className={ col === "users" ? "smallImg" : "smallAlt" }
                           onClick={(e) => setMain(e.target.src)}
                         />
+}
                              </label>
                       </div>
                       <button

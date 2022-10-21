@@ -265,8 +265,9 @@ const Usertable = ({
               placeholder="Search..."
               value={searchInput}
               onChange={handleSearch}
+            
             />
-            <SearchOutlinedIcon />
+            <SearchOutlinedIcon id="#searchicon" />
           </div>
 
           <Link to={"/" + col + "/new"} className="link">

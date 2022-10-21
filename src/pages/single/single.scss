@@ -13,7 +13,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 10px 20px 10px 20px;
+      margin: 20px 20px 10px 20px;
 
    
 
@@ -21,15 +21,21 @@
         margin-left: 5px;
       }
 
-      .link {
+      .link{
         text-decoration: none;
         color: #7451f8;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 400;
         border: 1px solid #7451f8;
-        padding: 5px;
+        padding: 5px 5px;
+        margin-left: 10px;
         border-radius: 5px;
         cursor: pointer;
+        &:hover {
+          background-color: #6146c5;
+          color: white;
+        }
+    
       }
     }
 
@@ -57,6 +63,10 @@
           background-color: #7551f818;
           cursor: pointer;
           border-radius: 0px 0px 0px 5px;
+          &:hover {
+            background-color: #6246c5aa;
+            color: white;
+          }
         }
 
         .smallImg {
@@ -67,7 +77,7 @@
           margin-right: 10px;
           border: 1px solid lightgray;
           &:hover {
-            border: 1px solid teal;
+            border: 1px solid #7451f8;
             cursor: pointer;
           }
         }
@@ -80,7 +90,7 @@
           margin-right: 10px;
           border: 1px solid lightgray;
           &:hover {
-            border: 1px solid teal;
+            border: 1px solid #7451f8;
             cursor: pointer;
           }
         }
@@ -123,24 +133,12 @@
 
               .itemValue {
                 font-weight: 300;
-                color:#7860cf;
-              
-              }
-
-              .sales {
-                background-color: #7551f864;
-                padding: 2px 7px;
-                border-radius: 50%;
+                color:#7860cf;        
               }
             }
           }
         }
       }
-
-      // .mid {
-      //   flex: 1;
-      //   border: 1px solid lightgray;
-      // }
 
       .right {
         flex: 3;
@@ -176,7 +174,7 @@
             width: 150px;
             padding: 10px;
             border: none;
-            background-color: teal;
+            background-color: #6146c5;
             color: white;
             font-weight: bold;
             cursor: pointer;

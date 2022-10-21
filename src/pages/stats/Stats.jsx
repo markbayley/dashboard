@@ -148,17 +148,13 @@ const Stats = ({ col }) => {
               : col === "stats"
               ? "Stats"
               : "Delivery"}
-            <div>
-              <Link to={""} className="link">
-                Customers
-              </Link>
+         
+        
               <Link to={""} className="link">
                 Purchases
               </Link>
-              <Link to={""} className="link">
-                Deliveries
-              </Link>
-            </div>
+          
+            
           </div>
 
           <div className="charts">
