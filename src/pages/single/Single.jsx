@@ -24,10 +24,11 @@ import Chart from "../../components/chart/Chart";
 import { DataGrid } from "@mui/x-data-grid";
 import { orderColumns, productColumns } from "../../datatablesource";
 import { DeleteForever, Edit } from "@mui/icons-material";
+import { Badge } from "@mui/material";
 
 function CircularIndeterminate() {
   return (
-      <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }}>
       <CircularProgress />
     </Box>
   );
@@ -53,7 +54,7 @@ const Single = ({ inputs, title, col, uid }) => {
   const [main, setMain] = useState(data.img);
   console.log(main, "main-single");
 
-  const [loading, setLoading ] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
     const docRef = doc(db, col, params?.Id || uid);
@@ -78,7 +79,7 @@ const Single = ({ inputs, title, col, uid }) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
-          setLoading(true)
+          setLoading(true);
           setPerc(progress);
           switch (snapshot.state) {
             case "paused":
@@ -95,13 +96,12 @@ const Single = ({ inputs, title, col, uid }) => {
           console.log(error);
         },
         () => {
-          setLoading(false)
+          setLoading(false);
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             if (!data.img) {
               setData((prev) => ({ ...prev, img: downloadURL }));
-              setMain(data.img)
-            }
-            else if (!data.img2) {
+              setMain(data.img);
+            } else if (!data.img2) {
               setData((prev) => ({ ...prev, img2: downloadURL }));
             } else {
               setData((prev) => ({ ...prev, img3: downloadURL }));
@@ -251,7 +251,7 @@ const Single = ({ inputs, title, col, uid }) => {
                     <img
                       src={main ? main : data.img}
                       alt=""
-                      className={ col === "users" ? "itemImg" : "altImg" }
+                      className={col === "users" ? "itemImg" : "altImg"}
                     />
                     {col === "profile" || col === "users" ? (
                       <div className="details">
@@ -288,8 +288,44 @@ const Single = ({ inputs, title, col, uid }) => {
                           <span className="itemKey">Delivery:</span>
                           <span className="itemValue">{data.status}</span>
                         </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Date:</span>
+                          <span className="itemValue">{data.date}</span>
+                        </div>
+
+                        <img
+                          src={
+                            data.img
+                              ? data.img
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                        <img
+                          src={
+                            data.img2
+                              ? data.img2
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                        <img
+                          src={
+                            data.img3
+                              ? data.img3
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
                       </div>
                     ) : (
+                      //products
                       <div className="details">
                         <h2 className="itemTitle">{data.title}</h2>
                         <div className="detailItem">
@@ -300,51 +336,52 @@ const Single = ({ inputs, title, col, uid }) => {
                           <span className="itemKey">Category:</span>
                           <span className="itemValue">{data.category}</span>
                         </div>
-                   
-                     
+
                         <div className="detailItem">
-                        <span className="itemKey">Price:</span>
-                          <span className="itemValue">${data.price}</span> &nbsp;&nbsp;&nbsp; 
+                          <span className="itemKey">Price:</span>
+                          <span className="itemValue">${data.price}</span>{" "}
+                          &nbsp;&nbsp;&nbsp;
                           <span className="itemKey">Sales:</span>
-                          <span className="itemValue ">{transactions.length} &nbsp;&nbsp;&nbsp;  <span className="itemKey">Revenue:</span> ${transactions.length*data.price}</span>
+                          <span className="itemValue ">
+                            {transactions.length} &nbsp;&nbsp;&nbsp;{" "}
+                            <span className="itemKey">Revenue:</span> $
+                            {transactions.length * data.price}
+                          </span>
                         </div>
+                        <br />
+                        <img
+                          src={
+                            data.img
+                              ? data.img
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                        <img
+                          src={
+                            data.img2
+                              ? data.img2
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                        <img
+                          src={
+                            data.img3
+                              ? data.img3
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
                       </div>
                     )}
-                
                   </div>
-                <br />
-                  {/* Not editing */}
-                  <img
-                    src={ 
-                      data.img
-                        ? data.img
-                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg" 
-                    }
-                    alt="small image"
-                    className={ col === "users" ? "smallImg" : "smallAlt" }
-                    onClick={(e) => setMain(e.target.src)}
-                  />
-                  <img
-                    src={ 
-                      data.img2
-                        ? data.img2
-                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                    }
-                    alt="small image"
-                    className={ col === "users" ? "smallImg" : "smallAlt" }
-                    onClick={(e) => setMain(e.target.src)}
-                  />
-                  <img
-                    src={
-                      data.img3
-                        ? data.img3
-                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                    }
-                    alt="small image"
-                    className={ col === "users" ? "smallImg" : "smallAlt" }
-                    onClick={(e) => setMain(e.target.src)}
-                  />
-         
                 </div>
                 {/* <div className="mid">
 
@@ -352,14 +389,13 @@ const Single = ({ inputs, title, col, uid }) => {
                 <div className="right">
                   <Chart
                     charttitle="Latest Transactions"
-                    aspect={2.5 / 1}
+                    aspect={2.2 / 1}
                     data={transactions}
                     datakeyX="date"
                     datakeyY="total"
                     datakeyBar="total"
                     className="revenue"
                   />
-           
                 </div>
               </div>
             </>
@@ -387,14 +423,32 @@ const Single = ({ inputs, title, col, uid }) => {
 
                 <div className="bottom">
                   <div className="left">
-                    <h3>{data.displayName ? data.displayName : data.title ? data.title : data.product ? data.product : "Enter Details"}</h3>
+                    <h3>
+                      {data.displayName
+                        ? data.displayName
+                        : data.title
+                        ? data.title
+                        : data.product
+                        ? data.product
+                        : "Enter Details"}
+                    </h3>
                     <br />
                     {/* editing */}
-                    <img
-                      src={main ? main : data.img}
-                      alt=""
-                      className={ col === "users" ? "itemImg" : "altImg" }
-                    />
+                    <Badge
+                      badgeContent="main"
+                      color="info"
+                      overlap="circular"
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                    >
+                      <img
+                        src={main ? main : data.img}
+                        alt=""
+                        className={col === "users" ? "itemImg" : "altImg"}
+                      />
+                    </Badge>
                   </div>
 
                   <div className="right">
@@ -459,60 +513,105 @@ const Single = ({ inputs, title, col, uid }) => {
                           {/*  editing */}
                           Upload Images:{" "}
                           <DriveFolderUploadOutlinedIcon className="icon" />
-                   
-                        <input
-                          type="file"
-                          id="file"
-                          onChange={(e) => {
-                            setFile(e.target.files[0]);
-                          }}
-                          style={{ display: "none" }}
-                        />
-
-                        <br />
-                        { !data.img && loading ? <CircularIndeterminate /> :
-                        <img
-                          src={ 
-                            data.img
-                              ? data.img
-                              : file
-                              ? URL.createObjectURL(file)
-                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                          }
-                          alt="small"
-                          className={ col === "users" ? "smallImg" : "smallAlt" }
-                          onClick={(e) => setMain(e.target.src)}
-                        />
-}
-                 { data.img && loading ? <CircularIndeterminate /> :
-                        <img
-                          src={
-                            data.img2
-                              ? data.img2
-                              : file2
-                              ? URL.createObjectURL(file2)
-                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                          }
-                          alt="small"
-                          className={ col === "users" ? "smallImg" : "smallAlt" }
-                          onClick={(e) => setMain(e.target.src)}
-                        />
-}
-{ data.img2 && loading ? <CircularIndeterminate /> :
-                        <img
-                          src={
-                            data.img3
-                              ? data.img3
-                              : file3
-                              ? URL.createObjectURL(file3)
-                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                          }
-                          alt="small"
-                          className={ col === "users" ? "smallImg" : "smallAlt" }
-                          onClick={(e) => setMain(e.target.src)}
-                        />
-}
-                             </label>
+                          <input
+                            type="file"
+                            id="file"
+                            onChange={(e) => {
+                              setFile(e.target.files[0]);
+                            }}
+                            style={{ display: "none" }}
+                          />
+                          <br />
+                          {!data.img && loading ? (
+                            <CircularIndeterminate />
+                          ) : (
+                            <>
+                            <Badge
+                      badgeContent="X"
+                      color="info"
+                      overlap="circular"
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                    >
+                              <img
+                                src={
+                                  data.img
+                                    ? data.img
+                                    : file
+                                    ? URL.createObjectURL(file)
+                                    : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                                }
+                                alt="small"
+                                className={
+                                  col === "users" ? "smallImg" : "smallAlt"
+                                }
+                                onClick={(e) => setMain(e.target.src)}
+                              />
+                       </Badge>
+                            </>
+                          )}
+                          {data.img && loading ? (
+                            <CircularIndeterminate />
+                          ) : (
+                           <>
+                                       <Badge
+                      badgeContent="X"
+                      color="info"
+                      overlap="circular"
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                    >
+                              <img
+                                src={
+                                  data.img2
+                                    ? data.img2
+                                    : file2
+                                    ? URL.createObjectURL(file2)
+                                    : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                                }
+                                alt="small"
+                                className={
+                                  col === "users" ? "smallImg" : "smallAlt"
+                                }
+                                onClick={(e) => setMain(e.target.src)}
+                              />
+                              </Badge>
+                           </>
+                           
+                          )}
+                          {data.img2 && loading ? (
+                            <CircularIndeterminate />
+                          ) : (
+                            <Badge
+                            badgeContent="X"
+                            color="info"
+                            overlap="circular"
+                            anchorOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                          >
+                            <img
+                              src={
+                                data.img3
+                                  ? data.img3
+                                  : file3
+                                  ? URL.createObjectURL(file3)
+                                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                              }
+                              alt="small"
+                              className={
+                                col === "users" ? "smallImg" : "smallAlt"
+                              }
+                              onClick={(e) => setMain(e.target.src)}
+                            />
+                            </Badge>
+                          )}
+                        </label>
                       </div>
                       <button
                         disabled={per !== null && per < 100}
@@ -536,8 +635,6 @@ const Single = ({ inputs, title, col, uid }) => {
                 ? data.title
                 : col === "orders"
                 ? data.product
-                : col === "profile"
-                ? data.displayName
                 : ""}
             </div>
             {col !== "profile" && (

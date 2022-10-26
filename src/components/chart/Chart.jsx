@@ -34,7 +34,7 @@ const Chart = ({
           <XAxis dataKey={datakeyX} stroke="gray" />
           <YAxis dataKey={datakeyY} stroke="gray" />
 
-          <Tooltip />
+          <Tooltip cursor={{fill: 'transparent'}}/>
           <Bar
             type="monotone"
             dataKey={datakeyBar}

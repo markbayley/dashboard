@@ -1,5 +1,5 @@
 .app.dark {
-  background-color: #0d071fe7;
+  background-color: #1e2732;
   color: white;
 
   .chartGrid {
@@ -31,9 +31,12 @@
 
   .featured,
   .chart,
-  .widget {
-    // border: 1px solid #7451f8 !important;
-    // border-radius: 5px;
+  .widget
+ {
+    // border: 1px solid #5e5c65 !important;
+    // background-color:#15202b ;
+    border-radius: 5px;
+  //  border: 1px solid rgb(95, 95, 95);
   }
 
   // .MuiCheckbox {
@@ -41,7 +44,7 @@
   // }
 
   .table {
-    background-color: #111;
+    background-color: #1e2732;
 
     .tableCell {
       color: rgb(187, 185, 185);
@@ -58,7 +61,7 @@
   }
 
   .sidebar {
-    background-color: #0d071f00;
+    background-color: #1e2732;
     border-color: #333;
 
     .top {
@@ -104,5 +107,10 @@
   input {
     background-color: transparent;
     color: white;
+    outline: none;
+    &::placeholder {
+      color: lightgray;
+      font-size: 14px;
+    }
   }
 }

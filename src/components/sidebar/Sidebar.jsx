@@ -12,7 +12,7 @@ import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSyst
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import HomeIcon from '@mui/icons-material/Home';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import {signOut} from "firebase/auth"
@@ -22,13 +22,20 @@ import { AuthContext } from "../../context/AuthContext";
 const Sidebar = () => {
 
 
+  
+
+  const {dispatch} = useContext(AuthContext)
+
+
+
+
   return (
     <div className="sidebar">
  
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/client" style={{ textDecoration: "none" }}>
             <li>
               <HomeIcon className="icon" />
               <span>Homepage</span>
@@ -98,10 +105,10 @@ const Sidebar = () => {
               <span>Profile</span>
             </li>
           </Link>
-          <Link to="/login" style={{ textDecoration: "none" }}>
+          <Link to="/client" style={{ textDecoration: "none" }}>
           <li>
             <ExitToAppIcon className="icon" />
-            <span>Logout</span>
+            <span onClick={() => dispatch({ type: "LOGOUT" })}>Logout</span>
           </li>
           </Link>
         </ul>

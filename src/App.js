@@ -20,6 +20,8 @@ import { AuthContext } from "./context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import Sidebar from "./components/sidebar/Sidebar";
+import SignedOut from "./components/navbar/SignedOut";
+import Client from "./pages/client";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -33,14 +35,22 @@ function App() {
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
+      { currentUser ?
         <Fragment>
           <Navbar />
-      
         </Fragment>
+        :
+          <Fragment>
+          <SignedOut />
+     
+        </Fragment>
+
+      }
   
         <Routes>
           <Route path="/">
             <Route path="login" element={<Login />} />
+            <Route path="client" element={<Client />} />
             <Route
               index
               element={
@@ -206,7 +216,7 @@ function App() {
                     col="users"
                     inputs={profileInputs}
                     key="6"
-                    uid={currentUser.uid}
+                    uid={currentUser?.uid}
                     title="My Profile"
                   />
                 </RequireAuth>

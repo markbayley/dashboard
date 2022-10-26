@@ -1,23 +1,58 @@
 .login{
-    height: 80vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, .05);
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1;
+ 
+  
+
+    .log {
+      text-decoration: none;
+      color: white;
+    }
+
 
     form{
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: #7451f8;
-      padding: 30px 10px;
-      border-radius: 5px;
+      // background-color: #7451f8;
+      background-color: teal;
+      padding: 25px 40px;
+      // margin-bottom: 70px;
+      border-radius: 10px;
+      color: white;
+      box-shadow: rgba(0, 0, 0, 0.75) 0px 5px 15px;
+
+      .close {
+        color: lightgrey;
+        cursor: pointer;
+        text-align: right;
+        width: 110%;
+      }
 
       input{
         width: 200px;
         height: 20px;
         margin: 10px;
         padding: 10px;
-        border-radius: 5px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #a7bcff;
+        outline: none;
+        color: white;
+        &::placeholder {
+          color: lightgray;
+          font-size: 14px;
+        }
       }
 
       h5 {
@@ -28,10 +63,10 @@
       button{
         width: 220px;
         height: 40px;
-        border-radius: 3px;
+        border-radius: 5px;
         border: none;
         border: 1px solid white;
-        background-color: transparent;
+        background-color: orange;
         color: white;
         margin: 10px;
         font-weight: bold;
@@ -43,8 +78,12 @@
 
       span{
         font-size: 13px;
-        color: rgb(252, 187, 20);
+        color: orange;
         margin-top: 10px;
+      }
+
+      p {
+        font-size: 12px;
       }
     }
 }

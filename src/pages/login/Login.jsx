@@ -2,10 +2,11 @@ import { useContext, useState } from "react";
 import "./login.scss";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext"
+import { Close } from "@mui/icons-material";
 
-const Login = () => {
+const Login = ({setModal}) => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,22 +32,28 @@ const Login = () => {
 
   return (
     <div className="login">
+   
       <form onSubmit={handleLogin}>
-    
-      <h5>Enter your email</h5>
+
+    <div className="close"><div onClick={() => setModal(false)}><Close /></div></div>
+       <h2>Marc Balieu</h2>
+       <span>Login</span>
         <input
           type="email"
-          placeholder="Enter 'mark.bayley@user.dev'"
+          placeholder="email"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <h5>Enter your password</h5>
+       
         <input
           type="password"
-          placeholder="Enter '123456'"
+          placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        <br />
         <button type="submit">Login</button>
         {error && <span>Wrong email or password!</span>}
+        <br />
+        <p className="log">Don't have an account?<Link to="/register" className="log"> Register</Link></p>
       </form>
     </div>
   );
