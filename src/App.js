@@ -6,7 +6,7 @@ import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import Stats from "./pages/stats/Stats";
 import Navbar from "./components/navbar/Navbar";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import {
   productInputs,
   userInputs,
@@ -22,6 +22,10 @@ import { db } from "./firebase";
 import Sidebar from "./components/sidebar/Sidebar";
 import SignedOut from "./components/navbar/SignedOut";
 import Client from "./pages/client";
+import { Favorite } from "@mui/icons-material";
+import Favorites from "./pages/favorites/Favorites";
+import Cart from "./pages/cart/Cart";
+import { Detail } from "./pages/detail/Detail";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -32,16 +36,51 @@ function App() {
     return currentUser ? children : <Navigate to="/login" />;
   };
 
+  const [cart, setCart ] = useState([])
+  const [counterCart, setCartCounter ] = useState(0)
+  const [favorite, setFavorite ] = useState([])
+  const [counterFavorite, setFavoriteCounter ] = useState(0)
+
+  const [detail, setDetail ] = useState([])
+  
+  const handleFavorite = (item) => {
+    const list = favorite
+    list.push((item));
+    setFavorite(list);
+    setFavoriteCounter(counterFavorite + 1)
+
+    console.log( list, 'list')
+    console.log(favorite, 'favorite')
+  }
+
+  const handleCart = (item) => {
+    const list = cart
+    list.push((item));
+    setCart(list);
+    setCartCounter(counterCart + 1)
+
+    console.log( list, 'list')
+    console.log(favorite, 'favorite')
+  }
+
+
+
+  const handleDetail = (item) => {
+      setDetail(item)
+    
+  }
+
+
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
       { currentUser ?
         <Fragment>
-          <Navbar />
+          <Navbar favorite={counterFavorite} cart={counterCart}/>
         </Fragment>
         :
           <Fragment>
-          <SignedOut />
+          <SignedOut favorite={counterFavorite} cart={counterCart}/>
      
         </Fragment>
 
@@ -49,8 +88,11 @@ function App() {
   
         <Routes>
           <Route path="/">
+          <Route path="favorites" element={<Favorites favorite={favorite} />} />
+          <Route path="detail" element={<Detail  detail={detail} handleCart={handleCart}/>} />
+          <Route path="cart" element={<Cart cart={cart} />} />
             <Route path="login" element={<Login />} />
-            <Route path="client" element={<Client />} />
+            <Route path="client" element={<Client handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} />} />
             <Route
               index
               element={

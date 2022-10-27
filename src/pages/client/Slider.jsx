@@ -111,7 +111,7 @@ const Slider = () => {
     }
   };
 
-  console.log(sliderItems, 'sliderItems')
+
   return (
     <>
     <Container style={{height: "80%"}}>

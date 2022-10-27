@@ -12,10 +12,11 @@ import { db } from "../../firebase";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+import { FavoriteBorderOutlined, ShoppingBasketOutlined } from "@mui/icons-material";
 
 
 
-const Navbar = () => {
+const Navbar = ({favorite, cart}) => {
   const { dispatch } = useContext(DarkModeContext);
 
   const { currentUser } = useContext(AuthContext);
@@ -46,11 +47,11 @@ const Navbar = () => {
           {/* <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon /> */}
 
-               <div className="top">
-        {/* <Link to="/login" style={{ textDecoration: "none" }}> */}
-          <span className="logo">marcbalieu</span>
-        {/* </Link> */}
-      </div>
+<div className="top">
+            {/* <Link to="/login" style={{ textDecoration: "none" }}> */}
+            <Link to="/client" className="logo">marcbalieu</Link>
+            {/* </Link> */}
+          </div>
    
           
         </div>
@@ -59,6 +60,18 @@ const Navbar = () => {
             <LanguageOutlinedIcon className="icon" />
             English
           </div> */}
+               <Link to="/favorites">
+        <div className="item">
+              <FavoriteBorderOutlined />
+              <div className="counter">{favorite}</div>
+              </div>
+              </Link>
+              <Link to="/cart">
+        <div className="item">
+              <ShoppingBasketOutlined />
+              <div className="counter">{cart}</div>
+              </div>
+              </Link>
           <div className="item">
             <DarkModeOutlinedIcon
               className="icon"
