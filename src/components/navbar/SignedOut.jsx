@@ -31,10 +31,10 @@ const SignedOut = ({favorite, cart}) => {
             {/* </Link> */}
           </div>
 
-          <div className="search">
+          {/* <div className="search">
           <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon className="icon"/>
-        </div>
+        </div> */}
 <div className="items">
       
         {/* <Badge badgeContent={4} color="warning" > */}

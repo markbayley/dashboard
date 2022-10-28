@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { mobile } from "../../responsive";
 
@@ -45,13 +46,13 @@ border-radius: 2px;
 
 `
 
-const CategoryItem = ({item}) => {
+const CategoryItem = ({item, handleCategory}) => {
   return (
     <Container>
         <Image src={item.img} />
         <Info>
            <Title>{item.title}</Title>
-          <Button>SHOP NOW</Button>
+         <Link to="/search"><Button value={item.title} onClick={e => handleCategory(e.target.value)}>SHOP NOW</Button></Link> 
         </Info>
 
 

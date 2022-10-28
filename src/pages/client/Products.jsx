@@ -13,9 +13,15 @@ const Container = styled.div`
     background-color: #fbf0f4;
 `;
 
-const Products = ({handleFavorite, handleCart, handleDetail}) => {
+const Products = ({handleFavorite, handleCart, handleDetail, category}) => {
+  
+
+  console.log(category, 'category-search')
+
 
   const [products, setProducts ] = useState([])
+  const [filteredProducts, setFilteredProducts ] = useState(products)
+  console.log(filteredProducts, 'filteredProducts-search')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +31,18 @@ const Products = ({handleFavorite, handleCart, handleDetail}) => {
     querySnapshot.forEach((doc) => {
       list.push({ id: doc.id, ...doc.data() });
     });
-    // setupdatedData(list);
+
+    const filteredProducts = list.filter((items) => {
+ 
+      if ( category && items.category !== category ) {
+        return false;
+      }
+   
+
+      return true;
+    });
+
+    setFilteredProducts(filteredProducts);
     setProducts(list);
     console.log(list);
   } catch (err) {
@@ -60,7 +77,7 @@ fetchData();
   return (
     <Container>
      
-      {products.map((item) => (
+      {filteredProducts.map((item) => (
         <Product item={item} key={item.id} handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} />
       ))}
 

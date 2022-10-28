@@ -13,11 +13,11 @@ ${mobile({ flexDirection: "column"})}
 
 `
 
-const Categories = () => {
+const Categories = ({handleCategory}) => {
   return (
     <Container>
         {categories.map(item => (
-          <CategoryItem item={item} key={item.id}/>
+          <CategoryItem item={item} key={item.id} handleCategory={handleCategory} />
         ))}
     </Container>
   )

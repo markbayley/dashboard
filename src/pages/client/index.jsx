@@ -11,14 +11,14 @@ import Newsletter from './Newsletter'
 import Footer from './Footer'
 import Heading from './Heading'
 
-function Client({handleFavorite, handleCart, handleDetail}) {
+function Client({handleFavorite, handleCart, handleDetail, handleCategory}) {
   return (
    <>
    
    <Announcement />
     <Slider />
  <Heading title="Categories" subtitle="Get 30% OFF On Our Summer SALE!"/>
-    <Categories />
+    <Categories handleCategory={handleCategory} />
     <Heading title="Popular Products" subtitle="Eco Friendly and Responsibly Sourced"/>
     <Products handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} />
     <Newsletter />

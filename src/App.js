@@ -26,6 +26,7 @@ import { Favorite } from "@mui/icons-material";
 import Favorites from "./pages/favorites/Favorites";
 import Cart from "./pages/cart/Cart";
 import { Detail } from "./pages/detail/Detail";
+import { Search } from "./pages/search/Search";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -42,6 +43,7 @@ function App() {
   const [counterFavorite, setFavoriteCounter ] = useState(0)
 
   const [detail, setDetail ] = useState([])
+  const [category, setCategory ] = useState([])
   
   const handleFavorite = (item) => {
     const list = favorite
@@ -63,12 +65,14 @@ function App() {
     console.log(favorite, 'favorite')
   }
 
-
-
   const handleDetail = (item) => {
       setDetail(item)
-    
   }
+
+  const handleCategory = (value) => {
+    setCategory(value)
+}
+
 
 
   return (
@@ -89,10 +93,11 @@ function App() {
         <Routes>
           <Route path="/">
           <Route path="favorites" element={<Favorites favorite={favorite} />} />
-          <Route path="detail" element={<Detail  detail={detail} handleCart={handleCart}/>} />
+          <Route path="search" element={<Search  category={category}/>} />
+          <Route path="detail" element={<Detail  detail={detail} handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} />} />
           <Route path="cart" element={<Cart cart={cart} />} />
             <Route path="login" element={<Login />} />
-            <Route path="client" element={<Client handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} />} />
+            <Route path="client" element={<Client handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} handleCategory={handleCategory} />} />
             <Route
               index
               element={

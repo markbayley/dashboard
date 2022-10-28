@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 const Title = styled.h1`
-  font-size: 50px;
+  font-size: 36px;
   margin-bottom: 20px;
 `;
 
