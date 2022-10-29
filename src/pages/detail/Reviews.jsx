@@ -64,15 +64,16 @@ export const Reviews = ({ detail }) => {
 
   return (
     <div>
-      <div> &nbsp;Reviews ({transactions.length})</div>
+      {/* <div> &nbsp;&nbsp; &nbsp;&nbsp;Reviews ({transactions.length})</div> */}
       <div>
         {transactions.map((item) => (
-          <Item key={item.id}>
+          <Item key={item.id} style={{ borderRadius: "5px"}}>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 justiftyContent: "flex-start",
+                
               }}
             >
               <img

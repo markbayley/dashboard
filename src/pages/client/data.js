@@ -10,13 +10,15 @@ export const sliderItems = [
       title: "SUMMER SALE",
       desc: "DON'T COMPROMISE ON STYLE! GET 30% OFF ON NEW ARRIVALS.",
       bg: "fbf0f4",
+      category: "SUMMER SALE"
     },
     {
       id: 2,
       img: slide2,
-      title: "MEN'S FASHION",
+      title: "BEST SELLERS",
       desc: "FREE SHIPPING WHEN YOU SPEND $50 OR MORE ON SELECTED ITEMS*.",
       bg: "fcf1ed",
+      category: "BEST SELLERS"
     },
     {
       id: 3,
@@ -24,6 +26,7 @@ export const sliderItems = [
       title: "AUTUMN RANGE",
       desc: "VOTED BEST BOUTIQUE RETAILER 2021! 100% MONEY BACK EASY RETURN POLICY.",
       bg: "fbf0f4",
+      category: "AUTUMN RANGE"
     },
     {
         id: 4,
@@ -31,6 +34,7 @@ export const sliderItems = [
         title: "LOUNGE LOVE",
         desc: "VOTED BEST BOUTIQUE RETAILER 2021! 100% MONEY BACK EASY RETURN POLICY.",
         bg: "fbf0f4",
+        cat: "casual"
       },
   ];
 

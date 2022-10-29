@@ -61,6 +61,7 @@ function App() {
 
   const handleFavorite = (item) => {
     const list = favorite;
+    
     list.push(item);
     setFavorite(list);
     setFavoriteCounter(counterFavorite + 1);
@@ -75,12 +76,18 @@ function App() {
     setSnackbar({ open: true });
   };
 
+  const handleDelete = (e) => {
+    const list = favorite;
+    const id = e.target.getAttribute("id")
+    setFavorite(list.filter(item => item.id !== id));
+    setFavoriteCounter(counterFavorite - 1);
+  }
+
   // const navigate = useNavigate()
 
   const handleDetail = (item) => {
     setDetail(item);
     // navigate("/detail")
-
   };
 
   const handleCategory = (value) => {
@@ -107,18 +114,27 @@ function App() {
         <Routes>
           <Route path="/">
             <Route
-              path="favorites"
-              element={<Favorites favorite={favorite} />}
+              path="favorites" element={<Favorites 
+              favorite={favorite}   
+              handleFavorite={handleFavorite}
+              handleCart={handleCart}
+              handleDetail={handleDetail}
+              handleDelete={handleDelete}/>}
             />
-            <Route path="search" element={<Search category={category} handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail}/>} />
+            <Route path="search" element={<Search 
+            category={category} 
+            handleFavorite={handleFavorite} 
+            handleCart={handleCart} 
+            handleDetail={handleDetail} 
+            handleDelete={handleDelete}/>} />
             <Route
               path="detail"
-              element={
-                <Detail
+              element={<Detail
                   detail={detail}
                   handleFavorite={handleFavorite}
                   handleCart={handleCart}
                   handleDetail={handleDetail}
+                  handleDelete={handleDelete}
                 />
               }
             />
@@ -132,6 +148,7 @@ function App() {
                   handleCart={handleCart}
                   handleDetail={handleDetail}
                   handleCategory={handleCategory}
+                  handleDelete={handleDelete}
                 />
               }
             />

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { mobile } from "../../responsive";
 
 const Container = styled.div`
-  height: 30vh;
+  height: 25vh;
   background-color: #fcf5f5;
   display: flex;
   align-items: center;
@@ -11,15 +11,16 @@ const Container = styled.div`
   flex-direction: column;
 `;
 const Title = styled.h1`
-  font-size: 36px;
+//   font-size: 36px;
   margin-bottom: 20px;
 `;
 
 const Desc = styled.div`
   font-size: 22px;
   font-weight: 300;
+
   margin-bottom: 20px;
-  padding: 0px 10px;
+   padding: 0px 10px;
   ${mobile({ textAlign: "center" })}
 `;
 
@@ -47,12 +48,12 @@ const Button = styled.button`
   border-radius: 5%;
 `;
 
-const Heading = ({title, subtitle}) => {
+const Heading = ({title, subtitle, cart, total}) => {
   return (
     <Container>
-      <Title>{title}</Title>
-      <Desc>{subtitle}</Desc>
-     
+      <Title>{title}{cart ? " ("+ cart.length +")" : "" }</Title>
+      <Desc >{subtitle}  { total ? "Your total is $" + total + "." : "" }</Desc>
+   
       {/* <InputContainer>
         <Input placeholder="Your email" />
         <Button>

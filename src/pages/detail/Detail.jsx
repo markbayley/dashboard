@@ -2,25 +2,30 @@ import React, { useState } from "react";
 import Heading from "../client/Heading";
 import Product from "../client/Product";
 import styled from "styled-components";
-import { CheckBox, FavoriteBorderOutlined, NoBackpackSharp, SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
+import {
+  CheckBox,
+  FavoriteBorderOutlined,
+  NoBackpackSharp,
+  SearchOutlined,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
 import Announcement from "../client/Announcement";
 import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
 import Products from "../client/Products";
 import { Reviews } from "./Reviews";
 
-
 const Container = styled.div`
-  padding: 20px;
+  padding: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  //   justify-content: center;
   background-color: #fcf5f5;
 `;
 
 const Item = styled.div`
   flex: 1;
-  margin: 5px;
+  margin: 10px;
   background-color: #fcf5f5;
   display: flex;
   align-items: center;
@@ -28,9 +33,9 @@ const Item = styled.div`
   // background-color: white;
   position: relative;
   flex-wrap: wrap;
-  font-size: 20px;
-  border: 1px solid lightgray;
-  padding: 20px;
+  //   font-size: 20px;
+  //   border: 1px solid lightgray;
+  padding: 10px;
 `;
 
 const Circle = styled.div`
@@ -42,24 +47,24 @@ const Circle = styled.div`
 `;
 
 const MainImage = styled.img`
-  height: 95%;
   z-index: 2;
-  width: 500px;
-  height: 470px;
-  margin-right: 10px;
+  width: 100%;
+
+  //   margin-right: 10px;
 `;
 
 const Image = styled.img`
-  height: 95%;
+  //   height: 95%;
+  width: 17.5%;
   z-index: 2;
-  max-width: 90px;
-  max-height: 90px;
-  margin-right: 10px;
-  margin-top: 10px;
+  //   max-width: 90px;
+  //   max-height: 90px;
+  margin: auto;
+
   transition: all 0.5s ease;
   &:hover {
-  opacity: 0.8;
-  transform: scale(1.02);
+    opacity: 0.8;
+    transform: scale(1.02);
     cursor: pointer;
   }
 `;
@@ -76,69 +81,70 @@ const Button = styled.button`
   &:hover {
     opacity: 0.9;
     transform: scale(1.02);
-      cursor: pointer;
-    }
+    cursor: pointer;
+  }
 `;
 
-  
 const Info = styled.div`
-opacity: 0;
-width: 100%;
-height: 100%;
-position: absolute;
-top: 0;
-left: 0;
-background-color: rgba(0, 0, 0, 0.2);
-z-index: 3;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: all 0.5s ease;
-cursor: pointer;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+  cursor: pointer;
 `;
-
-
 
 const Title = styled.div`
-height: 5%;
-
-`
+  height: 5%;
+`;
 
 const Icon = styled.div`
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: lightgray;
- color: black;
+  background-color: #b1cba6;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 10px;
   transition: all 0.3s ease;
   &:hover {
-    background-color: orange;
-    transform: scale(1.02);
+    // background-color: #b1cba6;
+    // transform: scale(1.02);
     cursor: pointer;
-    color: white;
+    color: black;
     opacity: 0.9;
   }
 `;
 
-export const Detail = ({ detail, handleCart, handleFavorite, handleDetail }) => {
+export const Detail = ({
+  detail,
+  handleCart,
+  handleFavorite,
+  handleDetail,
+  handleDelete,
+}) => {
   console.log(detail, "detail");
 
-  const [ main, setMain] = useState(detail.img)
-
- 
+  const [main, setMain] = useState(detail.img);
 
   const item = detail;
   return (
     <>
       <Announcement />
- 
+
       <Container>
         {/* <Product item={detail} /> */}
         <Item>
+        <div style={{ display: "" }}>
           <MainImage
             src={
               main
@@ -147,9 +153,9 @@ export const Detail = ({ detail, handleCart, handleFavorite, handleDetail }) => 
             }
             width="95%"
           />
-          <div>
+         <div style={{ display: "flex", margin: "5px" }}>
             <Image
-            onClick={(e) => setMain(e.target.src)}
+              onClick={(e) => setMain(e.target.src)}
               src={
                 detail.img
                   ? detail.img
@@ -158,7 +164,7 @@ export const Detail = ({ detail, handleCart, handleFavorite, handleDetail }) => 
               width="95%"
             />
             <Image
-             onClick={(e) => setMain(e.target.src)}
+              onClick={(e) => setMain(e.target.src)}
               src={
                 detail.img2
                   ? detail.img2
@@ -176,7 +182,7 @@ export const Detail = ({ detail, handleCart, handleFavorite, handleDetail }) => 
               width="95%"
             />
             <Image
-             onClick={(e) => setMain(e.target.src)}
+              onClick={(e) => setMain(e.target.src)}
               src={
                 detail.img4
                   ? detail.img4
@@ -185,7 +191,7 @@ export const Detail = ({ detail, handleCart, handleFavorite, handleDetail }) => 
               width="95%"
             />
             <Image
-             onClick={(e) => setMain(e.target.src)}
+              onClick={(e) => setMain(e.target.src)}
               src={
                 detail.img5
                   ? detail.img5
@@ -193,55 +199,54 @@ export const Detail = ({ detail, handleCart, handleFavorite, handleDetail }) => 
               }
               width="95%"
             />
+            </div>
           </div>
         </Item>
 
         <Item>
-      
-          <Heading
-            title={detail.title}
-            subtitle={detail.description}
           
-          />
+          <Heading title={detail.title} subtitle={detail.description} />
 
-          <h2 style={{ fontWeight: "300", paddingRight: "30px" }}>${detail.price}.95 </h2>
-
-          <Button  onClick={(e) => handleCart(item)}>
-           ADD ITEM
-          </Button>
-          <Container>
-           &nbsp;   &nbsp;   &nbsp;   &nbsp;
-          <Icon  onClick={(e) => handleCart(item)}>
-            <ShoppingCartOutlined />
-          </Icon>
-          <Link to={"/detail"}>
-          <Icon  onClick={(e) => handleDetail(item)}>
-            <SearchOutlined  />
-          </Icon>
-          </Link >
-          <Icon    onClick={(e) => handleFavorite(item)}>
-            <FavoriteBorderOutlined/>
-          </Icon>
-         
-       
-          </Container>
-          <Container>
-
-</Container>
           <Container>
             <Item>
-              <CheckBox></CheckBox>&nbsp;This item is {(detail.status)}. {detail.units} available.
+          <h2 style={{ fontWeight: "300", paddingRight: "30px" }}>
+            ${detail.price}.95{" "}
+          </h2>
+
+          <Button onClick={(e) => handleCart(item)}>ADD ITEM</Button>
+          </Item>
+          </Container>
+ 
+          <Container>
+            {/* &nbsp;   &nbsp;   &nbsp;   &nbsp; */}
+            <Icon onClick={(e) => handleCart(item)}>
+              <ShoppingCartOutlined />
+            </Icon>
+            <Link to={"/detail"}>
+              <Icon onClick={(e) => handleDetail(item)}>
+                <SearchOutlined />
+              </Icon>
+            </Link>
+            <Icon onClick={(e) => handleFavorite(item)}>
+              <FavoriteBorderOutlined />
+            </Icon>
+          </Container>
+
+          <Container>
+            <Item>
+              <CheckBox></CheckBox>&nbsp;
+              <p>
+                Item {detail.status}. {detail.units} available.
+              </p>
             </Item>
             {/* <Item>{detail.category}</Item>  */}
           </Container>
         </Item>
 
-        <Item  style={{height: "76vh", overflow: "scroll"}}>  
-      
-        <Reviews detail={detail} />
-          </Item>
+        <Item style={{ height: "76vh", overflow: "scroll" }}>
+          <Reviews detail={detail} />
+        </Item>
       </Container>
-    
     </>
   );
 };

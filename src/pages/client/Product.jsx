@@ -3,6 +3,7 @@ import {
     SearchOutlined,
     ShoppingCartOutlined,
   } from "@material-ui/icons";
+import { Delete, DeleteOutlineOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
   import styled from "styled-components";
   
@@ -28,10 +29,11 @@ import { Link } from "react-router-dom";
     margin: 5px;
     min-width: 280px;
     max-width: 280px;
-    height: 280px;
+    height: 330px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background-color: white;
     position: relative;
     &:hover ${Info}{
@@ -48,13 +50,18 @@ import { Link } from "react-router-dom";
   `;
   
   const Image = styled.img`
-    height: 95%;
+    height: 80%;
     z-index: 2;
     max-width: 280px;
+    padding-top: 7px;
   `;
 
   const Title = styled.div`
-  height: 5%;
+   padding-top: 20px;
+   display: flex;
+   font-size: auto;
+   color: gray;
+
   
   `
   
@@ -68,37 +75,46 @@ import { Link } from "react-router-dom";
     justify-content: center;
     margin: 10px;
     transition: all 0.5s ease;
+    z-index: 10;
     &:hover {
       background-color: #e9f5f5;
       transform: scale(1.1);
     }
+  
   `;
   
-  const Product = ({ item, handleFavorite, handleCart, handleDetail }) => {
+  const Product = ({ item, handleFavorite, handleCart, handleDetail, handleDelete }) => {
 
     return (  
       <Container >
         <Circle />
         <Image src={item.img} width="95%"/>
-     
+       
         <Info>
+
           <Icon>
-            <ShoppingCartOutlined  key={item.id} onClick={(e) => handleCart(item)}/>
+            <ShoppingCartOutlined id={item.id} onClick={(e) => handleCart(item)}/>
           </Icon>
 
           <Icon>
             
           <Link to={"/detail"} >
-            <SearchOutlined key={item.id}  onClick={(e) => handleDetail(item)} />
+            <SearchOutlined id={item.id} onClick={(e) => handleDetail(item)} style={{color: "black", paddingTop: "5px"}} />
             </Link>
           </Icon>
         
 
           <Icon>
-            <FavoriteBorderOutlined key={item.id}  onClick={(e) => handleFavorite(item)}/>
+            <FavoriteBorderOutlined id={item.id} onClick={(e) => handleFavorite(item)}/>
+          </Icon>
+
+          <Icon >
+            <DeleteOutlineOutlined id={item.id} onClick={(id) => handleDelete(id)}  />
           </Icon>
          
         </Info>
+       <Title><div>{item.title}</div>&nbsp;&nbsp;&nbsp;&nbsp;<div>${item.price}</div></Title> 
+     
       </Container>
     );
   };

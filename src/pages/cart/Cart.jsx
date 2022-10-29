@@ -13,10 +13,19 @@ const Container = styled.div`
 `;
 
 const Cart = ({cart}) => {
+   
+
+    let total = 0;
+    cart.forEach((item) => {
+      total = total + item.price;
+    });
+
+    console.log(total, 'total-cart')
+
   return (
     <>
-    <Announcement />
-    <Heading title="Cart" subtitle="Nice haul! Ready to checkout?"/>
+    <Announcement  />
+    <Heading cart={cart} total={total} title="Cart" subtitle="Nice haul! Ready to checkout?"/>
     <Container>
      
     {cart.map((item) => (

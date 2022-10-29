@@ -13,13 +13,9 @@ const Container = styled.div`
     background-color: #fbf0f4;
 `;
 
-const Products = ({handleFavorite, handleCart, handleDetail, category}) => {
-  
-
-  console.log(category, 'category-search')
-
-
-  // const [products, setProducts ] = useState([])
+const Products = ({handleFavorite, handleCart, handleDetail, handleDelete, category}) => {
+  console.log(category, 'category-products')
+ 
   const [filteredProducts, setFilteredProducts ] = useState([])
   console.log(filteredProducts, 'filteredProducts-search')
 
@@ -33,10 +29,17 @@ const Products = ({handleFavorite, handleCart, handleDetail, category}) => {
     });
 
     const filteredProducts = list.filter((items) => {
- 
-      if ( category && items.category !== category ) {
+
+      if ( category === "SUMMER SALE" && items.price >= 30 ) {
         return false;
       }
+      if ( category === "BEST SELLERS" && parseInt(items.sold) <= 100 ) {
+        return false;
+      }
+      else if ( category && category !== "SUMMER SALE" && category !== "BEST SELLERS" && items.category !== category ) {
+        return false;
+      }
+   
    
       return true;
     });
@@ -77,7 +80,7 @@ fetchData();
     <Container>
      
       {filteredProducts.map((item) => (
-        <Product item={item} key={item.id} handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} />
+        <Product item={item} key={item.id} handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} handleDelete={handleDelete} />
       ))}
 
     </Container>

@@ -12,7 +12,12 @@ const Container = styled.div`
     background-color: #fbf0f4;
 `;
 
-const Favorites = ({favorite}) => {
+const Favorites = ({favorite, 
+    handleFavorite,
+    handleCart,
+    handleDetail,
+    handleDelete}) => {
+    console.log(favorite, 'favorite-fav')
   return (
     <>
     <Announcement />
@@ -20,7 +25,13 @@ const Favorites = ({favorite}) => {
     <Container>
      
     {favorite.map((item) => (
-      <Product item={item} key={item.id} />
+      <Product 
+      item={item} 
+      key={item.id}  
+      handleFavorite={handleFavorite}
+      handleCart={handleCart}
+      handleDetail={handleDetail}
+      handleDelete={handleDelete}/>
     ))}
 
 

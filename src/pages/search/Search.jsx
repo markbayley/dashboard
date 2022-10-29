@@ -9,7 +9,7 @@ export const Search = ({category, handleFavorite, handleCart, handleDetail}) => 
   return (
 <>
     <Announcement />
-    <Heading title={category} subtitle="A range to make you smile" />
+    <Heading title={category} subtitle={ category === "SUMMER SALE" ? "All items below under $30!" : category === "BEST SELLERS" ? "Our most popular products" : "A range to make you smile"} />
     <div className='wrapper'>
     <div className="search">
           <input type="text" placeholder="Search..." />
