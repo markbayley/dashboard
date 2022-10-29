@@ -16,9 +16,10 @@ const Title = styled.h1`
 `;
 
 const Desc = styled.div`
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 300;
   margin-bottom: 20px;
+  padding: 0px 10px;
   ${mobile({ textAlign: "center" })}
 `;
 

@@ -75,34 +75,31 @@ import { Link } from "react-router-dom";
   `;
   
   const Product = ({ item, handleFavorite, handleCart, handleDetail }) => {
-    
-    return (
-    
+
+    return (  
       <Container >
-     
         <Circle />
         <Image src={item.img} width="95%"/>
      
         <Info>
           <Icon>
-            <ShoppingCartOutlined key={item.id}  onClick={(e) => handleCart(item)}/>
+            <ShoppingCartOutlined  key={item.id} onClick={(e) => handleCart(item)}/>
           </Icon>
-          <Link to="/detail">
+
           <Icon>
-            <SearchOutlined key={item.id} onClick={(e) => handleDetail(item)} />
+            
+          <Link to={"/detail"} >
+            <SearchOutlined key={item.id}  onClick={(e) => handleDetail(item)} />
+            </Link>
           </Icon>
-          </Link>
+        
+
           <Icon>
             <FavoriteBorderOutlined key={item.id}  onClick={(e) => handleFavorite(item)}/>
           </Icon>
          
         </Info>
-    
-      
-    
       </Container>
-    
-         
     );
   };
   

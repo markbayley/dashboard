@@ -1,8 +1,8 @@
-import { collection, onSnapshot } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
-import { db } from '../../firebase';
+import { collection, onSnapshot } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { db } from "../../firebase";
 import styled from "styled-components";
-import { Rating } from '@mui/material';
+import { Rating } from "@mui/material";
 
 const Container = styled.div`
   padding: 20px;
@@ -27,9 +27,8 @@ const Item = styled.div`
   padding: 20px;
 `;
 
-export const Reviews = ({detail}) => {
-
-    const [transactions, setTransactions] = useState([]);
+export const Reviews = ({ detail }) => {
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -40,7 +39,6 @@ export const Reviews = ({detail}) => {
           list.push({ id: doc.id, ...doc.data() });
         });
         const filteredList = list.filter((items) => {
-      
           if (items.product !== detail.title) {
             return false;
           }
@@ -60,49 +58,63 @@ export const Reviews = ({detail}) => {
     };
   }, []);
 
-  console.log(transactions, 'transactions')
+  console.log(transactions, "transactions");
 
-  const [ value, setValue ] = useState(3)
+  const [value, setValue] = useState(3);
 
   return (
     <div>
-    <div> &nbsp;Reviews ({transactions.length})</div>
-    <div>
-    {transactions.map((item) => (
-     
-       
-        <Item key={item.id}>
-            <div style={{display: 'flex', alignItems: "center", justiftyContent: "flex-start"}}>
-            <img src={item.img} width="30px" alt="review" style={{borderRadius: "50%", marginRight: "10px"}}/> 
-            {item.product}
+      <div> &nbsp;Reviews ({transactions.length})</div>
+      <div>
+        {transactions.map((item) => (
+          <Item key={item.id}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justiftyContent: "flex-start",
+              }}
+            >
+              <img
+                src={item.img}
+                width="30px"
+                alt="review"
+                style={{ borderRadius: "50%", marginRight: "10px" }}
+              />
+              <p style={{color: "#8e8e8e"}}>{item.product}</p>
             </div>
-     
-            <p style={{paddingTop: "15px"}}><em>"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque suscipit corporis, ab fuga, ipsa voluptate reprehenderit doloremque deserunt rem quis molestias placeat corrupti? Optio ad dolor architecto cupiditate omnis eaque!"</em></p>
-           
-           
-            <div style={{display: 'flex', alignItems: "center", paddingTop: "15px" ,fontSize: "18px"}}>
-          
-            <Rating
-  name="simple-controlled"
-  value={value}
-  onChange={(event, newValue) => {
-    setValue(newValue);
-  }}
-/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <br /><strong>{item.customer}</strong>&nbsp; {item.date}
-           
+
+            <p style={{ paddingTop: "15px", fontSize: "18px" }}>
+              <em>
+                "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
+                suscipit corporis, ab fuga, ipsa voluptate reprehenderit
+                doloremque deserunt rem quis molestias placeat corrupti? Optio
+                ad dolor architecto cupiditate omnis eaque!"
+              </em>
+            </p>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                paddingTop: "15px",
+                fontSize: "18px",
+              }}
+            >
+              <Rating
+                name="simple-controlled"
+                value={value}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+              />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <br />
+              <strong>{item.customer}</strong>&nbsp; {item.date}
             </div>
-        
-        
-        </Item>
-     
-        
-    ))}
-
-
-
-    
-        </div>
+          </Item>
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};

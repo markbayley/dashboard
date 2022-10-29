@@ -436,19 +436,20 @@ const Single = ({ inputs, title, col, uid }) => {
                     {/* editing */}
                     <Badge
                       badgeContent="main"
+                    
                       color="info"
                       overlap="circular"
                       anchorOrigin={{
                         vertical: "top",
                         horizontal: "right",
                       }}
-                    >
+                    >   
                       <img
                         src={main ? main : data.img}
                         alt=""
                         className={col === "users" ? "itemImg" : "altImg"}
                       />
-                    </Badge>
+                 </Badge>
                   </div>
 
                   <div className="right">

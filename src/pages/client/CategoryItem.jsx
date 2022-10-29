@@ -37,12 +37,18 @@ margin-bottom: 20px;
 
 const Button = styled.button`
 border: none;
-padding: 10px;
-background-color: white;
-color: gray;
+padding: 15px;
+background-color: orange;
+color: white;
 cursor: pointer;
 font-weight: 600;
-border-radius: 2px;
+border-radius: 5px;
+transition: all 0.5s ease;
+&:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+    cursor: pointer;
+  }
 
 `
 

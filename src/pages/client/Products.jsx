@@ -19,8 +19,8 @@ const Products = ({handleFavorite, handleCart, handleDetail, category}) => {
   console.log(category, 'category-search')
 
 
-  const [products, setProducts ] = useState([])
-  const [filteredProducts, setFilteredProducts ] = useState(products)
+  // const [products, setProducts ] = useState([])
+  const [filteredProducts, setFilteredProducts ] = useState([])
   console.log(filteredProducts, 'filteredProducts-search')
 
   useEffect(() => {
@@ -38,13 +38,12 @@ const Products = ({handleFavorite, handleCart, handleDetail, category}) => {
         return false;
       }
    
-
       return true;
     });
 
     setFilteredProducts(filteredProducts);
-    setProducts(list);
-    console.log(list);
+    // setProducts(list);
+
   } catch (err) {
     console.log(err);
   }
@@ -80,7 +79,6 @@ fetchData();
       {filteredProducts.map((item) => (
         <Product item={item} key={item.id} handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} />
       ))}
-
 
     </Container>
   );

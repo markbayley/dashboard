@@ -6,7 +6,14 @@ import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import Stats from "./pages/stats/Stats";
 import Navbar from "./components/navbar/Navbar";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import {
   productInputs,
   userInputs,
@@ -27,6 +34,8 @@ import Favorites from "./pages/favorites/Favorites";
 import Cart from "./pages/cart/Cart";
 import { Detail } from "./pages/detail/Detail";
 import { Search } from "./pages/search/Search";
+import Snackbar from "@mui/material/Snackbar";
+import { Alert, Button } from "@mui/material";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -37,67 +46,95 @@ function App() {
     return currentUser ? children : <Navigate to="/login" />;
   };
 
-  const [cart, setCart ] = useState([])
-  const [counterCart, setCartCounter ] = useState(0)
-  const [favorite, setFavorite ] = useState([])
-  const [counterFavorite, setFavoriteCounter ] = useState(0)
+  const [cart, setCart] = useState([]);
+  const [counterCart, setCartCounter] = useState(0);
+  const [favorite, setFavorite] = useState([]);
+  const [counterFavorite, setFavoriteCounter] = useState(0);
 
-  const [detail, setDetail ] = useState([])
-  const [category, setCategory ] = useState([])
-  
+  const [detail, setDetail] = useState([]);
+  console.log(detail, 'detail-app')
+  const [category, setCategory] = useState([]);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+  });
+  const { open } = snackbar;
+
   const handleFavorite = (item) => {
-    const list = favorite
-    list.push((item));
+    const list = favorite;
+    list.push(item);
     setFavorite(list);
-    setFavoriteCounter(counterFavorite + 1)
-
-    console.log( list, 'list')
-    console.log(favorite, 'favorite')
-  }
+    setFavoriteCounter(counterFavorite + 1);
+    setSnackbar({ open: true });
+  };
 
   const handleCart = (item) => {
-    const list = cart
-    list.push((item));
+    const list = cart;
+    list.push(item);
     setCart(list);
-    setCartCounter(counterCart + 1)
+    setCartCounter(counterCart + 1);
+    setSnackbar({ open: true });
+  };
 
-    console.log( list, 'list')
-    console.log(favorite, 'favorite')
-  }
+  // const navigate = useNavigate()
 
   const handleDetail = (item) => {
-      setDetail(item)
-  }
+    setDetail(item);
+    // navigate("/detail")
+
+  };
 
   const handleCategory = (value) => {
-    setCategory(value)
-}
+    setCategory(value);
+  };
 
-
+  const handleClose = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
-      { currentUser ?
-        <Fragment>
-          <Navbar favorite={counterFavorite} cart={counterCart}/>
-        </Fragment>
-        :
+        {currentUser ? (
           <Fragment>
-          <SignedOut favorite={counterFavorite} cart={counterCart}/>
-     
-        </Fragment>
+            <Navbar favorite={counterFavorite} cart={counterCart} />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <SignedOut favorite={counterFavorite} cart={counterCart} />
+          </Fragment>
+        )}
 
-      }
-  
         <Routes>
           <Route path="/">
-          <Route path="favorites" element={<Favorites favorite={favorite} />} />
-          <Route path="search" element={<Search  category={category}/>} />
-          <Route path="detail" element={<Detail  detail={detail} handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} />} />
-          <Route path="cart" element={<Cart cart={cart} />} />
+            <Route
+              path="favorites"
+              element={<Favorites favorite={favorite} />}
+            />
+            <Route path="search" element={<Search category={category} handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail}/>} />
+            <Route
+              path="detail"
+              element={
+                <Detail
+                  detail={detail}
+                  handleFavorite={handleFavorite}
+                  handleCart={handleCart}
+                  handleDetail={handleDetail}
+                />
+              }
+            />
+            <Route path="cart" element={<Cart cart={cart} />} />
             <Route path="login" element={<Login />} />
-            <Route path="client" element={<Client handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} handleCategory={handleCategory} />} />
+            <Route
+              path="client"
+              element={
+                <Client
+                  handleFavorite={handleFavorite}
+                  handleCart={handleCart}
+                  handleDetail={handleDetail}
+                  handleCategory={handleCategory}
+                />
+              }
+            />
             <Route
               index
               element={
@@ -272,6 +309,16 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%", backgroundColor: "teal" }}
+        >
+          Item has been added successfully!
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

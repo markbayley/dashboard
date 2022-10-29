@@ -5,7 +5,7 @@ import Heading from '../client/Heading'
 import Products from '../client/Products'
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
-export const Search = ({category}) => {
+export const Search = ({category, handleFavorite, handleCart, handleDetail}) => {
   return (
 <>
     <Announcement />
@@ -16,7 +16,7 @@ export const Search = ({category}) => {
           <SearchOutlinedIcon className="icon"/>
         </div>
         </div>
-    <Products category={category}/>
+    <Products category={category} handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail}/>
     </>
   )
 }
