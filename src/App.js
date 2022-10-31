@@ -122,7 +122,7 @@ function App() {
           <Route path="/">
             <Route path="login" element={<Login />} />
             <Route
-              path="home"
+              path="/"
               element={
                 <Home
                   handleFavorite={handleFavorite}
