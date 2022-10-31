@@ -83,7 +83,7 @@ import { Link } from "react-router-dom";
   
   `;
   
-  const Product = ({ item, handleFavorite, handleCart, handleDetail, handleDelete }) => {
+  const Product = ({ item, handleFavorite, handleCart, handleDetail, handleDelete, filteredProducts }) => {
 
     return (  
       <Container >
@@ -98,7 +98,7 @@ import { Link } from "react-router-dom";
 
           <Icon>
             
-          <Link to={"/detail"} >
+          <Link to={"/home/detail"} >
             <SearchOutlined id={item.id} onClick={(e) => handleDetail(item)} style={{color: "black", paddingTop: "5px"}} />
             </Link>
           </Icon>

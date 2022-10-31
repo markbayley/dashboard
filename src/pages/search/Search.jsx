@@ -1,8 +1,8 @@
 import React from 'react'
 import "./search.scss"
-import Announcement from '../client/Announcement'
-import Heading from '../client/Heading'
-import Products from '../client/Products'
+import Announcement from '../home/Announcement'
+import Heading from '../home/Heading'
+import Products from '../home/Products'
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 export const Search = ({category, handleFavorite, handleCart, handleDetail}) => {

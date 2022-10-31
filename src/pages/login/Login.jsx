@@ -10,8 +10,11 @@ const Login = ({setModal}) => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setName] = useState("");
 
-  const navitage = useNavigate()
+  const navigate = useNavigate()
+
+  const [ register , setRegister ] = useState(false)
 
   const {dispatch} = useContext(AuthContext)
 
@@ -23,7 +26,7 @@ const Login = ({setModal}) => {
         // Signed in
         const user = userCredential.user;
         dispatch({type:"LOGIN", payload:user})
-        navitage("/")
+        navigate("/home")
       })
       .catch((error) => {
         setError(true);
@@ -37,7 +40,14 @@ const Login = ({setModal}) => {
 
     <div className="close"><div onClick={() => setModal(false)}><Close /></div></div>
        <h2>Marc Balieu</h2>
-       <span>Login</span>
+       {register ? <span>Register</span> : <span>Login</span> }
+{ register &&
+       <input
+          type="text"
+          placeholder="name"
+          onChange={(e) => setName(e.target.value)}
+        />
+}
         <input
           type="email"
           placeholder="email"
@@ -49,11 +59,17 @@ const Login = ({setModal}) => {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
+       
         <br />
-        <button type="submit">Login</button>
+        <button type="submit">  {register ? "REGISTER" : "LOGIN" }</button>
         {error && <span>Wrong email or password!</span>}
         <br />
-        <p className="log">Don't have an account?<Link to="/register" className="log"> Register</Link></p>
+        { !register ? 
+        <p className="log">Don't have an account? <div onClick={() => setRegister(true)} className="log">&nbsp; Register</div></p>
+
+        :
+        <p className="log">Already have an account? <div onClick={() => setRegister(false)} className="log">&nbsp; Login</div></p>
+}
       </form>
     </div>
   );

@@ -187,7 +187,7 @@ const Usertable = ({
         return (
           <div className="cellAction">
             <Link
-              to={"/" + col + "/" + params.row.id}
+              to={"/admin/" + col + "/" + params.row.id}
               style={{ textDecoration: "none" }}
             >
               <div className="updateButton">
@@ -270,7 +270,7 @@ const Usertable = ({
             <SearchOutlinedIcon id="#searchicon" />
           </div>
 
-          <Link to={"/" + col + "/new"} className="link">
+          <Link to={"/admin/" + col + "/new"} className="link">
             Add
           </Link>
         </div>

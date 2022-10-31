@@ -1,6 +1,11 @@
 .app.dark {
-  background-color: #1e2732;
-  color: white;
+  // background-color: #1e2732;
+  // color: white;
+
+  .homeContainer, .singleContainer, .listContainer, .statsContainer, .newContainer {
+    background-color: #1e2732;
+    color: white;
+  }
 
   .chartGrid {
     stroke: rgba(228, 228, 228, 0.219);
@@ -105,12 +110,12 @@
   }
 
   input {
-    background-color: transparent;
-    color: white;
+    // background-color: transparent;
+    // color: white;
     outline: none;
     &::placeholder {
-      color: lightgray;
-      font-size: 14px;
+      color:gray;
+      font-size: 16px;
     }
   }
 }

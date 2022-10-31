@@ -129,7 +129,7 @@ const Slider = ({handleCategory}) => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Link to="/search"><Button value={item.category} onClick={e => handleCategory(e.target.value)}>SHOP NOW</Button></Link>
+              <Link to="/home/search"><Button value={item.category} onClick={e => handleCategory(e.target.value)}>SHOP NOW</Button></Link>
             </InfoContainer>
             
           </Slide>

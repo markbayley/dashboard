@@ -5,64 +5,59 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Login from "../../pages/login/Login";
 import { Badge } from "@mui/material";
-import { Favorite, FavoriteBorderOutlined, FavoriteOutlined, ShoppingBasket, ShoppingBasketOutlined, ShoppingCart, ShoppingCartOutlined } from "@mui/icons-material";
+import {
+  Favorite,
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
+  ShoppingBasket,
+  ShoppingBasketOutlined,
+  ShoppingCart,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-const SignedOut = ({favorite, cart}) => {
-
-
-  const [ modal, setModal ] = useState(false)
+const SignedOut = ({ favorite, cart }) => {
+  const [modal, setModal] = useState(false);
 
   const handleModal = () => {
-    setModal(true)
-  }
+    setModal(true);
+  };
 
   return (
     <>
-    <div className="navbar">
-      <div className="wrapper">
-
-
-      
-
+      <div className="navbar">
+        <div className="wrapper">
           <div className="top">
-            {/* <Link to="/login" style={{ textDecoration: "none" }}> */}
-            <Link to="/client" className="logo">marcbalieu</Link>
-            {/* </Link> */}
+            <Link to="/home" className="logo">
+              marc balieu
+            </Link>
           </div>
 
           {/* <div className="search">
           <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon className="icon"/>
         </div> */}
-<div className="items">
-      
-        {/* <Badge badgeContent={4} color="warning" > */}
-        <Link to="/favorites">
-        <div className="item">
-              <FavoriteBorderOutlined />
-              <div className="counter">{favorite}</div>
+          <div className="items">
+            <Link to="/home/favorites">
+              <div className="item">
+                <FavoriteBorderOutlined />
+                <div className="counter">{favorite}</div>
               </div>
-              </Link>
-              <Link to="/cart">
-        <div className="item">
-              <ShoppingBasketOutlined />
-              <div className="counter">{cart}</div>
+            </Link>
+            <Link to="/home/cart">
+              <div className="item">
+                <ShoppingBasketOutlined />
+                <div className="counter">{cart}</div>
               </div>
-              </Link>
-            {/* </Badge> */}
-        <div onClick={handleModal} className="log">Login</div>
+            </Link>
 
+            <div onClick={handleModal} className="log">
+              Login
+            </div>
+          </div>
         </div>
-
-
       </div>
-    </div>
-    { modal ?
-    <Login setModal={setModal} />
-    :
-    ""
-  }
+      {modal ? <Login setModal={setModal} /> : ""}
     </>
   );
 };

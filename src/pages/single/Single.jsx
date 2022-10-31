@@ -34,26 +34,21 @@ function CircularIndeterminate() {
   );
 }
 
-const Single = ({ inputs, title, col, uid }) => {
+const Single = ({ inputs, title, col, uid, user }) => {
   const [editing, setEditing] = useState(false);
   const params = useParams();
-  console.log(col, "col");
 
   const [file, setFile] = useState("");
-  console.log(file, "file-single");
   const [file2, setFile2] = useState("");
-  console.log(file2, "file-single2");
   const [file3, setFile3] = useState("");
-  console.log(file2, "file-single2");
+  const [file4, setFile4] = useState("");
+  const [file5, setFile5] = useState("");
 
   const [data, setData] = useState({});
-  console.log(data, "data-single");
   const [per, setPerc] = useState(null);
   const navigate = useNavigate();
 
   const [main, setMain] = useState(data.img);
-  console.log(main, "main-single");
-
   const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
@@ -103,8 +98,14 @@ const Single = ({ inputs, title, col, uid }) => {
               setMain(data.img);
             } else if (!data.img2) {
               setData((prev) => ({ ...prev, img2: downloadURL }));
-            } else {
+            } else if (!data.img3) {
               setData((prev) => ({ ...prev, img3: downloadURL }));
+            } else if (!data.img4) {
+              setData((prev) => ({ ...prev, img4: downloadURL }));
+            } else if (!data.img5) {
+              setData((prev) => ({ ...prev, img5: downloadURL }));
+            } else {
+              setData((prev) => ({ ...prev, img: downloadURL }));
             }
           });
         }
@@ -190,10 +191,10 @@ const Single = ({ inputs, title, col, uid }) => {
         return (
           <div className="cellAction">
             <Link
-              to={"/" + col + "/" + params.row.id}
+              to={"/admin/" + "orders" + "/" + params.row.id}
               style={{ textDecoration: "none" }}
             >
-              <div className="updateButton">
+              <div className="updateButton" onClick={() => setEditing(true)}>
                 <Edit className="icon" />
               </div>
             </Link>
@@ -210,6 +211,11 @@ const Single = ({ inputs, title, col, uid }) => {
     },
   ];
 
+
+  console.log(data, 'data.id')
+  console.log(uid, 'uid')
+  console.log(user, 'user')
+
   return (
     <>
       <div className="single">
@@ -218,14 +224,16 @@ const Single = ({ inputs, title, col, uid }) => {
           {!editing ? (
             <>
               <div className="datatableTitle">
-                {col === "users"
-                  ? "User Detail"
-                  : col === "products"
+                {
+                // data.username === user.username
+                //   ? "Profile"
+                //   : 
+                  col === "products"
                   ? "Product Detail"
                   : col === "orders"
                   ? "Order Detail"
-                  : col === "profile"
-                  ? "Profile Detail"
+                  : col === "users" 
+                  ? "User Detail"
                   : "Delivery"}
 
                 <SubdirectoryArrowLeftIcon
@@ -323,6 +331,26 @@ const Single = ({ inputs, title, col, uid }) => {
                           className={col === "users" ? "smallImg" : "smallAlt"}
                           onClick={(e) => setMain(e.target.src)}
                         />
+                           <img
+                          src={
+                            data.img4
+                              ? data.img4
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                           <img
+                          src={
+                            data.img5
+                              ? data.img5
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
                       </div>
                     ) : (
                       //products
@@ -379,6 +407,26 @@ const Single = ({ inputs, title, col, uid }) => {
                           className={col === "users" ? "smallImg" : "smallAlt"}
                           onClick={(e) => setMain(e.target.src)}
                         />
+                         <img
+                          src={
+                            data.img4
+                              ? data.img4
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
+                         <img
+                          src={
+                            data.img5
+                              ? data.img5
+                              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                          }
+                          alt="small image"
+                          className={col === "users" ? "smallImg" : "smallAlt"}
+                          onClick={(e) => setMain(e.target.src)}
+                        />
                       </div>
                     )}
                   </div>
@@ -404,14 +452,16 @@ const Single = ({ inputs, title, col, uid }) => {
             <div className="new">
               <div className="newContainer">
                 <div className="datatableTitle">
-                  {col === "users"
-                    ? "Edit User"
-                    : col === "products"
+                  {
+                  // data.username === user.username
+                  //   ? "Edit Profile"
+                  //   : 
+                    col === "products"
                     ? "Edit Product"
                     : col === "orders"
                     ? "Edit Order"
-                    : col === "profile"
-                    ? "Edit Profile"
+                    : col === "users" 
+                    ? "Edit User"
                     : "Delivery"}
 
                   <ClearIcon
@@ -434,7 +484,7 @@ const Single = ({ inputs, title, col, uid }) => {
                     </h3>
                     <br />
                     {/* editing */}
-                    <Badge
+                    {/* <Badge
                       badgeContent="main"
                     
                       color="info"
@@ -443,13 +493,13 @@ const Single = ({ inputs, title, col, uid }) => {
                         vertical: "top",
                         horizontal: "right",
                       }}
-                    >   
+                    >    */}
                       <img
                         src={main ? main : data.img}
                         alt=""
                         className={col === "users" ? "itemImg" : "altImg"}
                       />
-                 </Badge>
+                 {/* </Badge> */}
                   </div>
 
                   <div className="right">
@@ -512,7 +562,7 @@ const Single = ({ inputs, title, col, uid }) => {
                       <div className="formInput">
                         <label htmlFor="file">
                           {/*  editing */}
-                          Upload Images:{" "}
+                          {" "}
                           <DriveFolderUploadOutlinedIcon className="icon" />
                           <input
                             type="file"
@@ -602,6 +652,62 @@ const Single = ({ inputs, title, col, uid }) => {
                                   ? data.img3
                                   : file3
                                   ? URL.createObjectURL(file3)
+                                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                              }
+                              alt="small"
+                              className={
+                                col === "users" ? "smallImg" : "smallAlt"
+                              }
+                              onClick={(e) => setMain(e.target.src)}
+                            />
+                            </Badge>
+                          )}
+                          {data.img3 && loading ? (
+                            <CircularIndeterminate />
+                          ) : (
+                            <Badge
+                            badgeContent="X"
+                            color="info"
+                            overlap="circular"
+                            anchorOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                          >
+                            <img
+                              src={
+                                data.img4
+                                  ? data.img4
+                                  : file4
+                                  ? URL.createObjectURL(file4)
+                                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                              }
+                              alt="small"
+                              className={
+                                col === "users" ? "smallImg" : "smallAlt"
+                              }
+                              onClick={(e) => setMain(e.target.src)}
+                            />
+                            </Badge>
+                          )}
+                          {data.img4 && loading ? (
+                            <CircularIndeterminate />
+                          ) : (
+                            <Badge
+                            badgeContent="X"
+                            color="info"
+                            overlap="circular"
+                            anchorOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                          >
+                            <img
+                              src={
+                                data.img5
+                                  ? data.img5
+                                  : file5
+                                  ? URL.createObjectURL(file5)
                                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                               }
                               alt="small"

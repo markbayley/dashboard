@@ -58,7 +58,7 @@ const CategoryItem = ({item, handleCategory}) => {
         <Image src={item.img} />
         <Info>
            <Title>{item.title}</Title>
-         <Link to="/search"><Button value={item.title} onClick={e => handleCategory(e.target.value)}>SHOP NOW</Button></Link> 
+         <Link to="/home/search"><Button value={item.title} onClick={e => handleCategory(e.target.value)}>SHOP NOW</Button></Link> 
         </Info>
 
 

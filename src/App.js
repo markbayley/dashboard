@@ -1,5 +1,5 @@
 import "./style/dark.scss";
-import Home from "./pages/home/Home";
+import Admin from "./pages/admin/Admin";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
@@ -11,8 +11,6 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
-  useNavigation,
 } from "react-router-dom";
 import {
   productInputs,
@@ -26,16 +24,14 @@ import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
-import Sidebar from "./components/sidebar/Sidebar";
 import SignedOut from "./components/navbar/SignedOut";
-import Client from "./pages/client";
-import { Favorite } from "@mui/icons-material";
+import Home from "./pages/home/Home";
 import Favorites from "./pages/favorites/Favorites";
 import Cart from "./pages/cart/Cart";
 import { Detail } from "./pages/detail/Detail";
 import { Search } from "./pages/search/Search";
 import Snackbar from "@mui/material/Snackbar";
-import { Alert, Button } from "@mui/material";
+import { Alert } from "@mui/material";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -46,27 +42,32 @@ function App() {
     return currentUser ? children : <Navigate to="/login" />;
   };
 
-  const [cart, setCart] = useState([]);
-  const [counterCart, setCartCounter] = useState(0);
+  const [user, setUser] = useState([]);
+  //Get the current users' data
+  useEffect(async () => {
+    const docRef = doc(db, "users", currentUser?.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setUser(docSnap.data());
+    } else {
+      console.log("No such document!");
+    }
+  }, []);
+
   const [favorite, setFavorite] = useState([]);
   const [counterFavorite, setFavoriteCounter] = useState(0);
 
-  const [detail, setDetail] = useState([]);
-  console.log(detail, 'detail-app')
-  const [category, setCategory] = useState([]);
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-  });
-  const { open } = snackbar;
-
   const handleFavorite = (item) => {
     const list = favorite;
-    
     list.push(item);
     setFavorite(list);
     setFavoriteCounter(counterFavorite + 1);
     setSnackbar({ open: true });
   };
+
+  const [cart, setCart] = useState([]);
+  const [counterCart, setCartCounter] = useState(0);
 
   const handleCart = (item) => {
     const list = cart;
@@ -78,21 +79,27 @@ function App() {
 
   const handleDelete = (e) => {
     const list = favorite;
-    const id = e.target.getAttribute("id")
-    setFavorite(list.filter(item => item.id !== id));
+    const id = e.target.getAttribute("id");
+    setFavorite(list.filter((item) => item.id !== id));
     setFavoriteCounter(counterFavorite - 1);
-  }
+  };
 
-  // const navigate = useNavigate()
+  const [detail, setDetail] = useState([]);
 
   const handleDetail = (item) => {
     setDetail(item);
-    // navigate("/detail")
   };
+
+  const [category, setCategory] = useState([]);
 
   const handleCategory = (value) => {
     setCategory(value);
   };
+
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+  });
+  const { open } = snackbar;
 
   const handleClose = () => {
     setSnackbar({ ...snackbar, open: false });
@@ -103,7 +110,7 @@ function App() {
       <BrowserRouter>
         {currentUser ? (
           <Fragment>
-            <Navbar favorite={counterFavorite} cart={counterCart} />
+            <Navbar favorite={counterFavorite} cart={counterCart} user={user} />
           </Fragment>
         ) : (
           <Fragment>
@@ -113,37 +120,11 @@ function App() {
 
         <Routes>
           <Route path="/">
-            <Route
-              path="favorites" element={<Favorites 
-              favorite={favorite}   
-              handleFavorite={handleFavorite}
-              handleCart={handleCart}
-              handleDetail={handleDetail}
-              handleDelete={handleDelete}/>}
-            />
-            <Route path="search" element={<Search 
-            category={category} 
-            handleFavorite={handleFavorite} 
-            handleCart={handleCart} 
-            handleDetail={handleDetail} 
-            handleDelete={handleDelete}/>} />
-            <Route
-              path="detail"
-              element={<Detail
-                  detail={detail}
-                  handleFavorite={handleFavorite}
-                  handleCart={handleCart}
-                  handleDetail={handleDetail}
-                  handleDelete={handleDelete}
-                />
-              }
-            />
-            <Route path="cart" element={<Cart cart={cart} />} />
             <Route path="login" element={<Login />} />
             <Route
-              path="client"
+              path="home"
               element={
-                <Client
+                <Home
                   handleFavorite={handleFavorite}
                   handleCart={handleCart}
                   handleDetail={handleDetail}
@@ -152,16 +133,56 @@ function App() {
                 />
               }
             />
+                <Route
+              path="home/detail"
+              element={
+                <Detail
+                  detail={detail}
+                  handleFavorite={handleFavorite}
+                  handleCart={handleCart}
+                  handleDetail={handleDetail}
+                  handleDelete={handleDelete}
+                  user={user}
+                />
+              }
+            />
+                <Route
+              path="home/search"
+              element={
+                <Search
+                  category={category}
+                  handleFavorite={handleFavorite}
+                  handleCart={handleCart}
+                  handleDetail={handleDetail}
+                  handleDelete={handleDelete}
+                />
+              }
+            />
+            <Route
+              path="home/favorites"
+              element={
+                <Favorites
+                  favorite={favorite}
+                  handleFavorite={handleFavorite}
+                  handleCart={handleCart}
+                  handleDetail={handleDetail}
+                  handleDelete={handleDelete}
+                />
+              }
+            />
+              <Route path="home/cart" element={<Cart cart={cart} />} />
+
+
             <Route
               index
               element={
                 <RequireAuth>
-                  <Home col="" key="0" title="Dashboard" />
+                  <Admin col="" key="0" title="Dashboard" />
                 </RequireAuth>
               }
             />
 
-            <Route path="users">
+            <Route path="admin/users">
               <Route
                 index
                 element={
@@ -188,7 +209,7 @@ function App() {
               />
             </Route>
 
-            <Route path="products">
+            <Route path="admin/products">
               <Route
                 index
                 element={
@@ -223,7 +244,7 @@ function App() {
               />
             </Route>
 
-            <Route path="orders">
+            <Route path="admin/orders">
               <Route
                 index
                 element={
@@ -258,7 +279,7 @@ function App() {
               />
             </Route>
 
-            <Route path="deliveries">
+            <Route path="admin/deliveries">
               <Route
                 index
                 element={
@@ -294,7 +315,7 @@ function App() {
             </Route>
 
             <Route
-              path="stats"
+              path="admin/stats"
               index
               element={
                 <RequireAuth>
@@ -309,7 +330,7 @@ function App() {
             />
 
             <Route
-              path="profile"
+              path="admin/profile"
               index
               element={
                 <RequireAuth>
@@ -318,6 +339,7 @@ function App() {
                     inputs={profileInputs}
                     key="6"
                     uid={currentUser?.uid}
+                    user={user}
                     title="My Profile"
                   />
                 </RequireAuth>
@@ -331,7 +353,7 @@ function App() {
           onClose={handleClose}
           severity="success"
           variant="filled"
-          sx={{ width: "100%", backgroundColor: "teal" }}
+          sx={{ width: "100%", backgroundColor: "#b1cba6", color: "black" }}
         >
           Item has been added successfully!
         </Alert>

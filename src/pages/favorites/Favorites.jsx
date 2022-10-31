@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from "styled-components";
-import Announcement from '../client/Announcement';
-import Heading from '../client/Heading';
-import Product from '../client/Product';
+import Announcement from '../home/Announcement';
+import Heading from '../home/Heading';
+import Product from '../home/Product';
 
 const Container = styled.div`
     padding: 20px;

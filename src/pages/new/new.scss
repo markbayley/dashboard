@@ -10,7 +10,7 @@
       height: 50px;
       border-radius: 50%;
       object-fit: cover;
-      margin-right: 10px;
+      // margin-right: 1px;
       border: 1px solid lightgray;
       &:hover {
         border: 1px solid #7451f8;
@@ -23,7 +23,7 @@
       height: 50px;
       // border-radius: 50%;
       object-fit: cover;
-      margin-right: 10px;
+      // margin-right: 1px;
       border: 1px solid lightgray;
       &:hover {
         border: 1px solid #7451f8;
@@ -71,7 +71,7 @@
 
       .icon {
         cursor: pointer;
-        margin-right: 10px;
+        margin-right: 5px;
         color: #7451f8;
         &:hover {
           background-color: #7451f8;
@@ -94,7 +94,7 @@
       }
 
       .left {
-        flex: 1;
+        flex: 2;
         text-align: center;
     
 
@@ -119,7 +119,7 @@
       }
 
       .right {
-        flex: 2;
+        flex: 4;
 
         form {
           display: flex;

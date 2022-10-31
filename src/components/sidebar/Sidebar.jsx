@@ -21,13 +21,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Sidebar = () => {
 
-
-  
-
   const {dispatch} = useContext(AuthContext)
-
-
-
 
   return (
     <div className="sidebar">
@@ -35,7 +29,7 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link to="/client" style={{ textDecoration: "none" }}>
+          <Link to="/home" style={{ textDecoration: "none" }}>
             <li>
               <HomeIcon className="icon" />
               <span>Homepage</span>
@@ -48,25 +42,25 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">LISTS</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
+          <Link to="/admin/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
               <span>Users</span>
             </li>
           </Link>
-          <Link to="/products" style={{ textDecoration: "none" }}>
+          <Link to="/admin/products" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
               <span>Products</span>
             </li>
           </Link>
-          <Link to="/orders" style={{ textDecoration: "none" }}>
+          <Link to="/admin/orders" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />
               <span>Orders</span>
             </li>
           </Link>
-          <Link to="/deliveries" style={{ textDecoration: "none" }}>
+          <Link to="/admin/deliveries" style={{ textDecoration: "none" }}>
             <li>
               <LocalShippingIcon className="icon" />
               <span>Delivery</span>
@@ -74,7 +68,7 @@ const Sidebar = () => {
           </Link>
           <p className="title">USEFUL</p>
 
-          <Link to="/stats" style={{ textDecoration: "none" }}>
+          <Link to="/admin/stats" style={{ textDecoration: "none" }}>
           <li>
             <InsertChartIcon className="icon" />
             <span>Stats</span>
@@ -99,13 +93,13 @@ const Sidebar = () => {
             <span>Settings</span>
           </li>
           <p className="title">USER</p>
-          <Link to="/profile" style={{ textDecoration: "none" }}>
+          <Link to="/admin/profile" style={{ textDecoration: "none" }}>
             <li>
               <AccountCircleOutlinedIcon className="icon" />
               <span>Profile</span>
             </li>
           </Link>
-          <Link to="/client" style={{ textDecoration: "none" }}>
+          <Link to="/home" style={{ textDecoration: "none" }}>
           <li>
             <ExitToAppIcon className="icon" />
             <span onClick={() => dispatch({ type: "LOGOUT" })}>Logout</span>

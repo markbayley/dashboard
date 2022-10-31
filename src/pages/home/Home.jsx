@@ -1,87 +1,32 @@
-import "./home.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
-import Widget from "../../components/widget/Widget";
-import Featured from "../../components/featured/Featured";
-import Chart from "../../components/chart/Chart";
-import Table from "../../components/table/Table";
-import { db } from "../../firebase";
-import { collection, onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
 
+import React from 'react'
+import "./home.scss"
+import Navbar from '../../components/navbar/Navbar'
+import SignedOut from '../../components/navbar/SignedOut'
+import Announcement from './Announcement'
+import Categories from './Categories'
+import Slider from './Slider'
+import Products from './Products'
+import Newsletter from './Newsletter'
+import Footer from './Footer'
+import Heading from './Heading'
 
-
-const Home = ({ col }) => {
-
-  const [earnings, setEarnings] = useState();
-  const [sales, setSales] = useState();
-  const [total, setTotal] = useState();
-  console.log(total, 'Home-sales')
-  //Get earnings data for dashboard chart
-  useEffect(() => {
-    const fetchData = async() => {
-    const unsub = onSnapshot(
-      collection(
-        db, "earnings"),
-      (snapShot) => {
-        let list = [];
-        let sales = [];
-        let myTotal = 0;
-        snapShot.docs.forEach((doc) => {
-          list.push({ id: doc.id, ...doc.data() });
-        });
-        snapShot.docs.forEach((doc) => {
-        sales.push( parseInt(doc.data()['Total']));
-        myTotal = myTotal + parseInt(doc.data()["Total"]);
-        });
-        setEarnings(list);
-       setSales(sales)
-       setTotal(myTotal)
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-
-    return () => {
-      unsub();
-    };
-  }
-  fetchData()
-  }, []);
-
+function Home({handleFavorite, handleCart, handleDetail, handleCategory, handleDelete}) {
   return (
-    <>
-    <div className="home">
-      
-      <Sidebar />
-      <div className="homeContainer">
-      
-        <div className="widgets">
-          <Widget type="user" />
-          <Widget type="product" />
-          <Widget type="order" />
-          <Widget type="earning" total={total}/>
-        </div>
-        <div className="charts">
-          <Featured total={total} target="50000" title="Total Years's Earnings" />
-          <Chart
-            charttitle="Monthly Sales"
-            aspect={2.5 / 1}
-            data={earnings}
-            datakeyX="month"
-            datakeyY="Total"
-            datakeyBar="Total"
-            className="revenue"
-          />
-        </div>
+   <>
    
-        {/* <Usertable col="orders" /> */}
-        {/* <Table /> */}
-      </div>
-    </div>
-    </>
-  );
-};
+   <Announcement />
+    <Slider handleCategory={handleCategory} />
+    <Heading title="Categories" subtitle="Get 30% OFF On Our Summer SALE!"/>
+    <Categories handleCategory={handleCategory} />
+    <Heading title="Popular Products" subtitle="Eco Friendly and Responsibly Sourced"/>
+    <Products handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} handleDelete={handleDelete} />
+    <Newsletter />
+    <Footer />
+   
+   
+   </>
+  )
+}
 
-export default Home;
+export default Home

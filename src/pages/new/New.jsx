@@ -19,7 +19,9 @@ const New = ({ inputs, title, col }) => {
   const [file2, setFile2] = useState("");
   console.log(file2, "file-new2");
   const [file3, setFile3] = useState("");
-  console.log(file2, "file-new2");
+;
+  const [file4, setFile4] = useState("");
+  const [file5, setFile5] = useState("");
 
   const [data, setData] = useState({});
   console.log(data, "data-new");
@@ -67,8 +69,12 @@ const New = ({ inputs, title, col }) => {
               setData((prev) => ({ ...prev, img: downloadURL }));
             } else if (!data.img2) {
               setData((prev) => ({ ...prev, img2: downloadURL }));
-            } else {
+            } else if (!data.img3) {
               setData((prev) => ({ ...prev, img3: downloadURL }));
+            } else if (!data.img4) {
+              setData((prev) => ({ ...prev, img4: downloadURL }));
+            } else {
+              setData((prev) => ({ ...prev, img5: downloadURL }));
             }
           });
           setLoading(false);
@@ -183,7 +189,7 @@ const New = ({ inputs, title, col }) => {
               ))}
               <div className="formInput">
                 <label htmlFor="file">
-                  Upload Images:{" "}
+                  {/* Upload Images:{" "} */}
                   <DriveFolderUploadOutlinedIcon className="icon" />
                   <input
                     type="file"
@@ -233,6 +239,38 @@ const New = ({ inputs, title, col }) => {
                           ? data.img3
                           : file3
                           ? URL.createObjectURL(file3)
+                          : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                      }
+                      alt="small image"
+                      className={col === "users" ? "smallImg" : "smallAlt"}
+                      onClick={(e) => setMain(e.target.src)}
+                    />
+                  )}
+                    {loading && data.img && data.img2 && data.img3 && !data.img4 ? (
+                    <CircularIndeterminate />
+                  ) : (
+                    <img
+                      src={
+                        data.img4
+                          ? data.img4
+                          : file4
+                          ? URL.createObjectURL(file4)
+                          : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                      }
+                      alt="small image"
+                      className={col === "users" ? "smallImg" : "smallAlt"}
+                      onClick={(e) => setMain(e.target.src)}
+                    />
+                  )}
+                    {loading && data.img && data.img2 && data.img3 && data.img4 && !data.img5 ? (
+                    <CircularIndeterminate />
+                  ) : (
+                    <img
+                      src={
+                        data.img5
+                          ? data.img5
+                          : file5
+                          ? URL.createObjectURL(file5)
                           : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                       }
                       alt="small image"
