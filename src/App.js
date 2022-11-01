@@ -122,6 +122,18 @@ function App() {
           <Route path="/">
             <Route path="login" element={<Login />} />
             <Route
+              path="dashboard"
+              element={
+                <Home
+                  handleFavorite={handleFavorite}
+                  handleCart={handleCart}
+                  handleDetail={handleDetail}
+                  handleCategory={handleCategory}
+                  handleDelete={handleDelete}
+                />
+              }
+            />
+            <Route
               path="home"
               element={
                 <Home
