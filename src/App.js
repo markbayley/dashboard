@@ -39,7 +39,7 @@ function App() {
   const { currentUser } = useContext(AuthContext);
 
   const RequireAuth = ({ children }) => {
-    return currentUser ? children : <Navigate to="/dashboard" />;
+    return currentUser ? children : <Navigate to="/" />;
   };
 
   const [user, setUser] = useState([]);
@@ -119,7 +119,7 @@ function App() {
         )}
 
         <Routes>
-          <Route path="/dashboard">
+          <Route path="/">
             <Route path="login" element={<Login />} />
             <Route
               path="home"
