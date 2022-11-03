@@ -21,7 +21,7 @@ const Widget = ({ type, total }) => {
       data = {
         title: "USERS",
         isMoney: false,
-        link: <Link to="users" className="link">See all users</Link>,
+        link: <Link to="/admin/users" className="link">See all users</Link>,
         query:"users",
         icon: (
           <PersonOutlinedIcon
@@ -40,7 +40,7 @@ const Widget = ({ type, total }) => {
         title: "ORDERS",
         query:"orders",
         isMoney: false,
-        link: <Link to="orders" className="link">View all orders</Link>,
+        link: <Link to="/admin/orders" className="link">View all orders</Link>,
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -57,7 +57,7 @@ const Widget = ({ type, total }) => {
         title: "EARNINGS",
         query:"orders",
         isMoney: true,
-        link: <Link to="stats" className="link">View net earnings</Link>,
+        link: <Link to="/admin/stats" className="link">View net earnings</Link>,
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -70,7 +70,7 @@ const Widget = ({ type, total }) => {
       data = {
         title: "PRODUCTS",
         query:"products",
-        link: <Link to="products" className="link">See details</Link>,
+        link: <Link to="/admin/products" className="link">See details</Link>,
         icon: (
           <AccountBalanceWalletOutlinedIcon
             className="icon"

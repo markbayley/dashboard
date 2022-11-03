@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { mobile } from "../../responsive";
 
 const Container = styled.div`
-  height: 30vh;
+  height: 40vh;
   background-color: #fcf5f5;
   display: flex;
   align-items: center;
@@ -52,7 +52,7 @@ const Heading = ({title, subtitle, cart, total}) => {
   return (
     <Container>
       <Title>{title}{cart ? " ("+ cart.length +")" : "" }</Title>
-      <Desc >{subtitle}  { total ? "Your total is $" + total.toFixed(2) + "." : "" }</Desc>
+      <Desc > {subtitle} </Desc>
    
       {/* <InputContainer>
         <Input placeholder="Your email" />

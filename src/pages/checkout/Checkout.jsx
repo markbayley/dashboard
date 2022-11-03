@@ -1,29 +1,13 @@
 import React from 'react'
+import Heading from '../home/Heading'
 
 
 export const Checkout = ({total, user}) => {
   return (
-    <div>Checkout Total: ${total}
-  <div className="details">
-                        <h2 className="itemTitle">{user.displayName}</h2>
-                        <div className="detailItem">
-                          <span className="itemKey">Email:</span>
-                          <span className="itemValue">{user.email}</span>
-                        </div>
-                        <div className="detailItem">
-                          <span className="itemKey">Phone:</span>
-                          <span className="itemValue">{user.phone}</span>
-                        </div>
-                        <div className="detailItem">
-                          <span className="itemKey">Address:</span>
-                          <span className="itemValue">{user.address}</span>
-                        </div>
-                        <div className="detailItem">
-                          <span className="itemKey">Country:</span>
-                          <span className="itemValue">{user.country}</span>
-                        </div>
-                      </div>
-    
-    </div>
+    <Heading title="Success! Your order is on its way" subtitle="Thanks for shopping with us." />
+
+
+   
+
   )
 }

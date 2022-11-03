@@ -16,13 +16,15 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { orderInputs } from "../../formSource";
+import { mobile } from "../../responsive";
 
 const Container = styled.div`
-  padding: 20px;
+  // padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   background-color: #fbf0f4;
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const Item = styled.div`
@@ -46,7 +48,7 @@ const Button = styled.button`
   background-color: orange;
   display: flex;
   align-items: center;
-  padding: 15px;
+  padding: 10px;
   color: white;
   cursor: pointer;
   font-weight: 600;
@@ -135,12 +137,68 @@ const Cart = ({ cart, user, handleModal, modal }) => {
       <Announcement />
 
       {purchasing ? (
-        <div style={{ height: "20vh" }}>
+        <div style={{ height: "35vh" }}>
           <Heading
             cart={cart}
             total={total}
             title="Checkout"
-            subtitle=""
+            subtitle={ 
+              <Container>
+               
+              <div className="cartDetails">
+                <h4 className="itemTitle">Shipping Address</h4>
+                <div className="detailItem">
+                  <span className="itemKey">Name:</span>
+                  <span className="itemValue">{user.displayName}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Email:</span>
+                  <span className="itemValue">{user.email}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Payment:</span>
+                  <span className="itemValue">{user.phone}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Address:</span>
+                  <span className="itemValue">{user.address}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Country:</span>
+                  <span className="itemValue">{user.country}</span>
+                </div>
+              </div>
+           
+                    <div className="cartDetails">
+                    <h4 className="itemTitle">Payment Details</h4>
+                    <div className="detailItem">
+                      <span className="itemKey">Customer:</span>
+                      <span className="itemValue">{user.displayName}</span>
+                    </div>
+                    <div className="detailItem">
+                      <span className="itemKey">Date:</span>
+                      <span className="itemValue">{date}</span>
+                    </div>
+                    <div className="detailItem">
+                      <span className="itemKey">Payment:</span>
+                      <span className="itemValue">Visa (Test)</span>
+                    </div>
+                    <div className="detailItem">
+                      <span className="itemKey">Amount:</span>
+                      <span className="itemValue">${total.toFixed(2)}</span>
+                    </div>
+                    <div className="detailItem">
+                      <span className="itemKey">Card:</span>
+                      <span className="itemValue">**************679</span>
+                    </div>
+                    <div className="detailItem">
+                      <span className="itemKey">Status:</span>
+                      <span className="itemValue">Pending</span>
+                    </div>
+                  </div>
+                  </Container>
+         
+    }
           />
         </div>
       ) : (
@@ -151,7 +209,7 @@ const Cart = ({ cart, user, handleModal, modal }) => {
             title="Cart"
             subtitle={
               cart.length > 0
-                ? "Nice haul! Ready to checkout?"
+                ? "Nice haul! Ready to checkout?" + total ? "Your total is $" + total.toFixed(2) + "." : "" 
                 : "No items in your cart"
             }
           />
@@ -160,42 +218,15 @@ const Cart = ({ cart, user, handleModal, modal }) => {
 
       <div className="cart">
         <div className="cartContainer">
-          { purchasing ? 
-          <div className="cartDetails">
-            {/* <h2 className="itemTitle">{user.displayName}</h2> */}
-            <div className="detailItem">
-              <span className="itemKey">Name:</span>
-              <span className="itemValue">{user.displayName}</span>
-            </div>
-            <div className="detailItem">
-              <span className="itemKey">Email:</span>
-              <span className="itemValue">{user.email}</span>
-            </div>
-            <div className="detailItem">
-              <span className="itemKey">Phone:</span>
-              <span className="itemValue">{user.phone}</span>
-            </div>
-            <div className="detailItem">
-              <span className="itemKey">Address:</span>
-              <span className="itemValue">{user.address}</span>
-            </div>
-            <div className="detailItem">
-              <span className="itemKey">Country:</span>
-              <span className="itemValue">{user.country}</span>
-            </div>
-          </div>
-          : 
+ 
 
-          ""
-}
-
-          <div className="datatable" style={{ height: "250px" }}>
+          <div className="datatable" style={{ height: "320px", backgroundColor: "#fcf5f5"}}>
             <DataGrid
               className="datagrid"
               rows={cart}
               columns={productColumns.concat(actionColumn)}
-              pageSize={2}
-              rowsPerPageOptions={[2]}
+              pageSize={4}
+              rowsPerPageOptions={[4]}
               checkboxSelection
             />
           </div>
@@ -212,8 +243,8 @@ const Cart = ({ cart, user, handleModal, modal }) => {
                 <div className="cart">
                   <div className="cartContainer">
                     {purchasing ? (
-                      <>
-                        <form onSubmit={handleAdd}>
+                      <div >
+                        <form onSubmit={handleAdd} >
                           {orderInputs.map((input) => (
                             <div className="formInput" key={input.id}>
                               {/* <label>{input.label}</label> */}
@@ -225,15 +256,18 @@ const Cart = ({ cart, user, handleModal, modal }) => {
                               display: "flex",
                               justifyContent: "flex-end",
                               width: "98%",
+                            
                             }}
                           >
+                            <Link to="/home/checkout" style={{  textDecoration: "none"}}>
                             <Button type="submit">
                               BUY NOW &nbsp;
                               <ShoppingCartCheckoutOutlinedIcon />
                             </Button>
+                            </Link>
                           </div>
                         </form>
-                      </>
+                      </div>
                     ) : (
                       <div
                         style={{

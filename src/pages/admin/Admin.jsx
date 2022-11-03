@@ -56,6 +56,16 @@ const Admin = ({ col }) => {
       
       <Sidebar />
       <div className="homeContainer">
+      <div className="statsTitle">
+           Dashboard
+         
+        
+              {/* <Link to={""} className="link">
+                Purchases
+              </Link> */}
+          
+            
+          </div>
       
         <div className="widgets">
           <Widget type="user" />
