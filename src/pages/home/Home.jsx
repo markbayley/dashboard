@@ -11,7 +11,7 @@ import Newsletter from './Newsletter'
 import Footer from './Footer'
 import Heading from './Heading'
 
-function Home({handleFavorite, handleCart, handleDetail, handleCategory, handleDelete}) {
+function Home({handleFavorite, handleCart, handleDetail, handleCategory, handleDelete, favorited}) {
   return (
    <>
    
@@ -20,7 +20,7 @@ function Home({handleFavorite, handleCart, handleDetail, handleCategory, handleD
     <Heading title="Categories" subtitle="Get 30% OFF On Our Summer SALE!"/>
     <Categories handleCategory={handleCategory} />
     <Heading title="Popular Products" subtitle="Eco Friendly and Responsibly Sourced"/>
-    <Products handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} handleDelete={handleDelete} />
+    <Products handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} handleDelete={handleDelete} favorited={favorited} />
     <Newsletter />
     <Footer />
    

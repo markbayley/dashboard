@@ -12,14 +12,17 @@ import { Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { EditOffOutlined, EditOutlined } from "@mui/icons-material";
 import { userColumns } from "../../datatablesource";
+import { mobile } from "../../responsive";
 
 const Container = styled.div`
 //   padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
- background-color: #fcf5f5;
-// background-color: #ffd5b1;
+//  background-color: #fcf5f5;
+// background-color: #ffd5b144;
+
+
 `;
 
 const Item = styled.div`
@@ -58,7 +61,7 @@ const Input = styled.input`
   padding: 10px;
   border-radius: 5px;
   border: 3px solid white;
-  margin: 5px 0px 10px 5px;
+  margin: 9px 5px 8px 5px;
   ::placeholder {
     font-size: 16px;
     color: black !mportant;
@@ -68,9 +71,11 @@ const Input = styled.input`
 const TextArea = styled.textarea`
 border: 3px solid white;
   background-color: #fcf5f5;
+  width: 25vw;
   padding: 10px;
   border-radius: 5px;
   margin: 0px 5px 0px 5px;
+  ${mobile({ width: "80vw" })}
   ::placeholder {
     font-size: 16px;
   }
@@ -87,7 +92,7 @@ export const Reviews = ({ detail, user }) => {
 
   const currDate = new Date().toLocaleDateString();
 
-  const [reviewing, setReviewing] = useState(true);
+  const [reviewing, setReviewing] = useState(false);
   const navigate = useNavigate();
 
   console.log(user, 'user')
@@ -162,7 +167,7 @@ export const Reviews = ({ detail, user }) => {
 
 
  <Container>
-      <Item style={{ width: "100%", padding: "5px", border: "none" }}>
+      <Item style={{ width: "100%", padding: "5px", border: "3px solid white" }}>
       
         <h3> &nbsp;&nbsp;Review product?&nbsp;&nbsp;</h3>
         <div
@@ -193,7 +198,7 @@ export const Reviews = ({ detail, user }) => {
 
 {/* FORM */}
         {reviewing ? (
-          <Item style={{backgroundColor: "#ffd5b144", borderRadius: "5px" }}>
+          <Item style={{backgroundColor: "", borderRadius: "5px", width: "100%" }}>
             <form onSubmit={handleUpdate}>
          
              
@@ -215,13 +220,13 @@ export const Reviews = ({ detail, user }) => {
                 id="review"
                 type="text"
                 placeholder="Share your thoughts..."
-                cols="40"
+                // cols="40"
                 rows="5"
                 onChange={handleInput}
               />
 
 
-              <div style={{ fontSize: "16px" }}>
+              <div style={{ fontSize: "16px", width: "27vw", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <Input
                 type="text"
                 placeholder={ user.displayName ? user.displayName : "What's your name?" }
@@ -231,7 +236,7 @@ export const Reviews = ({ detail, user }) => {
                
             {/* &nbsp;&nbsp;&nbsp;{currDate} */}
             
-             <Button type="submit" style={{  backgroundColor: "#b1cba6", marginLeft: "10px"}}>
+             <Button type="submit" style={{  backgroundColor: "#b1cba6"}}>
             POST
           </Button>
           </div>
@@ -345,9 +350,12 @@ export const Reviews = ({ detail, user }) => {
                 style={{ borderRadius: "50%", marginRight: "10px" }}
               />
               <p style={{ color: "gray" }}>{item.product}</p>
+            
             </div>
 
-            <p style={{ paddingTop: "15px", fontSize: "18px" }}>
+
+            <p style={{ paddingTop: "15px", fontSize: "18px", width: "100%" }}>
+          
               {item.review ? (
                 item.review
               ) : (
@@ -370,11 +378,11 @@ export const Reviews = ({ detail, user }) => {
               }}
             >
               <Rating
-                name="simple-controlled"
-                value={rating}
-                onChange={(event, newValue) => {
-                  setReview(newValue);
-                }}
+                name="simple"
+                value={item.rating}
+                // onChange={(event, newValue) => {
+                //   setReview(newValue);
+                // }}
               />
 
               <div

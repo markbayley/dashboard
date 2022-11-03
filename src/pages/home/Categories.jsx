@@ -8,7 +8,8 @@ const Container = styled.div`
 display: flex;
 padding: 20px;
 justify-content: space-between;
-background-color: #fbf0f4;
+// background-color: #fbf0f4;
+background-color: #fcf5f5;
 ${mobile({ flexDirection: "column"})}
 
 `

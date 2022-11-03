@@ -32,6 +32,7 @@ import { Detail } from "./pages/detail/Detail";
 import { Search } from "./pages/search/Search";
 import Snackbar from "@mui/material/Snackbar";
 import { Alert } from "@mui/material";
+import { Checkout } from "./pages/checkout/Checkout";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -55,13 +56,24 @@ function App() {
     }
   }, []);
 
+
+  const [modal, setModal] = useState(false);
+
+  const handleModal = () => {
+    setModal(!modal);
+  };
+
   const [favorite, setFavorite] = useState([]);
+  const [favorited, setFavorited] = useState([]);
   const [counterFavorite, setFavoriteCounter] = useState(0);
 
   const handleFavorite = (item) => {
     const list = favorite;
     list.push(item);
+    const list2 = favorited;
+    list2.push(item);
     setFavorite(list);
+    setFavorited(list2);
     setFavoriteCounter(counterFavorite + 1);
     setSnackbar({ open: true });
   };
@@ -114,13 +126,13 @@ function App() {
           </Fragment>
         ) : (
           <Fragment>
-            <SignedOut favorite={counterFavorite} cart={counterCart} />
+            <SignedOut favorite={counterFavorite} cart={counterCart} handleModal={handleModal} modal={modal} />
           </Fragment>
         )}
 
         <Routes>
           <Route path="/">
-            <Route path="login" element={<Login />} />
+            <Route path="login" element={<Login handleModal={handleModal} />} />
             <Route
               path="dashboard"
               element={
@@ -142,6 +154,7 @@ function App() {
                   handleDetail={handleDetail}
                   handleCategory={handleCategory}
                   handleDelete={handleDelete}
+                  favorited={favorited}
                 />
               }
             />
@@ -182,8 +195,8 @@ function App() {
                 />
               }
             />
-              <Route path="home/cart" element={<Cart cart={cart} />} />
-
+              <Route path="home/cart" element={<Cart cart={cart} user={user} handleModal={handleModal} modal={modal}/>} />
+              <Route path="home/checkout" element={<Checkout cart={cart}  user={user}/>} />
 
             <Route
               index

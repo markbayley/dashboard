@@ -1,9 +1,11 @@
 import {
+  Favorite,
     FavoriteBorderOutlined,
     SearchOutlined,
     ShoppingCartOutlined,
   } from "@material-ui/icons";
 import { Delete, DeleteOutlineOutlined } from "@mui/icons-material";
+import { useState } from "react";
 import { Link } from "react-router-dom";
   import styled from "styled-components";
   
@@ -24,9 +26,9 @@ import { Link } from "react-router-dom";
   `;
   
   const Container = styled.div`
-  
+  // border: 0px solid white;
     flex: 1;
-    margin: 5px;
+     margin: 5px;
     min-width: 280px;
     max-width: 280px;
     height: 330px;
@@ -75,20 +77,39 @@ import { Link } from "react-router-dom";
     justify-content: center;
     margin: 10px;
     transition: all 0.5s ease;
-    z-index: 10;
+    // z-index: 2;
     &:hover {
       background-color: #e9f5f5;
       transform: scale(1.1);
     }
   
   `;
-  
-  const Product = ({ item, handleFavorite, handleCart, handleDetail, handleDelete, filteredProducts }) => {
 
+
+  
+  const Product = ({ item, handleFavorite, handleCart, handleDetail, handleDelete, filteredProducts, favorited }) => {
+
+    // const [favorited, setFavorited ] = useState(false)
+
+    // const handleFavorited = (item) => {
+    //   if ( item.id !== favorite.id) {
+    //     return false
+    //   }
+      
+    //   setFavorited(true)
+
+
+    // }
+     
+
+    console.log(favorited, 'favorited-product')
     return (  
-      <Container >
+      <Container  >
+      
+
+     
         <Circle />
-        <Image src={item.img} width="95%"/>
+        <Image src={item.img} width="95%" />
        
         <Info>
 
@@ -103,9 +124,10 @@ import { Link } from "react-router-dom";
             </Link>
           </Icon>
         
-
+       
           <Icon>
-            <FavoriteBorderOutlined id={item.id} onClick={(e) => handleFavorite(item)}/>
+         {item === favorited ? <Favorite id={item.id} onClick={(e) => handleFavorite(item)} />  : <FavoriteBorderOutlined id={item.id} onClick={(e) => handleFavorite(item)}/> }
+        
           </Icon>
 
           <Icon >
@@ -114,7 +136,7 @@ import { Link } from "react-router-dom";
          
         </Info>
        <Title><div>{item.title}</div>&nbsp;&nbsp;&nbsp;&nbsp;<div>${item.price}</div></Title> 
-     
+  
       </Container>
     );
   };

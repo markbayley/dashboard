@@ -21,7 +21,7 @@ const Favorites = ({favorite,
   return (
     <>
     <Announcement />
-    <Heading title="Favorites" subtitle="We love your taste!  Add these items to your cart?"/>
+    <Heading title="Favorites" subtitle={ favorite.length > 0 ? "We love your taste!  Add these items to your cart?" : "No items have been favorited yet" } />
     <Container>
      
     {favorite.map((item) => (

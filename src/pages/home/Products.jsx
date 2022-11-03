@@ -10,7 +10,8 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  background-color: #fbf0f4;
+  // background-color: #fbf0f4;
+  background-color: #fcf5f5;
 `;
 
 const Products = ({
@@ -19,6 +20,7 @@ const Products = ({
   handleDetail,
   handleDelete,
   category,
+  favorite
 }) => {
   console.log(category, "category-products");
 
@@ -89,6 +91,7 @@ const Products = ({
           handleDetail={handleDetail}
           handleDelete={handleDelete}
           filteredProducts={filteredProducts}
+          favorite={favorite}
         />
       ))}
     </Container>

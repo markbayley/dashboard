@@ -16,12 +16,8 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-const SignedOut = ({ favorite, cart }) => {
-  const [modal, setModal] = useState(false);
+const SignedOut = ({ favorite, cart, modal, handleModal }) => {
 
-  const handleModal = () => {
-    setModal(true);
-  };
 
   return (
     <>
@@ -57,7 +53,7 @@ const SignedOut = ({ favorite, cart }) => {
           </div>
         </div>
       </div>
-      {modal ? <Login setModal={setModal} /> : ""}
+      {modal ? <Login handleModal={handleModal} /> : ""}
     </>
   );
 };

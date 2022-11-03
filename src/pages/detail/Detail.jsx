@@ -48,7 +48,8 @@ background-color: #ffd5b144;
   flex-wrap: wrap;
   //   font-size: 20px;
   //   border: 1px solid lightgray;
-//   padding: 10px;
+  padding: 5px;
+${mobile({ padding: "0px" })}
 `;
 
 const Circle = styled.div`
@@ -63,7 +64,6 @@ const Circle = styled.div`
 
 
 const MainImage = styled.img`
-  z-index: 2;
   width: 100%;
   border: 3px solid white;
   //   margin-right: 10px;
@@ -71,7 +71,7 @@ const MainImage = styled.img`
 
 const Image = styled.img`
   //   height: 95%;
-  width: 17.5%;
+  width: 19%;
   border: 3px solid white;
   z-index: 2;
   //   max-width: 90px;
@@ -156,7 +156,7 @@ export const Detail = ({
 
       <Container >
         {/* <Product item={detail} /> */}
-        <Item style={{ display: "flex", alignItems: "flex-start", padding: "5px"}}>
+        <Item style={{ display: "flex", alignItems: "flex-start"}}>
         <div style={{ display: "" }}>
           <MainImage
             src={
@@ -217,10 +217,28 @@ export const Detail = ({
         </Item>
 
         <Item style={{  borderRight: "3px solid white"}}>
-        <div>
-          <Title style={{ padding: "15px", borderRadius: "5px", fontWeight: "500", textAlign: "center"}}> {detail.title ? detail.title : "Oops, Something Broke"} </Title>
+        <div >
+          <Title style={{ padding: "15px", borderRadius: "5px", fontWeight: "500", textAlign: "center", fontFamily: 'Architects Daughter'}}> {detail.title ? detail.title : "Oops, Something Broke"} </Title>
           
-          <Desc >{detail.description ? detail.description :  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem doloribus veritatis magnam illum, corporis cumque tenetur. Maiores, laborum cumque? Aperiam similique sunt nostrum labore accusantium? Tenetur facere eum aperiam ut!</p>  }</Desc>
+          <Desc >{detail.description ? 
+          
+          <>
+          <p >{detail.description}</p>
+          <br></br> 
+           <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+            Voluptatem doloribus veritatis magnam illum, corporis cumque tenetur. 
+            Maiores, laborum cumque!</p> 
+           </> : 
+          <>
+           <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+            Voluptatem doloribus veritatis magnam illum, corporis cumque tenetur. 
+            Maiores, laborum cumque? !</p> 
+            <br></br>  
+           <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+            Voluptatem doloribus veritatis magnam illum, corporis cumque tenetur. 
+            Maiores, laborum cumque? !</p> 
+           </>
+          }</Desc>
           </div>
          
           <Container style={{width: "100%", margin: "20px"}}>
@@ -239,7 +257,7 @@ export const Detail = ({
         
           <Container>
             <Item>
-            {/* &nbsp;   &nbsp;   &nbsp;   &nbsp; */}
+       
             <Icon onClick={(e) => handleCart(item)}>
               <ShoppingCartOutlined />
             </Icon>

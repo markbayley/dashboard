@@ -2,15 +2,17 @@ import { useContext, useState } from "react";
 import "./login.scss";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext"
 import { Close } from "@mui/icons-material";
 
-const Login = ({setModal}) => {
+const Login = ({handleModal}) => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setName] = useState("");
+
+  let location = useLocation();
 
   const navigate = useNavigate()
 
@@ -26,7 +28,13 @@ const Login = ({setModal}) => {
         // Signed in
         const user = userCredential.user;
         dispatch({type:"LOGIN", payload:user})
-        navigate("/home")
+        {location.pathname.includes("/cart") ? 
+        navigate("/home/checkout")
+        :
+        
+        navigate('/home')
+
+      }
       })
       .catch((error) => {
         setError(true);
@@ -38,7 +46,7 @@ const Login = ({setModal}) => {
    
       <form onSubmit={handleLogin}>
 
-    <div className="close"><div onClick={() => setModal(false)}><Close /></div></div>
+    <div className="close"><div onClick={handleModal}><Close /></div></div>
        <h2>Marc Balieu</h2>
        {register ? <span>Register</span> : <span>Login</span> }
 { register &&

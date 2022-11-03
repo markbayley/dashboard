@@ -1,8 +1,6 @@
 
 import React from 'react'
 import "./home.scss"
-import Navbar from '../../components/navbar/Navbar'
-import SignedOut from '../../components/navbar/SignedOut'
 import Announcement from './Announcement'
 import Categories from './Categories'
 import Slider from './Slider'
@@ -16,6 +14,7 @@ function Home({handleFavorite, handleCart, handleDetail, handleCategory, handleD
    <>
    
    <Announcement />
+
     <Slider handleCategory={handleCategory} />
     <Heading title="Categories" subtitle="Get 30% OFF On Our Summer SALE!"/>
     <Categories handleCategory={handleCategory} />
@@ -23,6 +22,7 @@ function Home({handleFavorite, handleCart, handleDetail, handleCategory, handleD
     <Products handleFavorite={handleFavorite} handleCart={handleCart} handleDetail={handleDetail} handleDelete={handleDelete} />
     <Newsletter />
     <Footer />
+
    
    
    </>

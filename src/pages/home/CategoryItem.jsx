@@ -8,6 +8,7 @@ flex: 1;
 margin: 3px;
 height: 70vh;
 position: relative;
+border: 0px solid white;
 
 `
 

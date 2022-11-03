@@ -52,7 +52,7 @@ const Heading = ({title, subtitle, cart, total}) => {
   return (
     <Container>
       <Title>{title}{cart ? " ("+ cart.length +")" : "" }</Title>
-      <Desc >{subtitle}  { total ? "Your total is $" + total + "." : "" }</Desc>
+      <Desc >{subtitle}  { total ? "Your total is $" + total.toFixed(2) + "." : "" }</Desc>
    
       {/* <InputContainer>
         <Input placeholder="Your email" />

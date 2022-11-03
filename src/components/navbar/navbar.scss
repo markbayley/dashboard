@@ -1,11 +1,17 @@
 .navbar {
   height: 50px;
-  border-bottom: 0.5px solid rgb(231, 228, 228);
+  border-bottom: 0.5px solid gray;
   display: flex;
   align-items: center;
   font-size: 14px;
   color: black;
   // background-color: #6146c5;
+  background-color: #fcf5f5;
+  position: fixed;
+   top: 0; 
+   left: 0;
+    z-index: 9999;
+     width: 100%;
 
 
   .wrapper {
